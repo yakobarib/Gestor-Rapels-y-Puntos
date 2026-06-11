@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="UTF-8"/>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>€</text></svg>">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rapels & Puntos · Recambios Ibiza</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <style>
+  :root {
+    --bg:#0e0f11;--surface:#16181c;--surface2:#1e2128;--border:#2a2d35;
+    --accent:#E20613;--accent-dim:rgba(226,6,19,.12);--accent-glow:rgba(226,6,19,.3);
+    --green:#4caf7d;--blue:#5b8def;--orange:#f59e0b;
+    --text:#e8eaf0;--text-dim:#7a7f8e;--text-faint:#454952;
+    --blue2:#002D5A;
+  }
+  [data-theme="light"]{
+    --bg:#F4F4F4;--surface:#fff;--surface2:#F4F4F4;--border:#D8D8D8;
+    --green:#2e7d32;--blue:#002D5A;--orange:#b45309;
+    --text:#002D5A;--text-dim:#4a5568;--text-faint:#a0aec0;
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html,body{height:100%}
+  body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif}
+  .app{height:100vh;overflow:hidden;display:flex;flex-direction:column}
+
+  /* ── Header ── */
+  .header{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:60px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0}
+  .logo{display:flex;align-items:center;gap:12px}
+  .logo-svg{color:#fff}
+  [data-theme="light"] .logo-svg{color:#002D5A}
+  .logo-text{font-family:'Inter',sans-serif;font-weight:800;font-size:16px;letter-spacing:-.5px}
+  .logo-sub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);margin-top:-2px}
+  .header-right{display:flex;align-items:center;gap:10px}
+  .save-badge{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:5px 12px;transition:all .3s}
+  .save-badge.saved{color:var(--green);border-color:rgba(76,175,125,.4);background:rgba(76,175,125,.07)}
+  .icon-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-dim);transition:all .2s}
+  .icon-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+  /* ── Nav ── */
+  .nav{display:flex;gap:4px;padding:0 28px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0}
+  .nav-btn{display:flex;align-items:center;gap:8px;padding:13px 18px;border:none;background:none;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;font-size:13px;color:var(--text-dim);border-bottom:2px solid transparent;transition:all .15s}
+  .nav-btn:hover{color:var(--text)}
+  .nav-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
+  .nav-badge{background:var(--accent);color:#fff;border-radius:10px;padding:1px 7px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;line-height:16px}
+  .nav-badge.pts{background:var(--orange)}
+
+  /* ── Layout ── */
+  .main{flex:1;overflow:hidden;display:flex;flex-direction:column}
+  .scroll{flex:1;overflow-y:auto;padding:28px;max-width:1400px;width:100%;margin:0 auto}
+  .tab{display:none}.tab.active{display:block}
+
+  /* ── KPIs ── */
+  .kpi-section{margin-bottom:10px}
+  .kpi-section-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-faint);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+  .kpi-section-label::after{content:'';flex:1;height:1px;background:var(--border)}
+  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+  .kpi{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px 20px}
+  .kpi-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+  .kpi-value{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700}
+  .kpi-value.c-accent{color:var(--accent)}.kpi-value.c-green{color:var(--green)}.kpi-value.c-orange{color:var(--orange)}.kpi-value.c-blue{color:var(--blue)}
+  .kpi-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);margin-top:4px}
+
+  /* ── Section header ── */
+  .sec-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
+  .sec-title{font-size:16px;font-weight:700}
+  .sec-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);margin-top:2px}
+
+  /* ── Search ── */
+  .search-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+  .search-input{flex:1;min-width:160px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);outline:none;transition:border-color .15s}
+  .search-input:focus{border-color:var(--accent)}
+  .search-input::placeholder{color:var(--text-faint)}
+  .filt{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);outline:none;cursor:pointer}
+
+  /* ── Table ── */
+  .tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border)}
+  table{width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:12px}
+  th{background:var(--surface2);padding:10px 14px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);border-bottom:1px solid var(--border);white-space:nowrap}
+  td{padding:11px 14px;border-bottom:1px solid var(--border);vertical-align:middle}
+  tr:last-child td{border-bottom:none}
+  tr.row-click:hover td{background:var(--surface2);cursor:pointer}
+
+  /* ── Progress bar ── */
+  .prog{width:90px}.prog-track{background:var(--border);border-radius:3px;height:5px;overflow:hidden}
+  .prog-fill{height:100%;border-radius:3px;transition:width .4s}
+  .fill-ok{background:var(--green)}.fill-warn{background:var(--orange)}.fill-danger{background:var(--accent)}
+  .prog-pct{font-size:10px;color:var(--text-dim);margin-top:3px}
+
+  /* ── Tags ── */
+  .tag{display:inline-flex;align-items:center;padding:2px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;gap:4px}
+  .tag-ok{background:rgba(76,175,125,.1);color:var(--green)}
+  .tag-red{background:rgba(226,6,19,.12);color:#E20613}
+  .tag-orange{background:rgba(245,158,11,.12);color:var(--orange)}
+  .tag-blue{background:rgba(91,141,239,.1);color:var(--blue)}
+  .tag-gray{background:var(--surface2);color:var(--text-dim);border:1px solid var(--border)}
+  .tag-ingreso{background:rgba(76,175,125,.12);color:var(--green)}
+  .tag-gasto{background:rgba(226,6,19,.12);color:#E20613}
+  .tag-ganado{background:rgba(245,158,11,.12);color:var(--orange)}
+  .tag-canjeado{background:rgba(91,141,239,.12);color:var(--blue)}
+
+  /* ── Buttons ── */
+  .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:8px;border:none;cursor:pointer;font-family:'Syne',sans-serif;font-size:13px;font-weight:600;transition:all .15s}
+  .btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{filter:brightness(1.1)}
+  .btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border)}.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+  .btn-green{background:rgba(76,175,125,.12);color:var(--green);border:1px solid rgba(76,175,125,.25)}.btn-green:hover{background:rgba(76,175,125,.22)}
+  .btn-danger{background:rgba(226,6,19,.1);color:#E20613;border:1px solid rgba(226,6,19,.2)}.btn-danger:hover{background:rgba(226,6,19,.2)}
+  .btn-sm{padding:5px 10px;font-size:11px;border-radius:6px}
+
+  /* ── Modal ── */
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
+  .overlay.open{display:flex}
+  .modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px;width:100%;max-width:640px;box-shadow:0 8px 32px rgba(0,0,0,.3);max-height:90vh;overflow-y:auto}
+  .modal-title{font-size:18px;font-weight:800;margin-bottom:4px}
+  .modal-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);margin-bottom:20px}
+  .fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  .fgr{display:flex;flex-direction:column;gap:6px}
+  .fgr.full{grid-column:1/-1}
+  label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim)}
+  input,select,textarea{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 12px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);outline:none;transition:border-color .15s;width:100%}
+  input:focus,select:focus,textarea:focus{border-color:var(--accent)}
+  input::placeholder,textarea::placeholder{color:var(--text-faint);text-transform:none}
+  select option{background:var(--surface)}
+  textarea{resize:vertical;min-height:60px}
+  .form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+
+  /* ── Drawer ── */
+  .drawer-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:150;display:none}
+  .drawer-bg.open{display:block}
+  .drawer{position:fixed;right:0;top:0;bottom:0;width:500px;max-width:96vw;background:var(--surface);border-left:1px solid var(--border);z-index:160;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s ease}
+  .drawer.open{transform:translateX(0)}
+  .drawer-head{padding:20px 24px 16px;border-bottom:1px solid var(--border);flex-shrink:0;position:relative}
+  .drawer-title{font-size:17px;font-weight:800;margin-bottom:4px}
+  .drawer-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim)}
+  .drawer-close{position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:6px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-dim)}
+  .drawer-close:hover{border-color:var(--accent);color:var(--accent)}
+  .drawer-body{flex:1;overflow-y:auto;padding:20px 24px}
+  .drawer-foot{padding:14px 24px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0}
+
+  /* ── Summary cards ── */
+  .sum-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+  .sum-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
+  .sum-label{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);margin-bottom:5px}
+  .sum-val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700}
+
+  /* ── Add form inside drawer ── */
+  .add-form{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:20px}
+  .add-form-title{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:12px}
+  .add-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .add-row{display:flex;flex-direction:column;gap:5px}
+
+  /* ── Movement list ── */
+  .mov-list{display:flex;flex-direction:column;gap:6px}
+  .mov-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center}
+  .mov-item:hover{box-shadow:0 2px 12px rgba(226,6,19,.1)}
+  .mov-ref{font-weight:600;font-size:12px;display:flex;align-items:center;gap:6px}
+  .mov-desc{font-size:11px;color:var(--text-dim);margin-top:2px}
+  .mov-amount{font-family:'JetBrains Mono',monospace;font-size:15px;font-weight:700;text-align:right;white-space:nowrap}
+  .mov-del{opacity:0;transition:opacity .15s}
+  .mov-item:hover .mov-del{opacity:1}
+
+  /* ── Histórico ── */
+  .hist-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:11px 16px;margin-bottom:6px;display:grid;grid-template-columns:90px 150px 1fr auto auto auto;gap:12px;align-items:center}
+  .hist-item:hover{box-shadow:0 2px 12px rgba(0,0,0,.15)}
+
+  /* ── Empty ── */
+  .empty{text-align:center;padding:48px 20px}
+  .empty-icon{margin-bottom:10px;opacity:.2;display:flex;justify-content:center}
+  .empty-title{font-size:15px;font-weight:700;color:var(--text-dim);margin-bottom:6px}
+  .empty-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-faint)}
+
+  /* ── Scrollbar ── */
+  ::-webkit-scrollbar{width:6px;height:6px}
+  ::-webkit-scrollbar-track{background:var(--bg)}
+  ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+  ::-webkit-scrollbar-thumb:hover{background:var(--text-dim)}
+
+  /* ── Footer ── */
+  .krafted{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-faint);margin-top:28px;text-align:center}
+  .krafted span{color:#a8e63d;font-weight:700}
+  [data-theme="light"] .krafted span{color:#002D5A}
+
+  /* ── Print ── */
+  @media print{body{background:#fff;color:#000}.no-print{display:none!important}}
+
+  @media(max-width:768px){
+    .kpis{grid-template-columns:1fr 1fr}
+    .fg{grid-template-columns:1fr}
+    .fgr.full{grid-column:auto}
+    .scroll{padding:16px}
+    .header,.nav{padding:0 14px}
+    .sum-grid{grid-template-columns:1fr 1fr}
+  }
+  </style>
+</head>
+<body>
+<div class="app">
+
+<!-- ══ HEADER ══ -->
+<header class="header">
+  <div class="logo">
+    <svg width="40" height="27" viewBox="0 0 670 452" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="logo-svg">
+      <g transform="translate(0,452) scale(0.1,-0.1)">
+        <path d="M5316 4060 c7 -19 50 -138 95 -265 243 -684 539 -1512 644 -1805 57 -157 117 -325 135 -375 64 -180 182 -511 200 -560 86 -236 117 -334 109 -337 -5 -2 -152 -2 -328 0 l-319 3 -47 132 c-26 72 -51 137 -57 142 -6 7 -18 0 -35 -20 -218 -257 -474 -403 -808 -462 -119 -20 -355 -13 -470 16 -105 26 -213 65 -300 109 -68 34 -177 103 -203 129 -7 7 -17 13 -22 13 -11 0 -210 199 -210 210 0 5 -6 15 -13 22 -58 59 -145 220 -197 368 -94 265 -99 559 -14 831 23 75 102 251 136 304 138 215 327 385 543 491 251 122 509 157 799 108 46 -8 48 -26 -22 171 -80 225 -280 778 -287 798 -7 16 11 17 325 15 l332 -3 14 -35z m-978 -22 c49 -134 201 -561 204 -576 2 -10 -174 -12 -882 -12 l-885 0 -67 182 c-93 252 -149 409 -155 436 l-5 22 885 0 886 0 19 -52z m-2492 -942 c194 -48 350 -124 508 -246 52 -40 154 -142 200 -200 133 -166 174 -250 316 -640 21 -58 91 -247 155 -420 64 -173 138 -376 165 -450 27 -74 73 -202 103 -283 37 -100 51 -150 43 -153 -6 -2 -154 -3 -329 -2 l-319 3 -30 80 c-63 168 -71 190 -78 198 -3 4 -35 -25 -71 -64 -276 -306 -702 -466 -1100 -416 -157 21 -275 54 -405 116 -380 181 -647 527 -731 949 -24 120 -23 375 1 491 22 105 58 216 97 299 16 35 29 65 29 68 0 10 115 182 153 229 189 234 485 406 797 461 122 22 371 12 496 -20z"/>
+        <path d="M4632 2479 c-248 -37 -458 -219 -539 -466 -37 -110 -38 -275 -5 -383 39 -122 89 -207 172 -290 128 -128 256 -187 431 -197 225 -13 432 87 571 275 207 280 157 686 -111 909 -148 122 -341 179 -519 152z"/>
+        <path d="M1425 2474 c-111 -23 -246 -94 -321 -170 -83 -82 -146 -181 -181 -280 -24 -70 -27 -94 -28 -209 0 -112 3 -140 24 -200 46 -136 99 -215 206 -313 116 -104 238 -153 400 -159 204 -9 342 44 486 187 138 136 196 264 206 450 5 87 2 120 -16 190 -68 272 -278 465 -552 509 -83 14 -138 13 -224 -5z"/>
+      </g>
+    </svg>
+    <div>
+      <div class="logo-text">RAPELS &amp; PUNTOS</div>
+      <div class="logo-sub">RECAMBIOS IBIZA · GESTIÓN</div>
+    </div>
+  </div>
+  <div class="header-right">
+    <div class="save-badge" id="saveBadge">Guardado</div>
+    <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Cambiar tema">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" id="themeIcon"><circle cx="8" cy="8" r="3"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.2 3.2l1 1M11.8 11.8l1 1M12.8 3.2l-1 1M4.2 11.8l-1 1"/></svg>
+    </button>
+  </div>
+</header>
+
+<!-- ══ NAV ══ -->
+<nav class="nav">
+  <button class="nav-btn active" data-tab="dashboard" onclick="switchTab('dashboard',this)">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><rect x="1" y="1" width="5" height="5" rx="1"/><rect x="8" y="1" width="5" height="5" rx="1"/><rect x="1" y="8" width="5" height="5" rx="1"/><rect x="8" y="8" width="5" height="5" rx="1"/></svg>
+    Dashboard
+  </button>
+  <button class="nav-btn" data-tab="rapels" onclick="switchTab('rapels',this)">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M10 3.5A3.5 3.5 0 0 0 3.6 6H2v1h1.4A3.5 3.5 0 0 0 3.4 8H2v1h1.6A3.5 3.5 0 0 0 10 10.5l-.8-1A2.5 2.5 0 0 1 4.5 8.5H7v-1H4.2a2.5 2.5 0 0 1 0-1H7v-1H4.5A2.5 2.5 0 0 1 9.2 4.5l.8-1z"/></svg>
+    Rapels <span class="nav-badge" id="badgeR">0</span>
+  </button>
+  <button class="nav-btn" data-tab="puntos" onclick="switchTab('puntos',this)">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.7 3.4 3.8.55-2.75 2.68.65 3.77L7 9.7l-3.4 1.72.65-3.77L1.5 4.95l3.8-.55z"/></svg>
+    Puntos <span class="nav-badge pts" id="badgeP">0</span>
+  </button>
+  <button class="nav-btn" data-tab="historico" onclick="switchTab('historico',this)">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="7" cy="7" r="5.5"/><path d="M7 4.5V7l2 1.5"/></svg>
+    Histórico
+  </button>
+</nav>
+
+<div class="main">
+<div class="scroll">
+
+<!-- ══ TAB DASHBOARD ══ -->
+<div class="tab active" id="tab-dashboard">
+
+  <div class="kpi-section">
+    <div class="kpi-section-label">Rapel de Herramienta</div>
+    <div class="kpis" id="kpisRapel"></div>
+  </div>
+
+  <div class="kpi-section">
+    <div class="kpi-section-label">Puntos de Fidelización</div>
+    <div class="kpis" id="kpisPuntos"></div>
+  </div>
+
+  <p class="krafted">Krafted by <span>Yakoba Moreno</span> · Designed in <span>Claude Code</span></p>
+</div>
+
+<!-- ══ TAB RAPELS ══ -->
+<div class="tab" id="tab-rapels">
+  <div class="sec-header">
+    <div>
+      <div class="sec-title">Rapel de Herramienta</div>
+      <div class="sec-sub">Bolsa de rapel por cliente · Ejercicio 2026</div>
+    </div>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-ghost btn-sm" onclick="openImport()">
+        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 2v7M4 6.5l2.5 2.5L9 6.5"/><path d="M2 11h9"/></svg>
+        Importar CSV
+      </button>
+      <button class="btn btn-primary btn-sm" onclick="openNewClient('rapel')">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 1v10M1 6h10"/></svg>
+        Nuevo cliente
+      </button>
+    </div>
+  </div>
+  <div class="search-row">
+    <input class="search-input" id="searchR" placeholder="Buscar cliente..." oninput="renderRapels()">
+    <select class="filt" id="filtR" onchange="renderRapels()">
+      <option value="all">Todos</option>
+      <option value="ok">Con saldo</option>
+      <option value="low">Saldo bajo (&lt;20%)</option>
+      <option value="zero">Sin saldo</option>
+    </select>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th>Cliente</th><th>Total bolsa</th><th>Consumido</th><th>Saldo</th><th>Uso</th><th>Movimientos</th><th></th>
+      </tr></thead>
+      <tbody id="tbodyR"></tbody>
+    </table>
+  </div>
+  <p class="krafted">Krafted by <span>Yakoba Moreno</span> · Designed in <span>Claude Code</span></p>
+</div>
+
+<!-- ══ TAB PUNTOS ══ -->
+<div class="tab" id="tab-puntos">
+  <div class="sec-header">
+    <div>
+      <div class="sec-title">Puntos de Fidelización</div>
+      <div class="sec-sub">Acumulado por compra de neumáticos y otros · 1 punto = 1 €</div>
+    </div>
+    <button class="btn btn-primary btn-sm" onclick="openNewClient('puntos')">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 1v10M1 6h10"/></svg>
+      Nuevo cliente
+    </button>
+  </div>
+  <div class="search-row">
+    <input class="search-input" id="searchP" placeholder="Buscar cliente..." oninput="renderPuntos()">
+    <select class="filt" id="filtP" onchange="renderPuntos()">
+      <option value="all">Todos</option>
+      <option value="pos">Con saldo</option>
+      <option value="zero">Sin puntos</option>
+    </select>
+  </div>
+  <div class="tbl-wrap">
+    <table>
+      <thead><tr>
+        <th>Cliente</th><th>Puntos ganados</th><th>Canjeados</th><th>Saldo pts</th><th>Valor €</th><th>Movimientos</th><th></th>
+      </tr></thead>
+      <tbody id="tbodyP"></tbody>
+    </table>
+  </div>
+  <p class="krafted">Krafted by <span>Yakoba Moreno</span> · Designed in <span>Claude Code</span></p>
+</div>
+
+<!-- ══ TAB HISTÓRICO ══ -->
+<div class="tab" id="tab-historico">
+  <div class="sec-header">
+    <div>
+      <div class="sec-title">Histórico de Movimientos</div>
+      <div class="sec-sub">Todos los movimientos de rapel y puntos</div>
+    </div>
+  </div>
+  <div class="search-row">
+    <input class="search-input" id="searchH" placeholder="Buscar cliente, albarán..." oninput="renderHist()">
+    <select class="filt" id="filtHType" onchange="renderHist()">
+      <option value="all">Rapel + Puntos</option>
+      <option value="rapel">Solo Rapel</option>
+      <option value="puntos">Solo Puntos</option>
+    </select>
+    <select class="filt" id="filtHMov" onchange="renderHist()">
+      <option value="all">Todos los tipos</option>
+      <option value="INGRESO">Ingresos</option>
+      <option value="GASTO">Gastos</option>
+      <option value="GANADO">Ganados</option>
+      <option value="CANJEADO">Canjeados</option>
+    </select>
+  </div>
+  <div id="histList"></div>
+  <p class="krafted">Krafted by <span>Yakoba Moreno</span> · Designed in <span>Claude Code</span></p>
+</div>
+
+</div><!-- scroll -->
+</div><!-- main -->
+</div><!-- app -->
+
+<!-- ══ MODAL NUEVO CLIENTE ══ -->
+<div class="overlay" id="ovlCliente">
+  <div class="modal">
+    <div class="modal-title" id="mcTitle">Nuevo cliente</div>
+    <div class="modal-sub" id="mcSub">—</div>
+    <div class="fg">
+      <div class="fgr full">
+        <label>Nombre del cliente / taller</label>
+        <input id="mcNombre" placeholder="Ej: AUTOCOLOR" style="text-transform:uppercase">
+      </div>
+      <div class="fgr full">
+        <label>Notas (opcional)</label>
+        <textarea id="mcNotas" placeholder="Observaciones..."></textarea>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-ghost" onclick="closeOverlay('ovlCliente')">Cancelar</button>
+      <button class="btn btn-primary" onclick="saveNewClient()">Guardar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ MODAL IMPORTAR CSV ══ -->
+<div class="overlay" id="ovlImport">
+  <div class="modal">
+    <div class="modal-title">Importar Rapels desde CSV</div>
+    <div class="modal-sub">Formato: CLIENTE;ALBARAN_INGRESO;IMPORTE_INGRESO;ALBARAN_GASTO1;IMPORTE_GASTO1;...</div>
+    <div class="fgr" style="margin-bottom:14px">
+      <label>Contenido CSV</label>
+      <textarea id="csvData" style="min-height:140px;font-size:11px" placeholder="AUTOCOLOR;ING2026-001;3048;41589;274;93485;1390&#10;BUMALI;ING2026-002;4195;50797;109.91"></textarea>
+    </div>
+    <div id="importPrev"></div>
+    <div class="form-actions">
+      <button class="btn btn-ghost" onclick="closeOverlay('ovlImport')">Cancelar</button>
+      <button class="btn btn-ghost" onclick="prevImport()">Previsualizar</button>
+      <button class="btn btn-primary" onclick="doImport()">Importar</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ DRAWER RAPEL ══ -->
+<div class="drawer-bg" id="bgR" onclick="closeDrawer('R')"></div>
+<div class="drawer" id="drR">
+  <button class="drawer-close" onclick="closeDrawer('R')">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 1l10 10M11 1L1 11"/></svg>
+  </button>
+  <div class="drawer-head">
+    <div class="drawer-title" id="drRNom">—</div>
+    <div class="drawer-sub" id="drRSub">—</div>
+  </div>
+  <div class="drawer-body">
+    <div class="sum-grid" id="drRSum"></div>
+
+    <div class="add-form">
+      <div class="add-form-title">Registrar movimiento</div>
+      <div class="add-grid">
+        <div class="add-row full" style="grid-column:1/-1">
+          <label>Tipo de movimiento</label>
+          <select id="drRTipo" onchange="updateRMovHint()">
+            <option value="INGRESO">Ingreso — Carga rapel en bolsa</option>
+            <option value="GASTO">Gasto — Consumo de bolsa</option>
+          </select>
+        </div>
+        <div class="add-row">
+          <label>Nº Albarán / Referencia</label>
+          <input id="drRAlb" placeholder="Ej: ING2026-001">
+        </div>
+        <div class="add-row">
+          <label>Importe (€)</label>
+          <input id="drRImp" type="number" min="0" step="0.01" placeholder="0.00">
+        </div>
+        <div class="add-row">
+          <label>Fecha</label>
+          <input id="drRFec" type="date">
+        </div>
+        <div class="add-row">
+          <label>Notas</label>
+          <input id="drRNot" placeholder="Descripción...">
+        </div>
+      </div>
+      <div style="margin-top:10px;display:flex;gap:8px">
+        <button class="btn btn-primary btn-sm" onclick="addRMov()">Añadir movimiento</button>
+      </div>
+    </div>
+
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);margin-bottom:10px">Movimientos</div>
+    <div class="mov-list" id="drRMovs"></div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-danger btn-sm" onclick="deleteClient('rapel')">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 3h8M4.5 3V2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1M9.5 3l-.6 7a.5.5 0 0 1-.5.5H3.6a.5.5 0 0 1-.5-.5L2.5 3"/></svg>
+      Eliminar cliente
+    </button>
+    <button class="btn btn-ghost btn-sm" style="margin-left:auto" onclick="printClientRapel()">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2.5" y="1" width="7" height="5"/><path d="M2.5 7H1v4h10V7H9.5"/><rect x="3.5" y="8" width="5" height="2.5"/><circle cx="9.5" cy="8.5" r=".5" fill="currentColor"/></svg>
+      Imprimir
+    </button>
+  </div>
+</div>
+
+<!-- ══ DRAWER PUNTOS ══ -->
+<div class="drawer-bg" id="bgP" onclick="closeDrawer('P')"></div>
+<div class="drawer" id="drP">
+  <button class="drawer-close" onclick="closeDrawer('P')">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 1l10 10M11 1L1 11"/></svg>
+  </button>
+  <div class="drawer-head">
+    <div class="drawer-title" id="drPNom">—</div>
+    <div class="drawer-sub" id="drPSub">—</div>
+  </div>
+  <div class="drawer-body">
+    <div class="sum-grid" id="drPSum"></div>
+
+    <div class="add-form">
+      <div class="add-form-title">Registrar movimiento</div>
+      <div class="add-grid">
+        <div class="add-row" style="grid-column:1/-1">
+          <label>Tipo de movimiento</label>
+          <select id="drPTipo">
+            <option value="GANADO">Ganado — Puntos por compra</option>
+            <option value="CANJEADO">Canjeado — Canje por catálogo</option>
+          </select>
+        </div>
+        <div class="add-row">
+          <label>Puntos</label>
+          <input id="drPPts" type="number" min="0" step="1" placeholder="0">
+        </div>
+        <div class="add-row">
+          <label>Referencia / Albarán</label>
+          <input id="drPRef" placeholder="Ej: Neum. ALB-41589">
+        </div>
+        <div class="add-row">
+          <label>Fecha</label>
+          <input id="drPFec" type="date">
+        </div>
+        <div class="add-row">
+          <label>Descripción / Producto catálogo</label>
+          <input id="drPNot" placeholder="Ej: Kit herramienta...">
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <button class="btn btn-primary btn-sm" onclick="addPMov()">Añadir movimiento</button>
+      </div>
+    </div>
+
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);margin-bottom:10px">Movimientos</div>
+    <div class="mov-list" id="drPMovs"></div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-danger btn-sm" onclick="deleteClient('puntos')">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 3h8M4.5 3V2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1M9.5 3l-.6 7a.5.5 0 0 1-.5.5H3.6a.5.5 0 0 1-.5-.5L2.5 3"/></svg>
+      Eliminar cliente
+    </button>
+    <button class="btn btn-ghost btn-sm" style="margin-left:auto" onclick="printClientPuntos()">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2.5" y="1" width="7" height="5"/><path d="M2.5 7H1v4h10V7H9.5"/><rect x="3.5" y="8" width="5" height="2.5"/><circle cx="9.5" cy="8.5" r=".5" fill="currentColor"/></svg>
+      Imprimir
+    </button>
+  </div>
+</div>
+
+<script>
+// ══ CONSTANTES ══
+const STORAGE = 'ri_rp_v2';
+const PTS_VALUE = 1; // 1 punto = 1 €
+
+// ══ DATA ══
+let db = { rapels: [], puntos: [] };
+let activeR = null, activeP = null, newClientMode = null;
+
+function load() {
+  try { const r = localStorage.getItem(STORAGE); if (r) db = JSON.parse(r); } catch(e){}
+  if (!db.rapels) db.rapels = [];
+  if (!db.puntos) db.puntos = [];
+}
+
+function save() {
+  localStorage.setItem(STORAGE, JSON.stringify(db));
+  const el = document.getElementById('saveBadge');
+  el.textContent = 'Guardado'; el.className = 'save-badge saved';
+}
+
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,5); }
+
+// ══ THEME ══
+function toggleTheme() {
+  const html = document.documentElement;
+  html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
+  localStorage.setItem('ri_rp_theme', html.dataset.theme);
+  updateThemeIcon();
+}
+function updateThemeIcon() {
+  const dark = document.documentElement.dataset.theme === 'dark';
+  document.getElementById('themeIcon').innerHTML = dark
+    ? '<circle cx="8" cy="8" r="3"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.2 3.2l1 1M11.8 11.8l1 1M12.8 3.2l-1 1M4.2 11.8l-1 1"/>'
+    : '<path d="M13 8A5 5 0 1 1 8 3a3.5 3.5 0 0 0 5 5z"/>';
+}
+(function(){ const t = localStorage.getItem('ri_rp_theme'); if(t) document.documentElement.dataset.theme = t; updateThemeIcon(); })();
+
+// ══ TABS ══
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name).classList.add('active');
+  btn.classList.add('active');
+  const renders = { dashboard: renderDashboard, rapels: renderRapels, puntos: renderPuntos, historico: renderHist };
+  renders[name]?.();
+}
+
+// ══ FORMAT ══
+function eur(n) { return n.toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' €'; }
+function pts(n) { return n.toLocaleString('es-ES') + ' pts'; }
+function ptsEur(n) { return eur(n * PTS_VALUE); }
+
+// ══ RAPEL STATS ══
+function rStats(r) {
+  const movs = r.movimientos || [];
+  const ingreso = movs.filter(m => m.tipo==='INGRESO').reduce((a,m)=>a+m.importe,0);
+  const gasto   = movs.filter(m => m.tipo==='GASTO').reduce((a,m)=>a+m.importe,0);
+  const saldo   = ingreso - gasto;
+  const pct     = ingreso > 0 ? Math.min(gasto/ingreso*100,100) : 0;
+  return { ingreso, gasto, saldo, pct };
+}
+
+// ══ PUNTOS STATS ══
+function pStats(p) {
+  const movs = p.movimientos || [];
+  const ganado   = movs.filter(m=>m.tipo==='GANADO').reduce((a,m)=>a+m.puntos,0);
+  const canjeado = movs.filter(m=>m.tipo==='CANJEADO').reduce((a,m)=>a+m.puntos,0);
+  const saldo    = ganado - canjeado;
+  return { ganado, canjeado, saldo };
+}
+
+// ══ DASHBOARD ══
+function renderDashboard() {
+  // Rapel KPIs
+  const totalIng  = db.rapels.reduce((a,r)=>a+rStats(r).ingreso,0);
+  const totalGsto = db.rapels.reduce((a,r)=>a+rStats(r).gasto,0);
+  const totalSld  = totalIng - totalGsto;
+  const pctUsado  = totalIng > 0 ? (totalGsto/totalIng*100).toFixed(1) : 0;
+
+  document.getElementById('kpisRapel').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Total bolsa</div><div class="kpi-value">${eur(totalIng)}</div><div class="kpi-sub">${db.rapels.length} clientes</div></div>
+    <div class="kpi"><div class="kpi-label">Consumido</div><div class="kpi-value c-accent">${eur(totalGsto)}</div><div class="kpi-sub">${pctUsado}% del total</div></div>
+    <div class="kpi"><div class="kpi-label">Saldo pendiente</div><div class="kpi-value c-green">${eur(totalSld)}</div><div class="kpi-sub">${db.rapels.filter(r=>rStats(r).saldo<0).length} clientes excedidos</div></div>
+  `;
+
+  // Puntos KPIs
+  const totalGan  = db.puntos.reduce((a,p)=>a+pStats(p).ganado,0);
+  const totalCan  = db.puntos.reduce((a,p)=>a+pStats(p).canjeado,0);
+  const totalPSld = totalGan - totalCan;
+
+  document.getElementById('kpisPuntos').innerHTML = `
+    <div class="kpi"><div class="kpi-label">Total ganados</div><div class="kpi-value c-orange">${pts(totalGan)}</div><div class="kpi-sub">${ptsEur(totalGan)}</div></div>
+    <div class="kpi"><div class="kpi-label">Canjeados</div><div class="kpi-value c-blue">${pts(totalCan)}</div><div class="kpi-sub">${ptsEur(totalCan)}</div></div>
+    <div class="kpi"><div class="kpi-label">Saldo puntos</div><div class="kpi-value c-orange">${pts(totalPSld)}</div><div class="kpi-sub">${ptsEur(totalPSld)} en canje disponible</div></div>
+  `;
+}
+
+// ══ RAPELS TABLE ══
+function renderRapels() {
+  const q = document.getElementById('searchR').value.trim().toLowerCase();
+  const f = document.getElementById('filtR').value;
+  document.getElementById('badgeR').textContent = db.rapels.length;
+
+  let list = db.rapels.filter(r => !q || r.nombre.toLowerCase().includes(q));
+  if (f==='ok')   list = list.filter(r => rStats(r).saldo > 0 && rStats(r).pct < 80);
+  if (f==='low')  list = list.filter(r => { const s=rStats(r); return s.pct>=80 && s.saldo>=0; });
+  if (f==='zero') list = list.filter(r => rStats(r).saldo <= 0);
+
+  const tbody = document.getElementById('tbodyR');
+  if (!list.length) {
+    tbody.innerHTML = `<tr><td colspan="7">${emptyState('Ningún cliente',q?'Sin resultados para esa búsqueda':'Añade el primer cliente con el botón superior')}</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = list.map(r => {
+    const {ingreso,gasto,saldo,pct} = rStats(r);
+    const fillCls = saldo<0?'fill-danger':pct>=80?'fill-danger':pct>=50?'fill-warn':'fill-ok';
+    const tagCls  = saldo<0?'tag-red':pct>=80?'tag-orange':'tag-ok';
+    const tagTxt  = saldo<0?'EXCEDIDO':pct>=80?'BAJO':'OK';
+    return `<tr class="row-click" onclick="openDrawerR('${r.id}')">
+      <td><strong>${r.nombre}</strong></td>
+      <td>${eur(ingreso)}</td>
+      <td style="color:var(--accent)">${eur(gasto)}</td>
+      <td style="font-weight:700;color:${saldo<0?'var(--accent)':saldo===0?'var(--text-dim)':'var(--green)'}">${eur(saldo)}</td>
+      <td><div class="prog"><div class="prog-track"><div class="prog-fill ${fillCls}" style="width:${pct}%"></div></div><div class="prog-pct">${pct.toFixed(0)}% usado</div></div></td>
+      <td><span class="tag tag-gray">${(r.movimientos||[]).length} mov.</span></td>
+      <td><span class="tag ${tagCls}">${tagTxt}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+// ══ PUNTOS TABLE ══
+function renderPuntos() {
+  const q = document.getElementById('searchP').value.trim().toLowerCase();
+  const f = document.getElementById('filtP').value;
+  document.getElementById('badgeP').textContent = db.puntos.length;
+
+  let list = db.puntos.filter(p => !q || p.nombre.toLowerCase().includes(q));
+  if (f==='pos')  list = list.filter(p => pStats(p).saldo > 0);
+  if (f==='zero') list = list.filter(p => pStats(p).saldo === 0);
+
+  const tbody = document.getElementById('tbodyP');
+  if (!list.length) {
+    tbody.innerHTML = `<tr><td colspan="7">${emptyState('Ningún cliente',q?'Sin resultados para esa búsqueda':'Añade el primer cliente con el botón superior')}</td></tr>`;
+    return;
+  }
+  tbody.innerHTML = list.map(p => {
+    const {ganado,canjeado,saldo} = pStats(p);
+    return `<tr class="row-click" onclick="openDrawerP('${p.id}')">
+      <td><strong>${p.nombre}</strong></td>
+      <td style="color:var(--orange)">${pts(ganado)}</td>
+      <td style="color:var(--blue)">${pts(canjeado)}</td>
+      <td style="font-weight:700;color:${saldo>0?'var(--orange)':'var(--text-dim)'}">${pts(saldo)}</td>
+      <td>${ptsEur(saldo)}</td>
+      <td><span class="tag tag-gray">${(p.movimientos||[]).length} mov.</span></td>
+      <td><span class="tag ${saldo>0?'tag-orange':'tag-gray'}">${saldo>0?'CON SALDO':'SIN SALDO'}</span></td>
+    </tr>`;
+  }).join('');
+}
+
+// ══ HISTÓRICO ══
+function renderHist() {
+  const q = document.getElementById('searchH').value.trim().toLowerCase();
+  const fType = document.getElementById('filtHType').value;
+  const fMov  = document.getElementById('filtHMov').value;
+
+  let items = [];
+
+  if (fType!=='puntos') {
+    db.rapels.forEach(r => {
+      (r.movimientos||[]).forEach(m => {
+        if (fMov!=='all' && m.tipo!==fMov) return;
+        if (q && !r.nombre.toLowerCase().includes(q) && !m.albaran?.toLowerCase().includes(q)) return;
+        items.push({ sistema:'RAPEL', cliente:r.nombre, cid:r.id, ...m, _cantidad: eur(m.importe) });
+      });
+    });
+  }
+  if (fType!=='rapel') {
+    db.puntos.forEach(p => {
+      (p.movimientos||[]).forEach(m => {
+        if (fMov!=='all' && m.tipo!==fMov) return;
+        if (q && !p.nombre.toLowerCase().includes(q) && !m.referencia?.toLowerCase().includes(q)) return;
+        items.push({ sistema:'PUNTOS', cliente:p.nombre, cid:p.id, ...m, albaran:m.referencia, _cantidad: pts(m.puntos) });
+      });
+    });
+  }
+
+  items.sort((a,b) => (b.fecha||'').localeCompare(a.fecha||''));
+
+  const el = document.getElementById('histList');
+  if (!items.length) {
+    el.innerHTML = emptyState('Sin movimientos', 'No hay movimientos con los filtros seleccionados');
+    return;
+  }
+
+  const tagMap = { INGRESO:'tag-ingreso', GASTO:'tag-gasto', GANADO:'tag-ganado', CANJEADO:'tag-canjeado' };
+  const sysTag = { RAPEL:'tag-blue', PUNTOS:'tag-orange' };
+
+  el.innerHTML = items.map(m => `
+    <div class="hist-item">
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim)">${m.fecha||'—'}</div>
+      <div><strong style="font-size:12px">${m.cliente}</strong></div>
+      <div style="font-size:12px">${m.albaran||'—'}<br><span style="font-size:10px;color:var(--text-dim)">${m.notas||m.descripcion||''}</span></div>
+      <span class="tag ${sysTag[m.sistema]}">${m.sistema}</span>
+      <span class="tag ${tagMap[m.tipo]||'tag-gray'}">${m.tipo}</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;text-align:right">${m._cantidad}</div>
+    </div>
+  `).join('');
+}
+
+// ══ EMPTY STATE ══
+function emptyState(title, sub) {
+  return `<div class="empty">
+    <div class="empty-icon"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="8" y="8" width="24" height="24" rx="3"/><path d="M14 20h12M14 15h12M14 25h7"/></svg></div>
+    <div class="empty-title">${title}</div>
+    <div class="empty-sub">${sub}</div>
+  </div>`;
+}
+
+// ══ DRAWER RAPEL ══
+function openDrawerR(id) {
+  activeR = id;
+  const r = db.rapels.find(x=>x.id===id);
+  if (!r) return;
+  const {ingreso,gasto,saldo} = rStats(r);
+  document.getElementById('drRNom').textContent = r.nombre;
+  document.getElementById('drRSub').textContent = `${(r.movimientos||[]).length} movimientos · Bolsa de herramienta`;
+  document.getElementById('drRSum').innerHTML = `
+    <div class="sum-card"><div class="sum-label">Total bolsa</div><div class="sum-val">${eur(ingreso)}</div></div>
+    <div class="sum-card"><div class="sum-label">Consumido</div><div class="sum-val" style="color:var(--accent)">${eur(gasto)}</div></div>
+    <div class="sum-card"><div class="sum-label">Saldo</div><div class="sum-val" style="color:${saldo<0?'var(--accent)':'var(--green)'}">${eur(saldo)}</div></div>
+  `;
+  document.getElementById('drRFec').value = today();
+  document.getElementById('drRAlb').value = '';
+  document.getElementById('drRImp').value = '';
+  document.getElementById('drRNot').value = '';
+  renderRMovs(r);
+  document.getElementById('bgR').classList.add('open');
+  document.getElementById('drR').classList.add('open');
+}
+
+function renderRMovs(r) {
+  const el = document.getElementById('drRMovs');
+  const movs = [...(r.movimientos||[])].reverse();
+  if (!movs.length) { el.innerHTML = emptyState('Sin movimientos','Añade el primer movimiento'); return; }
+  const tagCls = { INGRESO:'tag-ingreso', GASTO:'tag-gasto' };
+  el.innerHTML = movs.map(m => `
+    <div class="mov-item">
+      <div>
+        <div class="mov-ref"><span class="tag ${tagCls[m.tipo]}">${m.tipo}</span> ${m.albaran||'—'}</div>
+        <div class="mov-desc">${m.notas||''} ${m.fecha?'· '+m.fecha:''}</div>
+      </div>
+      <div class="mov-amount" style="color:${m.tipo==='GASTO'?'var(--accent)':'var(--green)'}">${m.tipo==='GASTO'?'-':'+'} ${eur(m.importe)}</div>
+      <div style="display:flex;gap:4px;align-items:center">
+        <button class="btn btn-ghost btn-sm mov-del" onclick="printRMov('${r.id}','${m.id}',event)" title="Imprimir">
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><rect x="2" y="1" width="7" height="4.5"/><path d="M2 6H1v3.5h9V6H8"/><rect x="3" y="7" width="5" height="2.5"/></svg>
+        </button>
+        <button class="btn btn-danger btn-sm mov-del" onclick="delRMov('${r.id}','${m.id}',event)">
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2 2.5h7M4 2.5V2a.3.3 0 0 1 .3-.3h2.4a.3.3 0 0 1 .3.3v.5M8.5 2.5l-.5 6.2a.5.5 0 0 1-.5.5H3.5a.5.5 0 0 1-.5-.5L2.5 2.5"/></svg>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addRMov() {
+  const r = db.rapels.find(x=>x.id===activeR);
+  if (!r) return;
+  const alb = document.getElementById('drRAlb').value.trim();
+  const imp = parseFloat(document.getElementById('drRImp').value);
+  if (!alb || isNaN(imp) || imp<=0) { alert('Introduce albarán e importe válidos'); return; }
+  if (!r.movimientos) r.movimientos = [];
+  r.movimientos.push({ id:uid(), tipo:document.getElementById('drRTipo').value, albaran:alb, importe:imp, fecha:document.getElementById('drRFec').value, notas:document.getElementById('drRNot').value.trim() });
+  save(); openDrawerR(activeR); renderRapels(); renderDashboard();
+}
+
+function delRMov(rid, mid, e) {
+  e.stopPropagation();
+  if (!confirm('¿Eliminar este movimiento?')) return;
+  const r = db.rapels.find(x=>x.id===rid);
+  r.movimientos = r.movimientos.filter(m=>m.id!==mid);
+  save(); openDrawerR(rid); renderRapels(); renderDashboard();
+}
+
+function closeDrawer(t) {
+  document.getElementById('bg'+t).classList.remove('open');
+  document.getElementById('dr'+t).classList.remove('open');
+}
+
+// ══ DRAWER PUNTOS ══
+function openDrawerP(id) {
+  activeP = id;
+  const p = db.puntos.find(x=>x.id===id);
+  if (!p) return;
+  const {ganado,canjeado,saldo} = pStats(p);
+  document.getElementById('drPNom').textContent = p.nombre;
+  document.getElementById('drPSub').textContent = `${(p.movimientos||[]).length} movimientos · Fidelización`;
+  document.getElementById('drPSum').innerHTML = `
+    <div class="sum-card"><div class="sum-label">Ganados</div><div class="sum-val" style="color:var(--orange)">${pts(ganado)}</div></div>
+    <div class="sum-card"><div class="sum-label">Canjeados</div><div class="sum-val" style="color:var(--blue)">${pts(canjeado)}</div></div>
+    <div class="sum-card"><div class="sum-label">Saldo</div><div class="sum-val" style="color:${saldo>0?'var(--orange)':'var(--text-dim)'}">${pts(saldo)}</div></div>
+  `;
+  document.getElementById('drPFec').value = today();
+  document.getElementById('drPPts').value = '';
+  document.getElementById('drPRef').value = '';
+  document.getElementById('drPNot').value = '';
+  renderPMovs(p);
+  document.getElementById('bgP').classList.add('open');
+  document.getElementById('drP').classList.add('open');
+}
+
+function renderPMovs(p) {
+  const el = document.getElementById('drPMovs');
+  const movs = [...(p.movimientos||[])].reverse();
+  if (!movs.length) { el.innerHTML = emptyState('Sin movimientos','Añade el primer movimiento'); return; }
+  const tagCls = { GANADO:'tag-ganado', CANJEADO:'tag-canjeado' };
+  el.innerHTML = movs.map(m => `
+    <div class="mov-item">
+      <div>
+        <div class="mov-ref"><span class="tag ${tagCls[m.tipo]}">${m.tipo}</span> ${m.referencia||'—'}</div>
+        <div class="mov-desc">${m.notas||''} ${m.fecha?'· '+m.fecha:''}</div>
+      </div>
+      <div class="mov-amount" style="color:${m.tipo==='CANJEADO'?'var(--blue)':'var(--orange)'}">${m.tipo==='CANJEADO'?'-':'+'} ${pts(m.puntos)}</div>
+      <div style="display:flex;gap:4px;align-items:center">
+        <button class="btn btn-ghost btn-sm mov-del" onclick="printPMov('${p.id}','${m.id}',event)" title="Imprimir">
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><rect x="2" y="1" width="7" height="4.5"/><path d="M2 6H1v3.5h9V6H8"/><rect x="3" y="7" width="5" height="2.5"/></svg>
+        </button>
+        <button class="btn btn-danger btn-sm mov-del" onclick="delPMov('${p.id}','${m.id}',event)">
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2 2.5h7M4 2.5V2a.3.3 0 0 1 .3-.3h2.4a.3.3 0 0 1 .3.3v.5M8.5 2.5l-.5 6.2a.5.5 0 0 1-.5.5H3.5a.5.5 0 0 1-.5-.5L2.5 2.5"/></svg>
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function addPMov() {
+  const p = db.puntos.find(x=>x.id===activeP);
+  if (!p) return;
+  const puntos = parseInt(document.getElementById('drPPts').value);
+  if (isNaN(puntos) || puntos<=0) { alert('Introduce un número de puntos válido'); return; }
+  if (!p.movimientos) p.movimientos = [];
+  p.movimientos.push({ id:uid(), tipo:document.getElementById('drPTipo').value, puntos, referencia:document.getElementById('drPRef').value.trim(), fecha:document.getElementById('drPFec').value, notas:document.getElementById('drPNot').value.trim() });
+  save(); openDrawerP(activeP); renderPuntos(); renderDashboard();
+}
+
+function delPMov(pid, mid, e) {
+  e.stopPropagation();
+  if (!confirm('¿Eliminar este movimiento?')) return;
+  const p = db.puntos.find(x=>x.id===pid);
+  p.movimientos = p.movimientos.filter(m=>m.id!==mid);
+  save(); openDrawerP(pid); renderPuntos(); renderDashboard();
+}
+
+// ══ NUEVO CLIENTE ══
+function openNewClient(mode) {
+  newClientMode = mode;
+  document.getElementById('mcTitle').textContent = mode==='rapel' ? 'Nuevo cliente · Rapel' : 'Nuevo cliente · Puntos';
+  document.getElementById('mcSub').textContent = mode==='rapel' ? 'Añadir taller al sistema de rapel de herramienta' : 'Añadir taller al sistema de puntos';
+  document.getElementById('mcNombre').value = '';
+  document.getElementById('mcNotas').value = '';
+  document.getElementById('ovlCliente').classList.add('open');
+  setTimeout(()=>document.getElementById('mcNombre').focus(),100);
+}
+
+function saveNewClient() {
+  const nombre = document.getElementById('mcNombre').value.trim().toUpperCase();
+  if (!nombre) { alert('El nombre es obligatorio'); return; }
+  const notas = document.getElementById('mcNotas').value.trim();
+  if (newClientMode==='rapel') {
+    if (db.rapels.find(r=>r.nombre===nombre)) { alert('Este cliente ya existe en rapels'); return; }
+    db.rapels.push({ id:uid(), nombre, notas, movimientos:[] });
+    db.rapels.sort((a,b)=>a.nombre.localeCompare(b.nombre));
+    save(); closeOverlay('ovlCliente'); renderRapels();
+  } else {
+    if (db.puntos.find(p=>p.nombre===nombre)) { alert('Este cliente ya existe en puntos'); return; }
+    db.puntos.push({ id:uid(), nombre, notas, movimientos:[] });
+    db.puntos.sort((a,b)=>a.nombre.localeCompare(b.nombre));
+    save(); closeOverlay('ovlCliente'); renderPuntos();
+  }
+  renderDashboard();
+}
+
+// ══ DELETE CLIENT ══
+function deleteClient(tipo) {
+  if (tipo==='rapel') {
+    const r = db.rapels.find(x=>x.id===activeR);
+    if (!r || !confirm(`¿Eliminar a ${r.nombre}?`)) return;
+    db.rapels = db.rapels.filter(x=>x.id!==activeR);
+    closeDrawer('R'); save(); renderRapels();
+  } else {
+    const p = db.puntos.find(x=>x.id===activeP);
+    if (!p || !confirm(`¿Eliminar a ${p.nombre}?`)) return;
+    db.puntos = db.puntos.filter(x=>x.id!==activeP);
+    closeDrawer('P'); save(); renderPuntos();
+  }
+  renderDashboard();
+}
+
+// ══ IMPORT CSV ══
+function openImport() {
+  document.getElementById('csvData').value='';
+  document.getElementById('importPrev').innerHTML='';
+  document.getElementById('ovlImport').classList.add('open');
+}
+function parseCSV(raw) {
+  return raw.trim().split('\n').filter(l=>l.trim()).map(line=>{
+    const p = line.split(';').map(s=>s.trim());
+    const nombre = p[0].toUpperCase();
+    const movimientos = [];
+    for (let i=1; i<p.length-1; i+=2) {
+      const alb = p[i]; const imp = parseFloat(p[i+1]?.replace(',','.'));
+      if (alb && !isNaN(imp)) movimientos.push({ id:uid(), tipo:i===1?'INGRESO':'GASTO', albaran:alb, importe:imp, fecha:'', notas:'' });
+    }
+    return { nombre, movimientos };
+  }).filter(x=>x.nombre);
+}
+function prevImport() {
+  const data = parseCSV(document.getElementById('csvData').value);
+  document.getElementById('importPrev').innerHTML = data.length
+    ? `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);margin-bottom:14px">${data.length} clientes: ${data.map(d=>d.nombre).join(', ')}</div>`
+    : `<div style="color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:14px">No se encontraron datos válidos</div>`;
+}
+function doImport() {
+  const data = parseCSV(document.getElementById('csvData').value);
+  if (!data.length) { alert('Sin datos'); return; }
+  let added=0, updated=0;
+  for (const d of data) {
+    const ex = db.rapels.find(r=>r.nombre===d.nombre);
+    if (ex) {
+      for (const m of d.movimientos) { if (!ex.movimientos.find(x=>x.albaran===m.albaran)) ex.movimientos.push(m); }
+      updated++;
+    } else {
+      db.rapels.push({ id:uid(), nombre:d.nombre, notas:'', movimientos:d.movimientos });
+      added++;
+    }
+  }
+  db.rapels.sort((a,b)=>a.nombre.localeCompare(b.nombre));
+  save(); closeOverlay('ovlImport'); renderRapels(); renderDashboard();
+  alert(`Importados: ${added} nuevos · ${updated} actualizados`);
+}
+
+// ══ PRINT ══
+function printDoc(html) {
+  const w = window.open('','_blank','width=800,height=600');
+  w.document.write(html); w.document.close();
+  setTimeout(()=>{ w.focus(); w.print(); }, 300);
+}
+
+function printHeader(cliente, titulo, subtitulo) {
+  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${titulo}</title>
+  <style>
+    body{font-family:Arial,sans-serif;margin:0;padding:32px;color:#000}
+    .header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #E20613;padding-bottom:16px;margin-bottom:24px}
+    .logo-area h1{font-size:22px;font-weight:900;margin:0;color:#E20613}
+    .logo-area p{font-size:11px;color:#666;margin:2px 0}
+    .doc-info{text-align:right;font-size:12px;color:#444}
+    .doc-title{font-size:18px;font-weight:700;margin-bottom:16px;color:#002D5A}
+    .cliente-box{background:#f4f4f4;border:1px solid #ddd;border-radius:6px;padding:12px 16px;margin-bottom:20px}
+    .cliente-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#666;margin-bottom:4px}
+    .cliente-nombre{font-size:16px;font-weight:700}
+    table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px}
+    th{background:#002D5A;color:#fff;padding:8px 12px;text-align:left;font-size:11px;text-transform:uppercase}
+    td{padding:8px 12px;border-bottom:1px solid #eee}
+    tr:last-child td{border-bottom:2px solid #002D5A}
+    .total-row td{font-weight:700;font-size:13px;background:#f9f9f9}
+    .footer{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
+    .firma-box{border-top:1px solid #000;padding-top:6px;font-size:11px;color:#666;text-align:center}
+    @media print{body{padding:20px}}
+  </style></head><body>
+  <div class="header">
+    <div class="logo-area"><h1>RECAMBIOS IBIZA</h1><p>Gestión · Rapels & Puntos</p></div>
+    <div class="doc-info"><div>${titulo}</div><div style="font-size:11px;color:#888">${new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'})}</div></div>
+  </div>
+  <div class="doc-title">${subtitulo}</div>
+  <div class="cliente-box"><div class="cliente-label">Cliente</div><div class="cliente-nombre">${cliente}</div></div>`;
+}
+
+function printClientRapel() {
+  const r = db.rapels.find(x=>x.id===activeR);
+  if (!r) return;
+  const {ingreso,gasto,saldo} = rStats(r);
+  const movs = [...(r.movimientos||[])].sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
+  let html = printHeader(r.nombre, 'EXTRACTO RAPEL DE HERRAMIENTA', 'Extracto de Bolsa de Herramienta');
+  html += `<table><thead><tr><th>Fecha</th><th>Tipo</th><th>Albarán</th><th>Notas</th><th style="text-align:right">Importe</th></tr></thead><tbody>`;
+  for (const m of movs) {
+    html += `<tr><td>${m.fecha||'—'}</td><td>${m.tipo}</td><td>${m.albaran||'—'}</td><td>${m.notas||''}</td><td style="text-align:right;font-weight:600;color:${m.tipo==='GASTO'?'#E20613':'#2e7d32'}">${m.tipo==='GASTO'?'-':'+'} ${eur(m.importe)}</td></tr>`;
+  }
+  html += `<tr class="total-row"><td colspan="4"><strong>SALDO ACTUAL</strong></td><td style="text-align:right;color:${saldo<0?'#E20613':'#2e7d32'}">${eur(saldo)}</td></tr>`;
+  html += `</tbody></table>`;
+  html += `<div class="footer"><div class="firma-box">Firma cliente</div><div class="firma-box">Firma Recambios Ibiza</div></div></body></html>`;
+  printDoc(html);
+}
+
+function printClientPuntos() {
+  const p = db.puntos.find(x=>x.id===activeP);
+  if (!p) return;
+  const {ganado,canjeado,saldo} = pStats(p);
+  const movs = [...(p.movimientos||[])].sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
+  let html = printHeader(p.nombre, 'EXTRACTO DE PUNTOS', 'Extracto Puntos de Fidelización');
+  html += `<table><thead><tr><th>Fecha</th><th>Tipo</th><th>Referencia</th><th>Descripción</th><th style="text-align:right">Puntos</th></tr></thead><tbody>`;
+  for (const m of movs) {
+    html += `<tr><td>${m.fecha||'—'}</td><td>${m.tipo}</td><td>${m.referencia||'—'}</td><td>${m.notas||''}</td><td style="text-align:right;font-weight:600;color:${m.tipo==='CANJEADO'?'#1565c0':'#b45309'}">${m.tipo==='CANJEADO'?'-':'+'} ${pts(m.puntos)}</td></tr>`;
+  }
+  html += `<tr class="total-row"><td colspan="4"><strong>SALDO ACTUAL</strong></td><td style="text-align:right">${pts(saldo)} (${ptsEur(saldo)})</td></tr>`;
+  html += `</tbody></table>`;
+  html += `<div class="footer"><div class="firma-box">Firma cliente</div><div class="firma-box">Firma Recambios Ibiza</div></div></body></html>`;
+  printDoc(html);
+}
+
+function printRMov(rid, mid, e) {
+  e.stopPropagation();
+  const r = db.rapels.find(x=>x.id===rid);
+  const m = r?.movimientos.find(x=>x.id===mid);
+  if (!r||!m) return;
+  const {saldo} = rStats(r);
+  let html = printHeader(r.nombre, `${m.tipo} RAPEL · ${m.albaran||''}`, `Justificante de ${m.tipo}`);
+  html += `<table><thead><tr><th>Campo</th><th>Valor</th></tr></thead><tbody>
+    <tr><td>Tipo</td><td><strong>${m.tipo}</strong></td></tr>
+    <tr><td>Albarán</td><td>${m.albaran||'—'}</td></tr>
+    <tr><td>Fecha</td><td>${m.fecha||'—'}</td></tr>
+    <tr><td>Notas</td><td>${m.notas||'—'}</td></tr>
+    <tr class="total-row"><td>Importe</td><td style="color:${m.tipo==='GASTO'?'#E20613':'#2e7d32'};font-size:15px">${m.tipo==='GASTO'?'-':'+'} ${eur(m.importe)}</td></tr>
+    <tr><td>Saldo bolsa tras movimiento</td><td>${eur(saldo)}</td></tr>
+  </tbody></table>`;
+  html += `<div class="footer"><div class="firma-box">Firma cliente</div><div class="firma-box">Firma Recambios Ibiza</div></div></body></html>`;
+  printDoc(html);
+}
+
+function printPMov(pid, mid, e) {
+  e.stopPropagation();
+  const p = db.puntos.find(x=>x.id===pid);
+  const m = p?.movimientos.find(x=>x.id===mid);
+  if (!p||!m) return;
+  const {saldo} = pStats(p);
+  let html = printHeader(p.nombre, `${m.tipo} PUNTOS · ${m.referencia||''}`, `Justificante de ${m.tipo}`);
+  html += `<table><thead><tr><th>Campo</th><th>Valor</th></tr></thead><tbody>
+    <tr><td>Tipo</td><td><strong>${m.tipo}</strong></td></tr>
+    <tr><td>Referencia</td><td>${m.referencia||'—'}</td></tr>
+    <tr><td>Fecha</td><td>${m.fecha||'—'}</td></tr>
+    <tr><td>Descripción</td><td>${m.notas||'—'}</td></tr>
+    <tr class="total-row"><td>Puntos</td><td style="font-size:15px">${m.tipo==='CANJEADO'?'-':'+'} ${pts(m.puntos)} (${ptsEur(m.puntos)})</td></tr>
+    <tr><td>Saldo tras movimiento</td><td>${pts(saldo)} · ${ptsEur(saldo)}</td></tr>
+  </tbody></table>`;
+  html += `<div class="footer"><div class="firma-box">Firma cliente</div><div class="firma-box">Firma Recambios Ibiza</div></div></body></html>`;
+  printDoc(html);
+}
+
+// ══ UTILS ══
+function today() { return new Date().toISOString().slice(0,10); }
+function closeOverlay(id) { document.getElementById(id).classList.remove('open'); }
+document.addEventListener('keydown', e => {
+  if (e.key==='Escape') {
+    document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'));
+    closeDrawer('R'); closeDrawer('P');
+  }
+});
+
+// ══ INIT ══
+load();
+renderDashboard();
+renderRapels();
+renderPuntos();
+</script>
+</body>
+</html>
