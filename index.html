@@ -25,7 +25,6 @@
   body{background:var(--bg);color:var(--text);font-family:'Syne',sans-serif}
   .app{height:100vh;overflow:hidden;display:flex;flex-direction:column}
 
-  /* ── Header ── */
   .header{display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:60px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0}
   .logo{display:flex;align-items:center;gap:12px}
   .logo-svg{color:#fff}
@@ -35,23 +34,23 @@
   .header-right{display:flex;align-items:center;gap:10px}
   .save-badge{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:5px 12px;transition:all .3s}
   .save-badge.saved{color:var(--green);border-color:rgba(76,175,125,.4);background:rgba(76,175,125,.07)}
+  .save-badge.err{color:var(--accent);border-color:rgba(226,6,19,.3)}
   .icon-btn{width:36px;height:36px;border-radius:8px;border:1px solid var(--border);background:var(--surface2);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-dim);transition:all .2s}
   .icon-btn:hover{border-color:var(--accent);color:var(--accent)}
 
-  /* ── Nav ── */
   .nav{display:flex;gap:4px;padding:0 28px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0}
   .nav-btn{display:flex;align-items:center;gap:8px;padding:13px 18px;border:none;background:none;cursor:pointer;font-family:'Syne',sans-serif;font-weight:600;font-size:13px;color:var(--text-dim);border-bottom:2px solid transparent;transition:all .15s}
   .nav-btn:hover{color:var(--text)}
   .nav-btn.active{color:var(--accent);border-bottom-color:var(--accent)}
-  .nav-badge{background:var(--accent);color:#fff;border-radius:10px;padding:1px 7px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;line-height:16px}
-  .nav-badge.pts{background:var(--orange)}
+  .nav-badge{border-radius:10px;padding:1px 7px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:700;line-height:16px;color:#fff;background:var(--accent);transition:background .3s}
+  .nav-badge.badge-green{background:var(--green)}
+  .nav-badge.badge-orange{background:var(--orange)}
+  .nav-badge.badge-red{background:var(--accent)}
 
-  /* ── Layout ── */
   .main{flex:1;overflow:hidden;display:flex;flex-direction:column}
   .scroll{flex:1;overflow-y:auto;padding:28px;max-width:1400px;width:100%;margin:0 auto}
   .tab{display:none}.tab.active{display:block}
 
-  /* ── KPIs ── */
   .kpi-section{margin-bottom:10px}
   .kpi-section-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-faint);margin-bottom:10px;display:flex;align-items:center;gap:8px}
   .kpi-section-label::after{content:'';flex:1;height:1px;background:var(--border)}
@@ -62,19 +61,16 @@
   .kpi-value.c-accent{color:var(--accent)}.kpi-value.c-green{color:var(--green)}.kpi-value.c-orange{color:var(--orange)}.kpi-value.c-blue{color:var(--blue)}
   .kpi-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);margin-top:4px}
 
-  /* ── Section header ── */
   .sec-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;flex-wrap:wrap;gap:10px}
   .sec-title{font-size:16px;font-weight:700}
   .sec-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);margin-top:2px}
 
-  /* ── Search ── */
   .search-row{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap}
   .search-input{flex:1;min-width:160px;background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 14px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);outline:none;transition:border-color .15s}
   .search-input:focus{border-color:var(--accent)}
   .search-input::placeholder{color:var(--text-faint)}
   .filt{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--text);outline:none;cursor:pointer}
 
-  /* ── Table ── */
   .tbl-wrap{overflow-x:auto;border-radius:8px;border:1px solid var(--border)}
   table{width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:12px}
   th{background:var(--surface2);padding:10px 14px;text-align:left;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);border-bottom:1px solid var(--border);white-space:nowrap}
@@ -82,13 +78,11 @@
   tr:last-child td{border-bottom:none}
   tr.row-click:hover td{background:var(--surface2);cursor:pointer}
 
-  /* ── Progress bar ── */
   .prog{width:90px}.prog-track{background:var(--border);border-radius:3px;height:5px;overflow:hidden}
   .prog-fill{height:100%;border-radius:3px;transition:width .4s}
   .fill-ok{background:var(--green)}.fill-warn{background:var(--orange)}.fill-danger{background:var(--accent)}
   .prog-pct{font-size:10px;color:var(--text-dim);margin-top:3px}
 
-  /* ── Tags ── */
   .tag{display:inline-flex;align-items:center;padding:2px 8px;border-radius:4px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;gap:4px}
   .tag-ok{background:rgba(76,175,125,.1);color:var(--green)}
   .tag-red{background:rgba(226,6,19,.12);color:#E20613}
@@ -100,18 +94,16 @@
   .tag-ganado{background:rgba(245,158,11,.12);color:var(--orange)}
   .tag-canjeado{background:rgba(91,141,239,.12);color:var(--blue)}
 
-  /* ── Buttons ── */
   .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:8px;border:none;cursor:pointer;font-family:'Syne',sans-serif;font-size:13px;font-weight:600;transition:all .15s}
   .btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{filter:brightness(1.1)}
   .btn-ghost{background:var(--surface2);color:var(--text);border:1px solid var(--border)}.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
-  .btn-green{background:rgba(76,175,125,.12);color:var(--green);border:1px solid rgba(76,175,125,.25)}.btn-green:hover{background:rgba(76,175,125,.22)}
-  .btn-danger{background:rgba(226,6,19,.1);color:#E20613;border:1px solid rgba(226,6,19,.2)}.btn-danger:hover{background:rgba(226,6,19,.2)}
-  .btn-sm{padding:5px 10px;font-size:11px;border-radius:6px}
+  .btn-green{background:rgba(76,175,125,.12);color:var(--green);border:1px solid rgba(76,175,125,.3)}.btn-green:hover{background:rgba(76,175,125,.22)}
+  .btn-danger{background:rgba(226,6,19,.1);color:#E20613;border:1px solid rgba(226,6,19,.25)}.btn-danger:hover{background:rgba(226,6,19,.2)}
+  .btn-sm{padding:5px 12px;font-size:12px;border-radius:6px}
 
-  /* ── Modal ── */
   .overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:200;display:none;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(4px)}
   .overlay.open{display:flex}
-  .modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px;width:100%;max-width:640px;box-shadow:0 8px 32px rgba(0,0,0,.3);max-height:90vh;overflow-y:auto}
+  .modal{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:28px;width:100%;max-width:560px;box-shadow:0 8px 32px rgba(0,0,0,.3);max-height:90vh;overflow-y:auto}
   .modal-title{font-size:18px;font-weight:800;margin-bottom:4px}
   .modal-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);margin-bottom:20px}
   .fg{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -125,7 +117,6 @@
   textarea{resize:vertical;min-height:60px}
   .form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
 
-  /* ── Drawer ── */
   .drawer-bg{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:150;display:none}
   .drawer-bg.open{display:block}
   .drawer{position:fixed;right:0;top:0;bottom:0;width:500px;max-width:96vw;background:var(--surface);border-left:1px solid var(--border);z-index:160;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s ease}
@@ -138,19 +129,16 @@
   .drawer-body{flex:1;overflow-y:auto;padding:20px 24px}
   .drawer-foot{padding:14px 24px;border-top:1px solid var(--border);display:flex;gap:8px;flex-shrink:0}
 
-  /* ── Summary cards ── */
   .sum-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
   .sum-card{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:14px 16px}
   .sum-label{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);margin-bottom:5px}
   .sum-val{font-family:'JetBrains Mono',monospace;font-size:20px;font-weight:700}
 
-  /* ── Add form inside drawer ── */
   .add-form{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:16px;margin-bottom:20px}
   .add-form-title{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--text-dim);margin-bottom:12px}
   .add-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
   .add-row{display:flex;flex-direction:column;gap:5px}
 
-  /* ── Movement list ── */
   .mov-list{display:flex;flex-direction:column;gap:6px}
   .mov-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:10px 14px;display:grid;grid-template-columns:1fr auto auto;gap:10px;align-items:center}
   .mov-item:hover{box-shadow:0 2px 12px rgba(226,6,19,.1)}
@@ -160,30 +148,30 @@
   .mov-del{opacity:0;transition:opacity .15s}
   .mov-item:hover .mov-del{opacity:1}
 
-  /* ── Histórico ── */
-  .hist-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:11px 16px;margin-bottom:6px;display:grid;grid-template-columns:90px 150px 1fr auto auto auto;gap:12px;align-items:center}
+  .hist-item{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:11px 16px;margin-bottom:6px;display:grid;grid-template-columns:90px 160px 1fr auto auto auto;gap:12px;align-items:center}
   .hist-item:hover{box-shadow:0 2px 12px rgba(0,0,0,.15)}
 
-  /* ── Empty ── */
   .empty{text-align:center;padding:48px 20px}
   .empty-icon{margin-bottom:10px;opacity:.2;display:flex;justify-content:center}
   .empty-title{font-size:15px;font-weight:700;color:var(--text-dim);margin-bottom:6px}
   .empty-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-faint)}
 
-  /* ── Scrollbar ── */
   ::-webkit-scrollbar{width:6px;height:6px}
   ::-webkit-scrollbar-track{background:var(--bg)}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
   ::-webkit-scrollbar-thumb:hover{background:var(--text-dim)}
 
-  /* ── Footer ── */
   .krafted{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-faint);margin-top:28px;text-align:center}
   .krafted span{color:#a8e63d;font-weight:700}
   [data-theme="light"] .krafted span{color:#002D5A}
 
-  /* ── Print ── */
-  @media print{body{background:#fff;color:#000}.no-print{display:none!important}}
+  /* Loading overlay */
+  .loading-overlay{position:fixed;inset:0;background:var(--bg);z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px}
+  .loading-spinner{width:36px;height:36px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite}
+  .loading-text{font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--text-dim)}
+  @keyframes spin{to{transform:rotate(360deg)}}
 
+  @media print{body{background:#fff;color:#000}.no-print{display:none!important}}
   @media(max-width:768px){
     .kpis{grid-template-columns:1fr 1fr}
     .fg{grid-template-columns:1fr}
@@ -191,13 +179,20 @@
     .scroll{padding:16px}
     .header,.nav{padding:0 14px}
     .sum-grid{grid-template-columns:1fr 1fr}
+    .hist-item{grid-template-columns:70px 1fr auto auto}
   }
   </style>
 </head>
 <body>
+
+<!-- Loading -->
+<div class="loading-overlay" id="loadingOverlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Conectando con Supabase...</div>
+</div>
+
 <div class="app">
 
-<!-- ══ HEADER ══ -->
 <header class="header">
   <div class="logo">
     <svg width="40" height="27" viewBox="0 0 670 452" xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="logo-svg">
@@ -213,14 +208,13 @@
     </div>
   </div>
   <div class="header-right">
-    <div class="save-badge" id="saveBadge">Guardado</div>
+    <div class="save-badge" id="saveBadge">Conectando...</div>
     <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Cambiar tema">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" id="themeIcon"><circle cx="8" cy="8" r="3"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.2 3.2l1 1M11.8 11.8l1 1M12.8 3.2l-1 1M4.2 11.8l-1 1"/></svg>
     </button>
   </div>
 </header>
 
-<!-- ══ NAV ══ -->
 <nav class="nav">
   <button class="nav-btn active" data-tab="dashboard" onclick="switchTab('dashboard',this)">
     <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><rect x="1" y="1" width="5" height="5" rx="1"/><rect x="8" y="1" width="5" height="5" rx="1"/><rect x="1" y="8" width="5" height="5" rx="1"/><rect x="8" y="8" width="5" height="5" rx="1"/></svg>
@@ -232,7 +226,7 @@
   </button>
   <button class="nav-btn" data-tab="puntos" onclick="switchTab('puntos',this)">
     <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.7 3.4 3.8.55-2.75 2.68.65 3.77L7 9.7l-3.4 1.72.65-3.77L1.5 4.95l3.8-.55z"/></svg>
-    Puntos <span class="nav-badge pts" id="badgeP">0</span>
+    Puntos <span class="nav-badge" id="badgeP">0</span>
   </button>
   <button class="nav-btn" data-tab="historico" onclick="switchTab('historico',this)">
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="7" cy="7" r="5.5"/><path d="M7 4.5V7l2 1.5"/></svg>
@@ -243,23 +237,20 @@
 <div class="main">
 <div class="scroll">
 
-<!-- ══ TAB DASHBOARD ══ -->
+<!-- DASHBOARD -->
 <div class="tab active" id="tab-dashboard">
-
   <div class="kpi-section">
     <div class="kpi-section-label">Rapel de Herramienta</div>
     <div class="kpis" id="kpisRapel"></div>
   </div>
-
   <div class="kpi-section">
     <div class="kpi-section-label">Puntos de Fidelización</div>
     <div class="kpis" id="kpisPuntos"></div>
   </div>
-
   <p class="krafted">Krafted by <span>Yakoba Moreno</span> · Designed in <span>Claude Code</span></p>
 </div>
 
-<!-- ══ TAB RAPELS ══ -->
+<!-- RAPELS -->
 <div class="tab" id="tab-rapels">
   <div class="sec-header">
     <div>
@@ -267,13 +258,13 @@
       <div class="sec-sub">Bolsa de rapel por cliente · Ejercicio 2026</div>
     </div>
     <div style="display:flex;gap:8px">
-      <button class="btn btn-ghost btn-sm" onclick="openImport()">
-        <svg width="13" height="13" viewBox="0 0 13 13" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M6.5 2v7M4 6.5l2.5 2.5L9 6.5"/><path d="M2 11h9"/></svg>
-        Importar CSV
-      </button>
-      <button class="btn btn-primary btn-sm" onclick="openNewClient('rapel')">
+      <button class="btn btn-green btn-sm" onclick="openQuickAction('rapel','INGRESO')">
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 1v10M1 6h10"/></svg>
-        Nuevo cliente
+        Nuevo Rapel
+      </button>
+      <button class="btn btn-danger btn-sm" onclick="openQuickAction('rapel','GASTO')">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 4v5M3.5 6.5L6 9l2.5-2.5"/><rect x="1.5" y="1.5" width="9" height="9" rx="1.5"/></svg>
+        Venta Rapel
       </button>
     </div>
   </div>
@@ -297,17 +288,23 @@
   <p class="krafted">Krafted by <span>Yakoba Moreno</span> · Designed in <span>Claude Code</span></p>
 </div>
 
-<!-- ══ TAB PUNTOS ══ -->
+<!-- PUNTOS -->
 <div class="tab" id="tab-puntos">
   <div class="sec-header">
     <div>
       <div class="sec-title">Puntos de Fidelización</div>
-      <div class="sec-sub">Acumulado por compra de neumáticos y otros · 1 punto = 1 €</div>
+      <div class="sec-sub">Acumulado por compra de neumáticos · 1 punto = 1 €</div>
     </div>
-    <button class="btn btn-primary btn-sm" onclick="openNewClient('puntos')">
-      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 1v10M1 6h10"/></svg>
-      Nuevo cliente
-    </button>
+    <div style="display:flex;gap:8px">
+      <button class="btn btn-green btn-sm" onclick="openQuickAction('puntos','GANADO')">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 1v10M1 6h10"/></svg>
+        Añadir Puntos
+      </button>
+      <button class="btn btn-danger btn-sm" onclick="openQuickAction('puntos','CANJEADO')">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M7 1l1.3 2.6 2.9.42-2.1 2.05.5 2.88L7 7.6 4.4 8.95l.5-2.88L2.8 4.02l2.9-.42z"/></svg>
+        Vender Puntos
+      </button>
+    </div>
   </div>
   <div class="search-row">
     <input class="search-input" id="searchP" placeholder="Buscar cliente..." oninput="renderPuntos()">
@@ -328,7 +325,7 @@
   <p class="krafted">Krafted by <span>Yakoba Moreno</span> · Designed in <span>Claude Code</span></p>
 </div>
 
-<!-- ══ TAB HISTÓRICO ══ -->
+<!-- HISTÓRICO -->
 <div class="tab" id="tab-historico">
   <div class="sec-header">
     <div>
@@ -337,8 +334,10 @@
     </div>
   </div>
   <div class="search-row">
-    <input class="search-input" id="searchH" placeholder="Buscar cliente, albarán..." oninput="renderHist()">
-    <select class="filt" id="filtHType" onchange="renderHist()">
+    <select class="filt" id="filtHCliente" onchange="renderHist()" style="flex:1;min-width:160px">
+      <option value="">Todos los clientes</option>
+    </select>
+    <select class="filt" id="filtHType" onchange="onHistTypeChange()">
       <option value="all">Rapel + Puntos</option>
       <option value="rapel">Solo Rapel</option>
       <option value="puntos">Solo Puntos</option>
@@ -350,56 +349,65 @@
       <option value="GANADO">Ganados</option>
       <option value="CANJEADO">Canjeados</option>
     </select>
+    <input class="search-input" id="searchH" placeholder="Buscar albarán, notas..." oninput="renderHist()" style="flex:1;min-width:140px">
   </div>
   <div id="histList"></div>
   <p class="krafted">Krafted by <span>Yakoba Moreno</span> · Designed in <span>Claude Code</span></p>
 </div>
 
-</div><!-- scroll -->
-</div><!-- main -->
-</div><!-- app -->
+</div>
+</div>
+</div>
 
-<!-- ══ MODAL NUEVO CLIENTE ══ -->
-<div class="overlay" id="ovlCliente">
+<!-- MODAL QUICK ACTION -->
+<div class="overlay" id="ovlQuick">
   <div class="modal">
-    <div class="modal-title" id="mcTitle">Nuevo cliente</div>
-    <div class="modal-sub" id="mcSub">—</div>
+    <div class="modal-title" id="qaTitle">—</div>
+    <div class="modal-sub" id="qaSub">—</div>
     <div class="fg">
       <div class="fgr full">
-        <label>Nombre del cliente / taller</label>
-        <input id="mcNombre" placeholder="Ej: AUTOCOLOR" style="text-transform:uppercase">
+        <label>Cliente</label>
+        <select id="qaCliente" onchange="onQaClienteChange()">
+          <option value="">— Seleccionar —</option>
+        </select>
       </div>
-      <div class="fgr full">
-        <label>Notas (opcional)</label>
-        <textarea id="mcNotas" placeholder="Observaciones..."></textarea>
+      <div class="fgr full" id="qaNewRow" style="display:none">
+        <label>Nombre del nuevo cliente</label>
+        <input id="qaNewNombre" placeholder="Ej: AUTOCOLOR" style="text-transform:uppercase">
+      </div>
+      <div class="fgr" id="qaAlbRow">
+        <label>Nº Albarán</label>
+        <input id="qaAlb" placeholder="Ej: 041589">
+      </div>
+      <div class="fgr" id="qaImpRow">
+        <label>Importe (€)</label>
+        <input id="qaImp" type="number" min="0.01" step="0.01" placeholder="0.00">
+      </div>
+      <div class="fgr" id="qaPtsRow" style="display:none">
+        <label>Puntos</label>
+        <input id="qaPts" type="number" min="1" step="1" placeholder="0">
+      </div>
+      <div class="fgr" id="qaRefRow" style="display:none">
+        <label>Referencia</label>
+        <input id="qaRef" placeholder="Ej: ALB-041589">
+      </div>
+      <div class="fgr">
+        <label>Fecha</label>
+        <input id="qaFec" type="date">
+      </div>
+      <div class="fgr">
+        <label>Notas</label>
+        <input id="qaNot" placeholder="Descripción...">
       </div>
     </div>
     <div class="form-actions">
-      <button class="btn btn-ghost" onclick="closeOverlay('ovlCliente')">Cancelar</button>
-      <button class="btn btn-primary" onclick="saveNewClient()">Guardar</button>
+      <button class="btn btn-ghost" onclick="closeOverlay('ovlQuick')">Cancelar</button>
+      <button class="btn btn-primary" id="qaBtn" onclick="saveQuickAction()">Guardar</button>
     </div>
   </div>
 </div>
 
-<!-- ══ MODAL IMPORTAR CSV ══ -->
-<div class="overlay" id="ovlImport">
-  <div class="modal">
-    <div class="modal-title">Importar Rapels desde CSV</div>
-    <div class="modal-sub">Formato: CLIENTE;ALBARAN_INGRESO;IMPORTE_INGRESO;ALBARAN_GASTO1;IMPORTE_GASTO1;...</div>
-    <div class="fgr" style="margin-bottom:14px">
-      <label>Contenido CSV</label>
-      <textarea id="csvData" style="min-height:140px;font-size:11px" placeholder="AUTOCOLOR;ING2026-001;3048;41589;274;93485;1390&#10;BUMALI;ING2026-002;4195;50797;109.91"></textarea>
-    </div>
-    <div id="importPrev"></div>
-    <div class="form-actions">
-      <button class="btn btn-ghost" onclick="closeOverlay('ovlImport')">Cancelar</button>
-      <button class="btn btn-ghost" onclick="prevImport()">Previsualizar</button>
-      <button class="btn btn-primary" onclick="doImport()">Importar</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══ DRAWER RAPEL ══ -->
+<!-- DRAWER RAPEL -->
 <div class="drawer-bg" id="bgR" onclick="closeDrawer('R')"></div>
 <div class="drawer" id="drR">
   <button class="drawer-close" onclick="closeDrawer('R')">
@@ -411,24 +419,23 @@
   </div>
   <div class="drawer-body">
     <div class="sum-grid" id="drRSum"></div>
-
     <div class="add-form">
       <div class="add-form-title">Registrar movimiento</div>
       <div class="add-grid">
-        <div class="add-row full" style="grid-column:1/-1">
-          <label>Tipo de movimiento</label>
-          <select id="drRTipo" onchange="updateRMovHint()">
+        <div class="add-row" style="grid-column:1/-1">
+          <label>Tipo</label>
+          <select id="drRTipo">
             <option value="INGRESO">Ingreso — Carga rapel en bolsa</option>
             <option value="GASTO">Gasto — Consumo de bolsa</option>
           </select>
         </div>
         <div class="add-row">
-          <label>Nº Albarán / Referencia</label>
-          <input id="drRAlb" placeholder="Ej: ING2026-001">
+          <label>Nº Albarán</label>
+          <input id="drRAlb" placeholder="Ej: 041589">
         </div>
         <div class="add-row">
           <label>Importe (€)</label>
-          <input id="drRImp" type="number" min="0" step="0.01" placeholder="0.00">
+          <input id="drRImp" type="number" min="0.01" step="0.01" placeholder="0.00">
         </div>
         <div class="add-row">
           <label>Fecha</label>
@@ -439,11 +446,10 @@
           <input id="drRNot" placeholder="Descripción...">
         </div>
       </div>
-      <div style="margin-top:10px;display:flex;gap:8px">
+      <div style="margin-top:10px">
         <button class="btn btn-primary btn-sm" onclick="addRMov()">Añadir movimiento</button>
       </div>
     </div>
-
     <div style="font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);margin-bottom:10px">Movimientos</div>
     <div class="mov-list" id="drRMovs"></div>
   </div>
@@ -459,7 +465,7 @@
   </div>
 </div>
 
-<!-- ══ DRAWER PUNTOS ══ -->
+<!-- DRAWER PUNTOS -->
 <div class="drawer-bg" id="bgP" onclick="closeDrawer('P')"></div>
 <div class="drawer" id="drP">
   <button class="drawer-close" onclick="closeDrawer('P')">
@@ -471,12 +477,11 @@
   </div>
   <div class="drawer-body">
     <div class="sum-grid" id="drPSum"></div>
-
     <div class="add-form">
       <div class="add-form-title">Registrar movimiento</div>
       <div class="add-grid">
         <div class="add-row" style="grid-column:1/-1">
-          <label>Tipo de movimiento</label>
+          <label>Tipo</label>
           <select id="drPTipo">
             <option value="GANADO">Ganado — Puntos por compra</option>
             <option value="CANJEADO">Canjeado — Canje por catálogo</option>
@@ -484,26 +489,25 @@
         </div>
         <div class="add-row">
           <label>Puntos</label>
-          <input id="drPPts" type="number" min="0" step="1" placeholder="0">
+          <input id="drPPts" type="number" min="1" step="1" placeholder="0">
         </div>
         <div class="add-row">
-          <label>Referencia / Albarán</label>
-          <input id="drPRef" placeholder="Ej: Neum. ALB-41589">
+          <label>Referencia</label>
+          <input id="drPRef" placeholder="Ej: ALB-041589">
         </div>
         <div class="add-row">
           <label>Fecha</label>
           <input id="drPFec" type="date">
         </div>
         <div class="add-row">
-          <label>Descripción / Producto catálogo</label>
-          <input id="drPNot" placeholder="Ej: Kit herramienta...">
+          <label>Descripción</label>
+          <input id="drPNot" placeholder="Producto, observaciones...">
         </div>
       </div>
       <div style="margin-top:10px">
         <button class="btn btn-primary btn-sm" onclick="addPMov()">Añadir movimiento</button>
       </div>
     </div>
-
     <div style="font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);margin-bottom:10px">Movimientos</div>
     <div class="mov-list" id="drPMovs"></div>
   </div>
@@ -519,155 +523,160 @@
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
-// ══ CONSTANTES ══
-const STORAGE = 'ri_rp_v2';
-const PTS_VALUE = 1; // 1 punto = 1 €
+// ══ SUPABASE ══
+const SUPABASE_URL = 'https://qiwacvjrytpgdqhwnkcj.supabase.co';
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFpd2FjdmpyeXRwZ2RxaHdua2NqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODExMzIwMDUsImV4cCI6MjA5NjcwODAwNX0.sZVVLa5Y69upY70dG9BUvIaIOX1zr7N1B5mEKfqWmxQ';
+const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
-// ══ DATA ══
+const PTS_VALUE = 1;
 let db = { rapels: [], puntos: [] };
-let activeR = null, activeP = null, newClientMode = null;
+let activeR = null, activeP = null;
+let quickMode = null; // { tipo:'rapel'|'puntos', subtipo:'INGRESO'|'GASTO'|'GANADO'|'CANJEADO' }
 
-function load() {
-  try { const r = localStorage.getItem(STORAGE); if (r) db = JSON.parse(r); } catch(e){}
-  if (!db.rapels) db.rapels = [];
-  if (!db.puntos) db.puntos = [];
+// ══ LOAD ══
+async function load() {
+  document.getElementById('loadingOverlay').style.display = 'flex';
+  const [{ data: rapels, error: e1 }, { data: puntos, error: e2 }] = await Promise.all([
+    sb.from('clientes_rapel').select('*, movimientos_rapel(*)').order('nombre'),
+    sb.from('clientes_puntos').select('*, movimientos_puntos(*)').order('nombre')
+  ]);
+  if (e1 || e2) { setStatus('Error de conexión','err'); console.error(e1, e2); }
+  db.rapels = (rapels||[]).map(r => ({ ...r, movimientos: (r.movimientos_rapel||[]).sort((a,b)=>a.created_at?.localeCompare(b.created_at)) }));
+  db.puntos  = (puntos||[]).map(p => ({ ...p, movimientos: (p.movimientos_puntos||[]).sort((a,b)=>a.created_at?.localeCompare(b.created_at)) }));
+  document.getElementById('loadingOverlay').style.display = 'none';
+  setStatus('Online','saved');
+  renderAll();
 }
 
-function save() {
-  localStorage.setItem(STORAGE, JSON.stringify(db));
+function setStatus(txt, cls='') {
   const el = document.getElementById('saveBadge');
-  el.textContent = 'Guardado'; el.className = 'save-badge saved';
+  el.textContent = txt;
+  el.className = 'save-badge' + (cls?' '+cls:'');
 }
-
-function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,5); }
 
 // ══ THEME ══
 function toggleTheme() {
-  const html = document.documentElement;
-  html.dataset.theme = html.dataset.theme === 'dark' ? 'light' : 'dark';
-  localStorage.setItem('ri_rp_theme', html.dataset.theme);
+  const h = document.documentElement;
+  h.dataset.theme = h.dataset.theme==='dark' ? 'light' : 'dark';
+  localStorage.setItem('ri_rp_theme', h.dataset.theme);
   updateThemeIcon();
 }
 function updateThemeIcon() {
-  const dark = document.documentElement.dataset.theme === 'dark';
+  const dark = document.documentElement.dataset.theme==='dark';
   document.getElementById('themeIcon').innerHTML = dark
     ? '<circle cx="8" cy="8" r="3"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.2 3.2l1 1M11.8 11.8l1 1M12.8 3.2l-1 1M4.2 11.8l-1 1"/>'
     : '<path d="M13 8A5 5 0 1 1 8 3a3.5 3.5 0 0 0 5 5z"/>';
 }
-(function(){ const t = localStorage.getItem('ri_rp_theme'); if(t) document.documentElement.dataset.theme = t; updateThemeIcon(); })();
+(function(){ const t=localStorage.getItem('ri_rp_theme'); if(t) document.documentElement.dataset.theme=t; updateThemeIcon(); })();
 
 // ══ TABS ══
 function switchTab(name, btn) {
-  document.querySelectorAll('.tab').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById('tab-' + name).classList.add('active');
+  document.querySelectorAll('.tab').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+name).classList.add('active');
   btn.classList.add('active');
-  const renders = { dashboard: renderDashboard, rapels: renderRapels, puntos: renderPuntos, historico: renderHist };
-  renders[name]?.();
+  if (name==='historico') { buildHistClientFilter(); renderHist(); }
 }
 
 // ══ FORMAT ══
-function eur(n) { return n.toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2}) + ' €'; }
-function pts(n) { return n.toLocaleString('es-ES') + ' pts'; }
-function ptsEur(n) { return eur(n * PTS_VALUE); }
+function eur(n)    { return Number(n).toLocaleString('es-ES',{minimumFractionDigits:2,maximumFractionDigits:2})+' €'; }
+function pts(n)    { return Number(n).toLocaleString('es-ES')+' pts'; }
+function ptsEur(n) { return eur(n*PTS_VALUE); }
 
-// ══ RAPEL STATS ══
+// ══ STATS ══
 function rStats(r) {
-  const movs = r.movimientos || [];
-  const ingreso = movs.filter(m => m.tipo==='INGRESO').reduce((a,m)=>a+m.importe,0);
-  const gasto   = movs.filter(m => m.tipo==='GASTO').reduce((a,m)=>a+m.importe,0);
+  const m = r.movimientos||[];
+  const ingreso = m.filter(x=>x.tipo==='INGRESO').reduce((a,x)=>a+Number(x.importe),0);
+  const gasto   = m.filter(x=>x.tipo==='GASTO').reduce((a,x)=>a+Number(x.importe),0);
   const saldo   = ingreso - gasto;
-  const pct     = ingreso > 0 ? Math.min(gasto/ingreso*100,100) : 0;
+  const pct     = ingreso>0 ? Math.min(gasto/ingreso*100,100) : 0;
   return { ingreso, gasto, saldo, pct };
 }
-
-// ══ PUNTOS STATS ══
 function pStats(p) {
-  const movs = p.movimientos || [];
-  const ganado   = movs.filter(m=>m.tipo==='GANADO').reduce((a,m)=>a+m.puntos,0);
-  const canjeado = movs.filter(m=>m.tipo==='CANJEADO').reduce((a,m)=>a+m.puntos,0);
-  const saldo    = ganado - canjeado;
-  return { ganado, canjeado, saldo };
+  const m = p.movimientos||[];
+  const ganado   = m.filter(x=>x.tipo==='GANADO').reduce((a,x)=>a+Number(x.puntos),0);
+  const canjeado = m.filter(x=>x.tipo==='CANJEADO').reduce((a,x)=>a+Number(x.puntos),0);
+  return { ganado, canjeado, saldo: ganado-canjeado };
 }
+
+// ══ BADGES ══
+function updateBadges() {
+  const totalRS = db.rapels.reduce((a,r)=>a+rStats(r).saldo,0);
+  const br = document.getElementById('badgeR');
+  br.textContent = db.rapels.length;
+  br.className = 'nav-badge ' + (totalRS>0?'badge-green':totalRS<0?'badge-red':'badge-orange');
+
+  const totalPS = db.puntos.reduce((a,p)=>a+pStats(p).saldo,0);
+  const bp = document.getElementById('badgeP');
+  bp.textContent = db.puntos.length;
+  bp.className = 'nav-badge ' + (totalPS>0?'badge-green':totalPS<0?'badge-red':'badge-orange');
+}
+
+// ══ RENDER ALL ══
+function renderAll() { renderDashboard(); renderRapels(); renderPuntos(); updateBadges(); }
 
 // ══ DASHBOARD ══
 function renderDashboard() {
-  // Rapel KPIs
-  const totalIng  = db.rapels.reduce((a,r)=>a+rStats(r).ingreso,0);
-  const totalGsto = db.rapels.reduce((a,r)=>a+rStats(r).gasto,0);
-  const totalSld  = totalIng - totalGsto;
-  const pctUsado  = totalIng > 0 ? (totalGsto/totalIng*100).toFixed(1) : 0;
+  const tI=db.rapels.reduce((a,r)=>a+rStats(r).ingreso,0);
+  const tG=db.rapels.reduce((a,r)=>a+rStats(r).gasto,0);
+  const tS=tI-tG;
+  const pctU=tI>0?(tG/tI*100).toFixed(1):0;
+  document.getElementById('kpisRapel').innerHTML=`
+    <div class="kpi"><div class="kpi-label">Total bolsa</div><div class="kpi-value">${eur(tI)}</div><div class="kpi-sub">${db.rapels.length} clientes</div></div>
+    <div class="kpi"><div class="kpi-label">Consumido</div><div class="kpi-value c-accent">${eur(tG)}</div><div class="kpi-sub">${pctU}% del total</div></div>
+    <div class="kpi"><div class="kpi-label">Saldo pendiente</div><div class="kpi-value ${tS>=0?'c-green':'c-accent'}">${eur(tS)}</div><div class="kpi-sub">${db.rapels.filter(r=>rStats(r).saldo<0).length} clientes excedidos</div></div>`;
 
-  document.getElementById('kpisRapel').innerHTML = `
-    <div class="kpi"><div class="kpi-label">Total bolsa</div><div class="kpi-value">${eur(totalIng)}</div><div class="kpi-sub">${db.rapels.length} clientes</div></div>
-    <div class="kpi"><div class="kpi-label">Consumido</div><div class="kpi-value c-accent">${eur(totalGsto)}</div><div class="kpi-sub">${pctUsado}% del total</div></div>
-    <div class="kpi"><div class="kpi-label">Saldo pendiente</div><div class="kpi-value c-green">${eur(totalSld)}</div><div class="kpi-sub">${db.rapels.filter(r=>rStats(r).saldo<0).length} clientes excedidos</div></div>
-  `;
-
-  // Puntos KPIs
-  const totalGan  = db.puntos.reduce((a,p)=>a+pStats(p).ganado,0);
-  const totalCan  = db.puntos.reduce((a,p)=>a+pStats(p).canjeado,0);
-  const totalPSld = totalGan - totalCan;
-
-  document.getElementById('kpisPuntos').innerHTML = `
-    <div class="kpi"><div class="kpi-label">Total ganados</div><div class="kpi-value c-orange">${pts(totalGan)}</div><div class="kpi-sub">${ptsEur(totalGan)}</div></div>
-    <div class="kpi"><div class="kpi-label">Canjeados</div><div class="kpi-value c-blue">${pts(totalCan)}</div><div class="kpi-sub">${ptsEur(totalCan)}</div></div>
-    <div class="kpi"><div class="kpi-label">Saldo puntos</div><div class="kpi-value c-orange">${pts(totalPSld)}</div><div class="kpi-sub">${ptsEur(totalPSld)} en canje disponible</div></div>
-  `;
+  const tGan=db.puntos.reduce((a,p)=>a+pStats(p).ganado,0);
+  const tCan=db.puntos.reduce((a,p)=>a+pStats(p).canjeado,0);
+  const tPS=tGan-tCan;
+  document.getElementById('kpisPuntos').innerHTML=`
+    <div class="kpi"><div class="kpi-label">Total ganados</div><div class="kpi-value c-orange">${pts(tGan)}</div><div class="kpi-sub">${ptsEur(tGan)}</div></div>
+    <div class="kpi"><div class="kpi-label">Canjeados</div><div class="kpi-value c-blue">${pts(tCan)}</div><div class="kpi-sub">${ptsEur(tCan)}</div></div>
+    <div class="kpi"><div class="kpi-label">Saldo puntos</div><div class="kpi-value c-orange">${pts(tPS)}</div><div class="kpi-sub">${ptsEur(tPS)} disponibles</div></div>`;
 }
 
 // ══ RAPELS TABLE ══
 function renderRapels() {
-  const q = document.getElementById('searchR').value.trim().toLowerCase();
-  const f = document.getElementById('filtR').value;
-  document.getElementById('badgeR').textContent = db.rapels.length;
-
-  let list = db.rapels.filter(r => !q || r.nombre.toLowerCase().includes(q));
-  if (f==='ok')   list = list.filter(r => rStats(r).saldo > 0 && rStats(r).pct < 80);
-  if (f==='low')  list = list.filter(r => { const s=rStats(r); return s.pct>=80 && s.saldo>=0; });
-  if (f==='zero') list = list.filter(r => rStats(r).saldo <= 0);
-
-  const tbody = document.getElementById('tbodyR');
-  if (!list.length) {
-    tbody.innerHTML = `<tr><td colspan="7">${emptyState('Ningún cliente',q?'Sin resultados para esa búsqueda':'Añade el primer cliente con el botón superior')}</td></tr>`;
-    return;
-  }
-  tbody.innerHTML = list.map(r => {
-    const {ingreso,gasto,saldo,pct} = rStats(r);
-    const fillCls = saldo<0?'fill-danger':pct>=80?'fill-danger':pct>=50?'fill-warn':'fill-ok';
-    const tagCls  = saldo<0?'tag-red':pct>=80?'tag-orange':'tag-ok';
-    const tagTxt  = saldo<0?'EXCEDIDO':pct>=80?'BAJO':'OK';
-    return `<tr class="row-click" onclick="openDrawerR('${r.id}')">
+  const q=document.getElementById('searchR').value.trim().toLowerCase();
+  const f=document.getElementById('filtR').value;
+  let list=db.rapels.filter(r=>!q||r.nombre.toLowerCase().includes(q));
+  if(f==='ok')   list=list.filter(r=>rStats(r).saldo>0&&rStats(r).pct<80);
+  if(f==='low')  list=list.filter(r=>{const s=rStats(r);return s.pct>=80&&s.saldo>=0;});
+  if(f==='zero') list=list.filter(r=>rStats(r).saldo<=0);
+  const tb=document.getElementById('tbodyR');
+  if(!list.length){tb.innerHTML=`<tr><td colspan="7">${emptyState('Ningún cliente',q?'Sin resultados':'Sin clientes aún')}</td></tr>`;return;}
+  tb.innerHTML=list.map(r=>{
+    const {ingreso,gasto,saldo,pct}=rStats(r);
+    const fc=saldo<0?'fill-danger':pct>=80?'fill-danger':pct>=50?'fill-warn':'fill-ok';
+    const tc=saldo<0?'tag-red':pct>=80?'tag-orange':'tag-ok';
+    const tt=saldo<0?'EXCEDIDO':pct>=80?'BAJO':'OK';
+    return`<tr class="row-click" onclick="openDrawerR('${r.id}')">
       <td><strong>${r.nombre}</strong></td>
       <td>${eur(ingreso)}</td>
       <td style="color:var(--accent)">${eur(gasto)}</td>
       <td style="font-weight:700;color:${saldo<0?'var(--accent)':saldo===0?'var(--text-dim)':'var(--green)'}">${eur(saldo)}</td>
-      <td><div class="prog"><div class="prog-track"><div class="prog-fill ${fillCls}" style="width:${pct}%"></div></div><div class="prog-pct">${pct.toFixed(0)}% usado</div></div></td>
+      <td><div class="prog"><div class="prog-track"><div class="prog-fill ${fc}" style="width:${pct}%"></div></div><div class="prog-pct">${pct.toFixed(0)}% usado</div></div></td>
       <td><span class="tag tag-gray">${(r.movimientos||[]).length} mov.</span></td>
-      <td><span class="tag ${tagCls}">${tagTxt}</span></td>
+      <td><span class="tag ${tc}">${tt}</span></td>
     </tr>`;
   }).join('');
+  updateBadges();
 }
 
 // ══ PUNTOS TABLE ══
 function renderPuntos() {
-  const q = document.getElementById('searchP').value.trim().toLowerCase();
-  const f = document.getElementById('filtP').value;
-  document.getElementById('badgeP').textContent = db.puntos.length;
-
-  let list = db.puntos.filter(p => !q || p.nombre.toLowerCase().includes(q));
-  if (f==='pos')  list = list.filter(p => pStats(p).saldo > 0);
-  if (f==='zero') list = list.filter(p => pStats(p).saldo === 0);
-
-  const tbody = document.getElementById('tbodyP');
-  if (!list.length) {
-    tbody.innerHTML = `<tr><td colspan="7">${emptyState('Ningún cliente',q?'Sin resultados para esa búsqueda':'Añade el primer cliente con el botón superior')}</td></tr>`;
-    return;
-  }
-  tbody.innerHTML = list.map(p => {
-    const {ganado,canjeado,saldo} = pStats(p);
-    return `<tr class="row-click" onclick="openDrawerP('${p.id}')">
+  const q=document.getElementById('searchP').value.trim().toLowerCase();
+  const f=document.getElementById('filtP').value;
+  let list=db.puntos.filter(p=>!q||p.nombre.toLowerCase().includes(q));
+  if(f==='pos')  list=list.filter(p=>pStats(p).saldo>0);
+  if(f==='zero') list=list.filter(p=>pStats(p).saldo===0);
+  const tb=document.getElementById('tbodyP');
+  if(!list.length){tb.innerHTML=`<tr><td colspan="7">${emptyState('Ningún cliente',q?'Sin resultados':'Sin clientes aún')}</td></tr>`;return;}
+  tb.innerHTML=list.map(p=>{
+    const{ganado,canjeado,saldo}=pStats(p);
+    return`<tr class="row-click" onclick="openDrawerP('${p.id}')">
       <td><strong>${p.nombre}</strong></td>
       <td style="color:var(--orange)">${pts(ganado)}</td>
       <td style="color:var(--blue)">${pts(canjeado)}</td>
@@ -677,98 +686,103 @@ function renderPuntos() {
       <td><span class="tag ${saldo>0?'tag-orange':'tag-gray'}">${saldo>0?'CON SALDO':'SIN SALDO'}</span></td>
     </tr>`;
   }).join('');
+  updateBadges();
 }
 
 // ══ HISTÓRICO ══
+function buildHistClientFilter() {
+  const sel=document.getElementById('filtHCliente');
+  const cur=sel.value;
+  const names=[...new Set([...db.rapels.map(r=>r.nombre),...db.puntos.map(p=>p.nombre)])].sort();
+  sel.innerHTML=`<option value="">Todos los clientes</option>`+names.map(n=>`<option value="${n}"${n===cur?' selected':''}>${n}</option>`).join('');
+}
+
+function onHistTypeChange() {
+  const t=document.getElementById('filtHType').value;
+  const m=document.getElementById('filtHMov');
+  const all=`<option value="all">Todos los tipos</option>`;
+  if(t==='rapel')  m.innerHTML=all+`<option value="INGRESO">Ingresos</option><option value="GASTO">Gastos</option>`;
+  else if(t==='puntos') m.innerHTML=all+`<option value="GANADO">Ganados</option><option value="CANJEADO">Canjeados</option>`;
+  else m.innerHTML=all+`<option value="INGRESO">Ingresos</option><option value="GASTO">Gastos</option><option value="GANADO">Ganados</option><option value="CANJEADO">Canjeados</option>`;
+  renderHist();
+}
+
 function renderHist() {
-  const q = document.getElementById('searchH').value.trim().toLowerCase();
-  const fType = document.getElementById('filtHType').value;
-  const fMov  = document.getElementById('filtHMov').value;
+  const q=document.getElementById('searchH').value.trim().toLowerCase();
+  const fCli=document.getElementById('filtHCliente').value;
+  const fType=document.getElementById('filtHType').value;
+  const fMov=document.getElementById('filtHMov').value;
+  let items=[];
 
-  let items = [];
-
-  if (fType!=='puntos') {
-    db.rapels.forEach(r => {
-      (r.movimientos||[]).forEach(m => {
-        if (fMov!=='all' && m.tipo!==fMov) return;
-        if (q && !r.nombre.toLowerCase().includes(q) && !m.albaran?.toLowerCase().includes(q)) return;
-        items.push({ sistema:'RAPEL', cliente:r.nombre, cid:r.id, ...m, _cantidad: eur(m.importe) });
+  if(fType!=='puntos') {
+    db.rapels.forEach(r=>{
+      if(fCli && r.nombre!==fCli) return;
+      (r.movimientos||[]).forEach(m=>{
+        if(fMov!=='all'&&m.tipo!==fMov) return;
+        if(q&&!r.nombre.toLowerCase().includes(q)&&!(m.albaran||'').toLowerCase().includes(q)&&!(m.notas||'').toLowerCase().includes(q)) return;
+        items.push({sistema:'RAPEL',cliente:r.nombre,cid:r.id,...m,_qty:eur(m.importe)});
       });
     });
   }
-  if (fType!=='rapel') {
-    db.puntos.forEach(p => {
-      (p.movimientos||[]).forEach(m => {
-        if (fMov!=='all' && m.tipo!==fMov) return;
-        if (q && !p.nombre.toLowerCase().includes(q) && !m.referencia?.toLowerCase().includes(q)) return;
-        items.push({ sistema:'PUNTOS', cliente:p.nombre, cid:p.id, ...m, albaran:m.referencia, _cantidad: pts(m.puntos) });
+  if(fType!=='rapel') {
+    db.puntos.forEach(p=>{
+      if(fCli && p.nombre!==fCli) return;
+      (p.movimientos||[]).forEach(m=>{
+        if(fMov!=='all'&&m.tipo!==fMov) return;
+        if(q&&!p.nombre.toLowerCase().includes(q)&&!(m.referencia||'').toLowerCase().includes(q)&&!(m.notas||'').toLowerCase().includes(q)) return;
+        items.push({sistema:'PUNTOS',cliente:p.nombre,cid:p.id,...m,albaran:m.referencia,_qty:pts(m.puntos)});
       });
     });
   }
 
-  items.sort((a,b) => (b.fecha||'').localeCompare(a.fecha||''));
-
-  const el = document.getElementById('histList');
-  if (!items.length) {
-    el.innerHTML = emptyState('Sin movimientos', 'No hay movimientos con los filtros seleccionados');
-    return;
-  }
-
-  const tagMap = { INGRESO:'tag-ingreso', GASTO:'tag-gasto', GANADO:'tag-ganado', CANJEADO:'tag-canjeado' };
-  const sysTag = { RAPEL:'tag-blue', PUNTOS:'tag-orange' };
-
-  el.innerHTML = items.map(m => `
+  items.sort((a,b)=>(b.created_at||'').localeCompare(a.created_at||''));
+  const el=document.getElementById('histList');
+  if(!items.length){el.innerHTML=emptyState('Sin movimientos','No hay movimientos con los filtros seleccionados');return;}
+  const tM={INGRESO:'tag-ingreso',GASTO:'tag-gasto',GANADO:'tag-ganado',CANJEADO:'tag-canjeado'};
+  const tS={RAPEL:'tag-blue',PUNTOS:'tag-orange'};
+  el.innerHTML=items.map(m=>`
     <div class="hist-item">
-      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim)">${m.fecha||'—'}</div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim)">${(m.fecha||m.created_at||'—').slice(0,10)}</div>
       <div><strong style="font-size:12px">${m.cliente}</strong></div>
-      <div style="font-size:12px">${m.albaran||'—'}<br><span style="font-size:10px;color:var(--text-dim)">${m.notas||m.descripcion||''}</span></div>
-      <span class="tag ${sysTag[m.sistema]}">${m.sistema}</span>
-      <span class="tag ${tagMap[m.tipo]||'tag-gray'}">${m.tipo}</span>
-      <div style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;text-align:right">${m._cantidad}</div>
-    </div>
-  `).join('');
+      <div style="font-size:12px">${m.albaran||'—'}<br><span style="font-size:10px;color:var(--text-dim)">${m.notas||''}</span></div>
+      <span class="tag ${tS[m.sistema]}">${m.sistema}</span>
+      <span class="tag ${tM[m.tipo]||'tag-gray'}">${m.tipo}</span>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;text-align:right">${m._qty}</div>
+    </div>`).join('');
 }
 
 // ══ EMPTY STATE ══
-function emptyState(title, sub) {
-  return `<div class="empty">
-    <div class="empty-icon"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="8" y="8" width="24" height="24" rx="3"/><path d="M14 20h12M14 15h12M14 25h7"/></svg></div>
-    <div class="empty-title">${title}</div>
-    <div class="empty-sub">${sub}</div>
-  </div>`;
-}
+function emptyState(title,sub){return`<div class="empty"><div class="empty-icon"><svg width="40" height="40" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="8" y="8" width="24" height="24" rx="3"/><path d="M14 20h12M14 15h12M14 25h7"/></svg></div><div class="empty-title">${title}</div><div class="empty-sub">${sub}</div></div>`;}
 
 // ══ DRAWER RAPEL ══
 function openDrawerR(id) {
-  activeR = id;
-  const r = db.rapels.find(x=>x.id===id);
-  if (!r) return;
-  const {ingreso,gasto,saldo} = rStats(r);
-  document.getElementById('drRNom').textContent = r.nombre;
-  document.getElementById('drRSub').textContent = `${(r.movimientos||[]).length} movimientos · Bolsa de herramienta`;
-  document.getElementById('drRSum').innerHTML = `
+  activeR=id;
+  const r=db.rapels.find(x=>x.id===id); if(!r) return;
+  const{ingreso,gasto,saldo}=rStats(r);
+  document.getElementById('drRNom').textContent=r.nombre;
+  document.getElementById('drRSub').textContent=`${(r.movimientos||[]).length} movimientos · Bolsa herramienta`;
+  document.getElementById('drRSum').innerHTML=`
     <div class="sum-card"><div class="sum-label">Total bolsa</div><div class="sum-val">${eur(ingreso)}</div></div>
     <div class="sum-card"><div class="sum-label">Consumido</div><div class="sum-val" style="color:var(--accent)">${eur(gasto)}</div></div>
-    <div class="sum-card"><div class="sum-label">Saldo</div><div class="sum-val" style="color:${saldo<0?'var(--accent)':'var(--green)'}">${eur(saldo)}</div></div>
-  `;
-  document.getElementById('drRFec').value = today();
-  document.getElementById('drRAlb').value = '';
-  document.getElementById('drRImp').value = '';
-  document.getElementById('drRNot').value = '';
+    <div class="sum-card"><div class="sum-label">Saldo</div><div class="sum-val" style="color:${saldo<0?'var(--accent)':'var(--green)'}">${eur(saldo)}</div></div>`;
+  document.getElementById('drRFec').value=today();
+  document.getElementById('drRAlb').value='';
+  document.getElementById('drRImp').value='';
+  document.getElementById('drRNot').value='';
   renderRMovs(r);
   document.getElementById('bgR').classList.add('open');
   document.getElementById('drR').classList.add('open');
 }
 
 function renderRMovs(r) {
-  const el = document.getElementById('drRMovs');
-  const movs = [...(r.movimientos||[])].reverse();
-  if (!movs.length) { el.innerHTML = emptyState('Sin movimientos','Añade el primer movimiento'); return; }
-  const tagCls = { INGRESO:'tag-ingreso', GASTO:'tag-gasto' };
-  el.innerHTML = movs.map(m => `
+  const el=document.getElementById('drRMovs');
+  const movs=[...(r.movimientos||[])].reverse();
+  if(!movs.length){el.innerHTML=emptyState('Sin movimientos','Añade el primer movimiento');return;}
+  const tc={INGRESO:'tag-ingreso',GASTO:'tag-gasto'};
+  el.innerHTML=movs.map(m=>`
     <div class="mov-item">
       <div>
-        <div class="mov-ref"><span class="tag ${tagCls[m.tipo]}">${m.tipo}</span> ${m.albaran||'—'}</div>
+        <div class="mov-ref"><span class="tag ${tc[m.tipo]}">${m.tipo}</span> ${m.albaran||'—'}</div>
         <div class="mov-desc">${m.notas||''} ${m.fecha?'· '+m.fecha:''}</div>
       </div>
       <div class="mov-amount" style="color:${m.tipo==='GASTO'?'var(--accent)':'var(--green)'}">${m.tipo==='GASTO'?'-':'+'} ${eur(m.importe)}</div>
@@ -780,27 +794,37 @@ function renderRMovs(r) {
           <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2 2.5h7M4 2.5V2a.3.3 0 0 1 .3-.3h2.4a.3.3 0 0 1 .3.3v.5M8.5 2.5l-.5 6.2a.5.5 0 0 1-.5.5H3.5a.5.5 0 0 1-.5-.5L2.5 2.5"/></svg>
         </button>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-function addRMov() {
-  const r = db.rapels.find(x=>x.id===activeR);
-  if (!r) return;
-  const alb = document.getElementById('drRAlb').value.trim();
-  const imp = parseFloat(document.getElementById('drRImp').value);
-  if (!alb || isNaN(imp) || imp<=0) { alert('Introduce albarán e importe válidos'); return; }
-  if (!r.movimientos) r.movimientos = [];
-  r.movimientos.push({ id:uid(), tipo:document.getElementById('drRTipo').value, albaran:alb, importe:imp, fecha:document.getElementById('drRFec').value, notas:document.getElementById('drRNot').value.trim() });
-  save(); openDrawerR(activeR); renderRapels(); renderDashboard();
+async function addRMov() {
+  const r=db.rapels.find(x=>x.id===activeR); if(!r) return;
+  const alb=document.getElementById('drRAlb').value.trim();
+  const imp=parseFloat(document.getElementById('drRImp').value);
+  if(!alb||isNaN(imp)||imp===0){alert('Introduce albarán e importe válidos');return;}
+  setStatus('Guardando...');
+  const{data,error}=await sb.from('movimientos_rapel').insert({
+    cliente_id:r.id, tipo:document.getElementById('drRTipo').value,
+    albaran:alb, importe:imp,
+    fecha:document.getElementById('drRFec').value||null,
+    notas:document.getElementById('drRNot').value.trim()
+  }).select();
+  if(error){alert('Error: '+error.message);setStatus('Error','err');return;}
+  r.movimientos.push(data[0]);
+  setStatus('Online','saved');
+  openDrawerR(activeR); renderRapels(); renderDashboard();
 }
 
-function delRMov(rid, mid, e) {
+async function delRMov(rid,mid,e) {
   e.stopPropagation();
-  if (!confirm('¿Eliminar este movimiento?')) return;
-  const r = db.rapels.find(x=>x.id===rid);
-  r.movimientos = r.movimientos.filter(m=>m.id!==mid);
-  save(); openDrawerR(rid); renderRapels(); renderDashboard();
+  if(!confirm('¿Eliminar este movimiento?')) return;
+  setStatus('Guardando...');
+  const{error}=await sb.from('movimientos_rapel').delete().eq('id',mid);
+  if(error){alert('Error: '+error.message);setStatus('Error','err');return;}
+  const r=db.rapels.find(x=>x.id===rid);
+  r.movimientos=r.movimientos.filter(m=>m.id!==mid);
+  setStatus('Online','saved');
+  openDrawerR(rid); renderRapels(); renderDashboard();
 }
 
 function closeDrawer(t) {
@@ -810,35 +834,33 @@ function closeDrawer(t) {
 
 // ══ DRAWER PUNTOS ══
 function openDrawerP(id) {
-  activeP = id;
-  const p = db.puntos.find(x=>x.id===id);
-  if (!p) return;
-  const {ganado,canjeado,saldo} = pStats(p);
-  document.getElementById('drPNom').textContent = p.nombre;
-  document.getElementById('drPSub').textContent = `${(p.movimientos||[]).length} movimientos · Fidelización`;
-  document.getElementById('drPSum').innerHTML = `
+  activeP=id;
+  const p=db.puntos.find(x=>x.id===id); if(!p) return;
+  const{ganado,canjeado,saldo}=pStats(p);
+  document.getElementById('drPNom').textContent=p.nombre;
+  document.getElementById('drPSub').textContent=`${(p.movimientos||[]).length} movimientos · Fidelización`;
+  document.getElementById('drPSum').innerHTML=`
     <div class="sum-card"><div class="sum-label">Ganados</div><div class="sum-val" style="color:var(--orange)">${pts(ganado)}</div></div>
     <div class="sum-card"><div class="sum-label">Canjeados</div><div class="sum-val" style="color:var(--blue)">${pts(canjeado)}</div></div>
-    <div class="sum-card"><div class="sum-label">Saldo</div><div class="sum-val" style="color:${saldo>0?'var(--orange)':'var(--text-dim)'}">${pts(saldo)}</div></div>
-  `;
-  document.getElementById('drPFec').value = today();
-  document.getElementById('drPPts').value = '';
-  document.getElementById('drPRef').value = '';
-  document.getElementById('drPNot').value = '';
+    <div class="sum-card"><div class="sum-label">Saldo</div><div class="sum-val" style="color:${saldo>0?'var(--orange)':'var(--text-dim)'}">${pts(saldo)}</div></div>`;
+  document.getElementById('drPFec').value=today();
+  document.getElementById('drPPts').value='';
+  document.getElementById('drPRef').value='';
+  document.getElementById('drPNot').value='';
   renderPMovs(p);
   document.getElementById('bgP').classList.add('open');
   document.getElementById('drP').classList.add('open');
 }
 
 function renderPMovs(p) {
-  const el = document.getElementById('drPMovs');
-  const movs = [...(p.movimientos||[])].reverse();
-  if (!movs.length) { el.innerHTML = emptyState('Sin movimientos','Añade el primer movimiento'); return; }
-  const tagCls = { GANADO:'tag-ganado', CANJEADO:'tag-canjeado' };
-  el.innerHTML = movs.map(m => `
+  const el=document.getElementById('drPMovs');
+  const movs=[...(p.movimientos||[])].reverse();
+  if(!movs.length){el.innerHTML=emptyState('Sin movimientos','Añade el primer movimiento');return;}
+  const tc={GANADO:'tag-ganado',CANJEADO:'tag-canjeado'};
+  el.innerHTML=movs.map(m=>`
     <div class="mov-item">
       <div>
-        <div class="mov-ref"><span class="tag ${tagCls[m.tipo]}">${m.tipo}</span> ${m.referencia||'—'}</div>
+        <div class="mov-ref"><span class="tag ${tc[m.tipo]}">${m.tipo}</span> ${m.referencia||'—'}</div>
         <div class="mov-desc">${m.notas||''} ${m.fecha?'· '+m.fecha:''}</div>
       </div>
       <div class="mov-amount" style="color:${m.tipo==='CANJEADO'?'var(--blue)':'var(--orange)'}">${m.tipo==='CANJEADO'?'-':'+'} ${pts(m.puntos)}</div>
@@ -850,227 +872,213 @@ function renderPMovs(p) {
           <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2 2.5h7M4 2.5V2a.3.3 0 0 1 .3-.3h2.4a.3.3 0 0 1 .3.3v.5M8.5 2.5l-.5 6.2a.5.5 0 0 1-.5.5H3.5a.5.5 0 0 1-.5-.5L2.5 2.5"/></svg>
         </button>
       </div>
-    </div>
-  `).join('');
+    </div>`).join('');
 }
 
-function addPMov() {
-  const p = db.puntos.find(x=>x.id===activeP);
-  if (!p) return;
-  const puntos = parseInt(document.getElementById('drPPts').value);
-  if (isNaN(puntos) || puntos<=0) { alert('Introduce un número de puntos válido'); return; }
-  if (!p.movimientos) p.movimientos = [];
-  p.movimientos.push({ id:uid(), tipo:document.getElementById('drPTipo').value, puntos, referencia:document.getElementById('drPRef').value.trim(), fecha:document.getElementById('drPFec').value, notas:document.getElementById('drPNot').value.trim() });
-  save(); openDrawerP(activeP); renderPuntos(); renderDashboard();
+async function addPMov() {
+  const p=db.puntos.find(x=>x.id===activeP); if(!p) return;
+  const puntos=parseInt(document.getElementById('drPPts').value);
+  if(isNaN(puntos)||puntos<=0){alert('Introduce un número de puntos válido');return;}
+  setStatus('Guardando...');
+  const{data,error}=await sb.from('movimientos_puntos').insert({
+    cliente_id:p.id, tipo:document.getElementById('drPTipo').value,
+    puntos, referencia:document.getElementById('drPRef').value.trim(),
+    fecha:document.getElementById('drPFec').value||null,
+    notas:document.getElementById('drPNot').value.trim()
+  }).select();
+  if(error){alert('Error: '+error.message);setStatus('Error','err');return;}
+  p.movimientos.push(data[0]);
+  setStatus('Online','saved');
+  openDrawerP(activeP); renderPuntos(); renderDashboard();
 }
 
-function delPMov(pid, mid, e) {
+async function delPMov(pid,mid,e) {
   e.stopPropagation();
-  if (!confirm('¿Eliminar este movimiento?')) return;
-  const p = db.puntos.find(x=>x.id===pid);
-  p.movimientos = p.movimientos.filter(m=>m.id!==mid);
-  save(); openDrawerP(pid); renderPuntos(); renderDashboard();
-}
-
-// ══ NUEVO CLIENTE ══
-function openNewClient(mode) {
-  newClientMode = mode;
-  document.getElementById('mcTitle').textContent = mode==='rapel' ? 'Nuevo cliente · Rapel' : 'Nuevo cliente · Puntos';
-  document.getElementById('mcSub').textContent = mode==='rapel' ? 'Añadir taller al sistema de rapel de herramienta' : 'Añadir taller al sistema de puntos';
-  document.getElementById('mcNombre').value = '';
-  document.getElementById('mcNotas').value = '';
-  document.getElementById('ovlCliente').classList.add('open');
-  setTimeout(()=>document.getElementById('mcNombre').focus(),100);
-}
-
-function saveNewClient() {
-  const nombre = document.getElementById('mcNombre').value.trim().toUpperCase();
-  if (!nombre) { alert('El nombre es obligatorio'); return; }
-  const notas = document.getElementById('mcNotas').value.trim();
-  if (newClientMode==='rapel') {
-    if (db.rapels.find(r=>r.nombre===nombre)) { alert('Este cliente ya existe en rapels'); return; }
-    db.rapels.push({ id:uid(), nombre, notas, movimientos:[] });
-    db.rapels.sort((a,b)=>a.nombre.localeCompare(b.nombre));
-    save(); closeOverlay('ovlCliente'); renderRapels();
-  } else {
-    if (db.puntos.find(p=>p.nombre===nombre)) { alert('Este cliente ya existe en puntos'); return; }
-    db.puntos.push({ id:uid(), nombre, notas, movimientos:[] });
-    db.puntos.sort((a,b)=>a.nombre.localeCompare(b.nombre));
-    save(); closeOverlay('ovlCliente'); renderPuntos();
-  }
-  renderDashboard();
+  if(!confirm('¿Eliminar este movimiento?')) return;
+  setStatus('Guardando...');
+  const{error}=await sb.from('movimientos_puntos').delete().eq('id',mid);
+  if(error){alert('Error: '+error.message);setStatus('Error','err');return;}
+  const p=db.puntos.find(x=>x.id===pid);
+  p.movimientos=p.movimientos.filter(m=>m.id!==mid);
+  setStatus('Online','saved');
+  openDrawerP(pid); renderPuntos(); renderDashboard();
 }
 
 // ══ DELETE CLIENT ══
-function deleteClient(tipo) {
-  if (tipo==='rapel') {
-    const r = db.rapels.find(x=>x.id===activeR);
-    if (!r || !confirm(`¿Eliminar a ${r.nombre}?`)) return;
-    db.rapels = db.rapels.filter(x=>x.id!==activeR);
-    closeDrawer('R'); save(); renderRapels();
+async function deleteClient(tipo) {
+  if(tipo==='rapel') {
+    const r=db.rapels.find(x=>x.id===activeR);
+    if(!r||!confirm(`¿Eliminar a ${r.nombre}?`)) return;
+    setStatus('Guardando...');
+    const{error}=await sb.from('clientes_rapel').delete().eq('id',activeR);
+    if(error){alert('Error: '+error.message);setStatus('Error','err');return;}
+    db.rapels=db.rapels.filter(x=>x.id!==activeR);
+    closeDrawer('R');
   } else {
-    const p = db.puntos.find(x=>x.id===activeP);
-    if (!p || !confirm(`¿Eliminar a ${p.nombre}?`)) return;
-    db.puntos = db.puntos.filter(x=>x.id!==activeP);
-    closeDrawer('P'); save(); renderPuntos();
+    const p=db.puntos.find(x=>x.id===activeP);
+    if(!p||!confirm(`¿Eliminar a ${p.nombre}?`)) return;
+    setStatus('Guardando...');
+    const{error}=await sb.from('clientes_puntos').delete().eq('id',activeP);
+    if(error){alert('Error: '+error.message);setStatus('Error','err');return;}
+    db.puntos=db.puntos.filter(x=>x.id!==activeP);
+    closeDrawer('P');
   }
-  renderDashboard();
+  setStatus('Online','saved');
+  renderAll();
 }
 
-// ══ IMPORT CSV ══
-function openImport() {
-  document.getElementById('csvData').value='';
-  document.getElementById('importPrev').innerHTML='';
-  document.getElementById('ovlImport').classList.add('open');
+// ══ QUICK ACTION ══
+function openQuickAction(tipo, subtipo) {
+  quickMode={tipo,subtipo};
+  const labels={INGRESO:'Nuevo Rapel',GASTO:'Venta Rapel',GANADO:'Añadir Puntos',CANJEADO:'Vender Puntos'};
+  const subs={INGRESO:'Carga de bolsa de herramienta para un cliente',GASTO:'Consumo de bolsa de herramienta',GANADO:'Puntos ganados por compra de neumáticos',CANJEADO:'Canje de puntos por producto'};
+  document.getElementById('qaTitle').textContent=labels[subtipo];
+  document.getElementById('qaSub').textContent=subs[subtipo];
+
+  const isRapel=tipo==='rapel';
+  show('qaAlbRow',isRapel); show('qaImpRow',isRapel);
+  show('qaPtsRow',!isRapel); show('qaRefRow',!isRapel);
+
+  const list=isRapel?db.rapels:db.puntos;
+  const sel=document.getElementById('qaCliente');
+  sel.innerHTML=`<option value="">— Seleccionar cliente —</option>`+
+    list.map(c=>`<option value="${c.id}">${c.nombre}</option>`).join('')+
+    `<option value="__new__">＋ Nuevo cliente...</option>`;
+  sel.value='';
+  document.getElementById('qaNewRow').style.display='none';
+  document.getElementById('qaNewNombre').value='';
+  document.getElementById('qaAlb').value='';
+  document.getElementById('qaImp').value='';
+  document.getElementById('qaPts').value='';
+  document.getElementById('qaRef').value='';
+  document.getElementById('qaFec').value=today();
+  document.getElementById('qaNot').value='';
+
+  const btn=document.getElementById('qaBtn');
+  btn.className='btn btn-sm '+(subtipo==='GASTO'||subtipo==='CANJEADO'?'btn-danger':'btn-green');
+  btn.textContent='Guardar';
+
+  document.getElementById('ovlQuick').classList.add('open');
+  setTimeout(()=>sel.focus(),100);
 }
-function parseCSV(raw) {
-  return raw.trim().split('\n').filter(l=>l.trim()).map(line=>{
-    const p = line.split(';').map(s=>s.trim());
-    const nombre = p[0].toUpperCase();
-    const movimientos = [];
-    for (let i=1; i<p.length-1; i+=2) {
-      const alb = p[i]; const imp = parseFloat(p[i+1]?.replace(',','.'));
-      if (alb && !isNaN(imp)) movimientos.push({ id:uid(), tipo:i===1?'INGRESO':'GASTO', albaran:alb, importe:imp, fecha:'', notas:'' });
-    }
-    return { nombre, movimientos };
-  }).filter(x=>x.nombre);
+
+function onQaClienteChange() {
+  const v=document.getElementById('qaCliente').value;
+  document.getElementById('qaNewRow').style.display=v==='__new__'?'block':'none';
+  if(v==='__new__') setTimeout(()=>document.getElementById('qaNewNombre').focus(),50);
 }
-function prevImport() {
-  const data = parseCSV(document.getElementById('csvData').value);
-  document.getElementById('importPrev').innerHTML = data.length
-    ? `<div style="background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim);margin-bottom:14px">${data.length} clientes: ${data.map(d=>d.nombre).join(', ')}</div>`
-    : `<div style="color:var(--accent);font-family:'JetBrains Mono',monospace;font-size:11px;margin-bottom:14px">No se encontraron datos válidos</div>`;
-}
-function doImport() {
-  const data = parseCSV(document.getElementById('csvData').value);
-  if (!data.length) { alert('Sin datos'); return; }
-  let added=0, updated=0;
-  for (const d of data) {
-    const ex = db.rapels.find(r=>r.nombre===d.nombre);
-    if (ex) {
-      for (const m of d.movimientos) { if (!ex.movimientos.find(x=>x.albaran===m.albaran)) ex.movimientos.push(m); }
-      updated++;
+
+function show(id,v){document.getElementById(id).style.display=v?'':'none';}
+
+async function saveQuickAction() {
+  if(!quickMode) return;
+  const{tipo,subtipo}=quickMode;
+  let clienteId=document.getElementById('qaCliente').value;
+
+  if(clienteId==='__new__') {
+    const nombre=document.getElementById('qaNewNombre').value.trim().toUpperCase();
+    if(!nombre){alert('Introduce el nombre del cliente');return;}
+    setStatus('Guardando...');
+    if(tipo==='rapel') {
+      if(db.rapels.find(r=>r.nombre===nombre)){alert('Ya existe este cliente');return;}
+      const{data,error}=await sb.from('clientes_rapel').insert({nombre,ejercicio:2026,notas:''}).select();
+      if(error){alert('Error: '+error.message);setStatus('Error','err');return;}
+      const nc={...data[0],movimientos:[]};
+      db.rapels.push(nc); db.rapels.sort((a,b)=>a.nombre.localeCompare(b.nombre));
+      clienteId=nc.id;
     } else {
-      db.rapels.push({ id:uid(), nombre:d.nombre, notas:'', movimientos:d.movimientos });
-      added++;
+      if(db.puntos.find(p=>p.nombre===nombre)){alert('Ya existe este cliente');return;}
+      const{data,error}=await sb.from('clientes_puntos').insert({nombre,notas:''}).select();
+      if(error){alert('Error: '+error.message);setStatus('Error','err');return;}
+      const nc={...data[0],movimientos:[]};
+      db.puntos.push(nc); db.puntos.sort((a,b)=>a.nombre.localeCompare(b.nombre));
+      clienteId=nc.id;
     }
   }
-  db.rapels.sort((a,b)=>a.nombre.localeCompare(b.nombre));
-  save(); closeOverlay('ovlImport'); renderRapels(); renderDashboard();
-  alert(`Importados: ${added} nuevos · ${updated} actualizados`);
+
+  if(!clienteId){alert('Selecciona un cliente');return;}
+  const fecha=document.getElementById('qaFec').value||null;
+  const notas=document.getElementById('qaNot').value.trim();
+
+  setStatus('Guardando...');
+  if(tipo==='rapel') {
+    const alb=document.getElementById('qaAlb').value.trim();
+    const imp=parseFloat(document.getElementById('qaImp').value);
+    if(!alb||isNaN(imp)||imp===0){alert('Introduce albarán e importe válidos');return;}
+    const{data,error}=await sb.from('movimientos_rapel').insert({cliente_id:clienteId,tipo:subtipo,albaran:alb,importe:imp,fecha,notas}).select();
+    if(error){alert('Error: '+error.message);setStatus('Error','err');return;}
+    const r=db.rapels.find(x=>x.id===clienteId);
+    if(r) r.movimientos.push(data[0]);
+  } else {
+    const puntos=parseInt(document.getElementById('qaPts').value);
+    const referencia=document.getElementById('qaRef').value.trim();
+    if(isNaN(puntos)||puntos<=0){alert('Introduce un número de puntos válido');return;}
+    const{data,error}=await sb.from('movimientos_puntos').insert({cliente_id:clienteId,tipo:subtipo,puntos,referencia,fecha,notas}).select();
+    if(error){alert('Error: '+error.message);setStatus('Error','err');return;}
+    const p=db.puntos.find(x=>x.id===clienteId);
+    if(p) p.movimientos.push(data[0]);
+  }
+
+  setStatus('Online','saved');
+  closeOverlay('ovlQuick');
+  renderAll();
 }
 
 // ══ PRINT ══
-function printDoc(html) {
-  const w = window.open('','_blank','width=800,height=600');
-  w.document.write(html); w.document.close();
-  setTimeout(()=>{ w.focus(); w.print(); }, 300);
+function printDoc(html){const w=window.open('','_blank','width=800,height=600');w.document.write(html);w.document.close();setTimeout(()=>{w.focus();w.print();},300);}
+function printHeader(cliente,titulo,subtitulo){return`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${titulo}</title><style>body{font-family:Arial,sans-serif;margin:0;padding:32px;color:#000}.header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #E20613;padding-bottom:16px;margin-bottom:24px}.logo-area h1{font-size:22px;font-weight:900;margin:0;color:#E20613}.logo-area p{font-size:11px;color:#666;margin:2px 0}.doc-info{text-align:right;font-size:12px;color:#444}.doc-title{font-size:18px;font-weight:700;margin-bottom:16px;color:#002D5A}.cliente-box{background:#f4f4f4;border:1px solid #ddd;border-radius:6px;padding:12px 16px;margin-bottom:20px}.cliente-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#666;margin-bottom:4px}.cliente-nombre{font-size:16px;font-weight:700}table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px}th{background:#002D5A;color:#fff;padding:8px 12px;text-align:left;font-size:11px;text-transform:uppercase}td{padding:8px 12px;border-bottom:1px solid #eee}tr:last-child td{border-bottom:2px solid #002D5A}.total-row td{font-weight:700;font-size:13px;background:#f9f9f9}.footer{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px}.firma-box{border-top:1px solid #000;padding-top:6px;font-size:11px;color:#666;text-align:center}@media print{body{padding:20px}}</style></head><body><div class="header"><div class="logo-area"><h1>RECAMBIOS IBIZA</h1><p>Gestión · Rapels & Puntos</p></div><div class="doc-info"><div>${titulo}</div><div style="font-size:11px;color:#888">${new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'})}</div></div></div><div class="doc-title">${subtitulo}</div><div class="cliente-box"><div class="cliente-label">Cliente</div><div class="cliente-nombre">${cliente}</div></div>`;}
+
+function printClientRapel(){
+  const r=db.rapels.find(x=>x.id===activeR); if(!r) return;
+  const{ingreso,gasto,saldo}=rStats(r);
+  const movs=[...(r.movimientos||[])].sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
+  let h=printHeader(r.nombre,'EXTRACTO RAPEL DE HERRAMIENTA','Extracto de Bolsa de Herramienta');
+  h+=`<table><thead><tr><th>Fecha</th><th>Tipo</th><th>Albarán</th><th>Notas</th><th style="text-align:right">Importe</th></tr></thead><tbody>`;
+  for(const m of movs) h+=`<tr><td>${m.fecha||'—'}</td><td>${m.tipo}</td><td>${m.albaran||'—'}</td><td>${m.notas||''}</td><td style="text-align:right;font-weight:600;color:${m.tipo==='GASTO'?'#E20613':'#2e7d32'}">${m.tipo==='GASTO'?'-':'+'} ${eur(m.importe)}</td></tr>`;
+  h+=`<tr class="total-row"><td colspan="4"><strong>SALDO ACTUAL</strong></td><td style="text-align:right;color:${saldo<0?'#E20613':'#2e7d32'}">${eur(saldo)}</td></tr></tbody></table>`;
+  h+=`<div class="footer"><div class="firma-box">Firma cliente</div><div class="firma-box">Firma Recambios Ibiza</div></div></body></html>`;
+  printDoc(h);
 }
 
-function printHeader(cliente, titulo, subtitulo) {
-  return `<!DOCTYPE html><html><head><meta charset="UTF-8"><title>${titulo}</title>
-  <style>
-    body{font-family:Arial,sans-serif;margin:0;padding:32px;color:#000}
-    .header{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #E20613;padding-bottom:16px;margin-bottom:24px}
-    .logo-area h1{font-size:22px;font-weight:900;margin:0;color:#E20613}
-    .logo-area p{font-size:11px;color:#666;margin:2px 0}
-    .doc-info{text-align:right;font-size:12px;color:#444}
-    .doc-title{font-size:18px;font-weight:700;margin-bottom:16px;color:#002D5A}
-    .cliente-box{background:#f4f4f4;border:1px solid #ddd;border-radius:6px;padding:12px 16px;margin-bottom:20px}
-    .cliente-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#666;margin-bottom:4px}
-    .cliente-nombre{font-size:16px;font-weight:700}
-    table{width:100%;border-collapse:collapse;font-size:12px;margin-bottom:20px}
-    th{background:#002D5A;color:#fff;padding:8px 12px;text-align:left;font-size:11px;text-transform:uppercase}
-    td{padding:8px 12px;border-bottom:1px solid #eee}
-    tr:last-child td{border-bottom:2px solid #002D5A}
-    .total-row td{font-weight:700;font-size:13px;background:#f9f9f9}
-    .footer{margin-top:40px;display:grid;grid-template-columns:1fr 1fr;gap:40px}
-    .firma-box{border-top:1px solid #000;padding-top:6px;font-size:11px;color:#666;text-align:center}
-    @media print{body{padding:20px}}
-  </style></head><body>
-  <div class="header">
-    <div class="logo-area"><h1>RECAMBIOS IBIZA</h1><p>Gestión · Rapels & Puntos</p></div>
-    <div class="doc-info"><div>${titulo}</div><div style="font-size:11px;color:#888">${new Date().toLocaleDateString('es-ES',{day:'2-digit',month:'2-digit',year:'numeric'})}</div></div>
-  </div>
-  <div class="doc-title">${subtitulo}</div>
-  <div class="cliente-box"><div class="cliente-label">Cliente</div><div class="cliente-nombre">${cliente}</div></div>`;
+function printClientPuntos(){
+  const p=db.puntos.find(x=>x.id===activeP); if(!p) return;
+  const{ganado,canjeado,saldo}=pStats(p);
+  const movs=[...(p.movimientos||[])].sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
+  let h=printHeader(p.nombre,'EXTRACTO DE PUNTOS','Extracto Puntos de Fidelización');
+  h+=`<table><thead><tr><th>Fecha</th><th>Tipo</th><th>Referencia</th><th>Descripción</th><th style="text-align:right">Puntos</th></tr></thead><tbody>`;
+  for(const m of movs) h+=`<tr><td>${m.fecha||'—'}</td><td>${m.tipo}</td><td>${m.referencia||'—'}</td><td>${m.notas||''}</td><td style="text-align:right;font-weight:600;color:${m.tipo==='CANJEADO'?'#1565c0':'#b45309'}">${m.tipo==='CANJEADO'?'-':'+'} ${pts(m.puntos)}</td></tr>`;
+  h+=`<tr class="total-row"><td colspan="4"><strong>SALDO ACTUAL</strong></td><td style="text-align:right">${pts(saldo)} (${ptsEur(saldo)})</td></tr></tbody></table>`;
+  h+=`<div class="footer"><div class="firma-box">Firma cliente</div><div class="firma-box">Firma Recambios Ibiza</div></div></body></html>`;
+  printDoc(h);
 }
 
-function printClientRapel() {
-  const r = db.rapels.find(x=>x.id===activeR);
-  if (!r) return;
-  const {ingreso,gasto,saldo} = rStats(r);
-  const movs = [...(r.movimientos||[])].sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
-  let html = printHeader(r.nombre, 'EXTRACTO RAPEL DE HERRAMIENTA', 'Extracto de Bolsa de Herramienta');
-  html += `<table><thead><tr><th>Fecha</th><th>Tipo</th><th>Albarán</th><th>Notas</th><th style="text-align:right">Importe</th></tr></thead><tbody>`;
-  for (const m of movs) {
-    html += `<tr><td>${m.fecha||'—'}</td><td>${m.tipo}</td><td>${m.albaran||'—'}</td><td>${m.notas||''}</td><td style="text-align:right;font-weight:600;color:${m.tipo==='GASTO'?'#E20613':'#2e7d32'}">${m.tipo==='GASTO'?'-':'+'} ${eur(m.importe)}</td></tr>`;
-  }
-  html += `<tr class="total-row"><td colspan="4"><strong>SALDO ACTUAL</strong></td><td style="text-align:right;color:${saldo<0?'#E20613':'#2e7d32'}">${eur(saldo)}</td></tr>`;
-  html += `</tbody></table>`;
-  html += `<div class="footer"><div class="firma-box">Firma cliente</div><div class="firma-box">Firma Recambios Ibiza</div></div></body></html>`;
-  printDoc(html);
-}
-
-function printClientPuntos() {
-  const p = db.puntos.find(x=>x.id===activeP);
-  if (!p) return;
-  const {ganado,canjeado,saldo} = pStats(p);
-  const movs = [...(p.movimientos||[])].sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
-  let html = printHeader(p.nombre, 'EXTRACTO DE PUNTOS', 'Extracto Puntos de Fidelización');
-  html += `<table><thead><tr><th>Fecha</th><th>Tipo</th><th>Referencia</th><th>Descripción</th><th style="text-align:right">Puntos</th></tr></thead><tbody>`;
-  for (const m of movs) {
-    html += `<tr><td>${m.fecha||'—'}</td><td>${m.tipo}</td><td>${m.referencia||'—'}</td><td>${m.notas||''}</td><td style="text-align:right;font-weight:600;color:${m.tipo==='CANJEADO'?'#1565c0':'#b45309'}">${m.tipo==='CANJEADO'?'-':'+'} ${pts(m.puntos)}</td></tr>`;
-  }
-  html += `<tr class="total-row"><td colspan="4"><strong>SALDO ACTUAL</strong></td><td style="text-align:right">${pts(saldo)} (${ptsEur(saldo)})</td></tr>`;
-  html += `</tbody></table>`;
-  html += `<div class="footer"><div class="firma-box">Firma cliente</div><div class="firma-box">Firma Recambios Ibiza</div></div></body></html>`;
-  printDoc(html);
-}
-
-function printRMov(rid, mid, e) {
+function printRMov(rid,mid,e){
   e.stopPropagation();
-  const r = db.rapels.find(x=>x.id===rid);
-  const m = r?.movimientos.find(x=>x.id===mid);
-  if (!r||!m) return;
-  const {saldo} = rStats(r);
-  let html = printHeader(r.nombre, `${m.tipo} RAPEL · ${m.albaran||''}`, `Justificante de ${m.tipo}`);
-  html += `<table><thead><tr><th>Campo</th><th>Valor</th></tr></thead><tbody>
-    <tr><td>Tipo</td><td><strong>${m.tipo}</strong></td></tr>
-    <tr><td>Albarán</td><td>${m.albaran||'—'}</td></tr>
-    <tr><td>Fecha</td><td>${m.fecha||'—'}</td></tr>
-    <tr><td>Notas</td><td>${m.notas||'—'}</td></tr>
-    <tr class="total-row"><td>Importe</td><td style="color:${m.tipo==='GASTO'?'#E20613':'#2e7d32'};font-size:15px">${m.tipo==='GASTO'?'-':'+'} ${eur(m.importe)}</td></tr>
-    <tr><td>Saldo bolsa tras movimiento</td><td>${eur(saldo)}</td></tr>
-  </tbody></table>`;
-  html += `<div class="footer"><div class="firma-box">Firma cliente</div><div class="firma-box">Firma Recambios Ibiza</div></div></body></html>`;
-  printDoc(html);
+  const r=db.rapels.find(x=>x.id===rid);
+  const m=r?.movimientos.find(x=>x.id===mid); if(!r||!m) return;
+  const{saldo}=rStats(r);
+  let h=printHeader(r.nombre,`${m.tipo} RAPEL · ${m.albaran||''}`,`Justificante de ${m.tipo}`);
+  h+=`<table><thead><tr><th>Campo</th><th>Valor</th></tr></thead><tbody><tr><td>Tipo</td><td><strong>${m.tipo}</strong></td></tr><tr><td>Albarán</td><td>${m.albaran||'—'}</td></tr><tr><td>Fecha</td><td>${m.fecha||'—'}</td></tr><tr><td>Notas</td><td>${m.notas||'—'}</td></tr><tr class="total-row"><td>Importe</td><td style="color:${m.tipo==='GASTO'?'#E20613':'#2e7d32'};font-size:15px">${m.tipo==='GASTO'?'-':'+'} ${eur(m.importe)}</td></tr><tr><td>Saldo bolsa</td><td>${eur(saldo)}</td></tr></tbody></table>`;
+  h+=`<div class="footer"><div class="firma-box">Firma cliente</div><div class="firma-box">Firma Recambios Ibiza</div></div></body></html>`;
+  printDoc(h);
 }
 
-function printPMov(pid, mid, e) {
+function printPMov(pid,mid,e){
   e.stopPropagation();
-  const p = db.puntos.find(x=>x.id===pid);
-  const m = p?.movimientos.find(x=>x.id===mid);
-  if (!p||!m) return;
-  const {saldo} = pStats(p);
-  let html = printHeader(p.nombre, `${m.tipo} PUNTOS · ${m.referencia||''}`, `Justificante de ${m.tipo}`);
-  html += `<table><thead><tr><th>Campo</th><th>Valor</th></tr></thead><tbody>
-    <tr><td>Tipo</td><td><strong>${m.tipo}</strong></td></tr>
-    <tr><td>Referencia</td><td>${m.referencia||'—'}</td></tr>
-    <tr><td>Fecha</td><td>${m.fecha||'—'}</td></tr>
-    <tr><td>Descripción</td><td>${m.notas||'—'}</td></tr>
-    <tr class="total-row"><td>Puntos</td><td style="font-size:15px">${m.tipo==='CANJEADO'?'-':'+'} ${pts(m.puntos)} (${ptsEur(m.puntos)})</td></tr>
-    <tr><td>Saldo tras movimiento</td><td>${pts(saldo)} · ${ptsEur(saldo)}</td></tr>
-  </tbody></table>`;
-  html += `<div class="footer"><div class="firma-box">Firma cliente</div><div class="firma-box">Firma Recambios Ibiza</div></div></body></html>`;
-  printDoc(html);
+  const p=db.puntos.find(x=>x.id===pid);
+  const m=p?.movimientos.find(x=>x.id===mid); if(!p||!m) return;
+  const{saldo}=pStats(p);
+  let h=printHeader(p.nombre,`${m.tipo} PUNTOS · ${m.referencia||''}`,`Justificante de ${m.tipo}`);
+  h+=`<table><thead><tr><th>Campo</th><th>Valor</th></tr></thead><tbody><tr><td>Tipo</td><td><strong>${m.tipo}</strong></td></tr><tr><td>Referencia</td><td>${m.referencia||'—'}</td></tr><tr><td>Fecha</td><td>${m.fecha||'—'}</td></tr><tr><td>Descripción</td><td>${m.notas||'—'}</td></tr><tr class="total-row"><td>Puntos</td><td style="font-size:15px">${m.tipo==='CANJEADO'?'-':'+'} ${pts(m.puntos)} (${ptsEur(m.puntos)})</td></tr><tr><td>Saldo</td><td>${pts(saldo)} · ${ptsEur(saldo)}</td></tr></tbody></table>`;
+  h+=`<div class="footer"><div class="firma-box">Firma cliente</div><div class="firma-box">Firma Recambios Ibiza</div></div></body></html>`;
+  printDoc(h);
 }
 
 // ══ UTILS ══
-function today() { return new Date().toISOString().slice(0,10); }
-function closeOverlay(id) { document.getElementById(id).classList.remove('open'); }
-document.addEventListener('keydown', e => {
-  if (e.key==='Escape') {
+function today(){return new Date().toISOString().slice(0,10);}
+function closeOverlay(id){document.getElementById(id).classList.remove('open');}
+document.addEventListener('keydown',e=>{
+  if(e.key==='Escape'){
     document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'));
     closeDrawer('R'); closeDrawer('P');
   }
@@ -1078,9 +1086,6 @@ document.addEventListener('keydown', e => {
 
 // ══ INIT ══
 load();
-renderDashboard();
-renderRapels();
-renderPuntos();
 </script>
 </body>
 </html>
