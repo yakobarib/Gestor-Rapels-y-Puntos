@@ -58,7 +58,7 @@
   .kpi-section{margin-bottom:10px}
   .kpi-section-label{font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:1.2px;color:var(--text-faint);margin-bottom:10px;display:flex;align-items:center;gap:8px}
   .kpi-section-label::after{content:'';flex:1;height:1px;background:var(--border)}
-  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;margin-bottom:20px}
   .kpi{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:18px 20px}
   .kpi-label{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
   .kpi-value{font-family:'JetBrains Mono',monospace;font-size:26px;font-weight:700}
@@ -160,6 +160,28 @@
   .empty-title{font-size:15px;font-weight:700;color:var(--text-dim);margin-bottom:6px}
   .empty-sub{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-faint)}
 
+  /* Sticky thead */
+  thead{position:sticky;top:0;z-index:5}
+  th{background:var(--surface2)!important}
+
+  /* Bloqueo */
+  .tag-blocked{background:rgba(245,158,11,.12);color:var(--orange);border:1px solid rgba(245,158,11,.3)}
+  .blk-banner{background:rgba(245,158,11,.07);border:1px solid rgba(245,158,11,.35);border-radius:8px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:flex-start;gap:10px}
+  .blk-icon{color:var(--orange);flex-shrink:0;margin-top:1px}
+  .blk-info{flex:1}
+  .blk-title{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--orange);text-transform:uppercase;letter-spacing:.5px;margin-bottom:3px}
+  .blk-sub{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);line-height:1.5}
+  tr.row-blocked td{opacity:.6}
+
+  /* Opciones popover */
+  .opts-wrap{position:relative}
+  .opts-pop{position:absolute;top:calc(100% + 6px);right:0;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:8px;box-shadow:0 8px 24px rgba(0,0,0,.35);z-index:500;display:none;min-width:190px}
+  .opts-pop.open{display:block}
+  .opts-label{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--text-faint);padding:4px 8px 6px}
+  .fs-opt{display:flex;align-items:center;justify-content:space-between;width:100%;padding:7px 10px;border:none;background:none;cursor:pointer;border-radius:6px;font-family:'Syne',sans-serif;font-size:12px;font-weight:600;color:var(--text-dim);transition:all .15s}
+  .fs-opt:hover{background:var(--surface2);color:var(--text)}
+  .fs-opt.active{background:var(--surface2);color:var(--accent)}
+
   ::-webkit-scrollbar{width:6px;height:6px}
   ::-webkit-scrollbar-track{background:var(--bg)}
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
@@ -249,6 +271,17 @@
       <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="5.5"/><path d="M5.5 5.5a1.5 1.5 0 0 1 3 .5c0 1-1.5 1.5-1.5 2.5"/><circle cx="7" cy="10.5" r=".5" fill="currentColor" stroke="none"/></svg>
       Ayuda
     </button>
+    <div class="opts-wrap">
+      <button class="icon-btn" onclick="toggleOpts()" title="Opciones">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="7.5" cy="7.5" r="1.8"/><path d="M7.5 1v1.5M7.5 12.5V14M1 7.5h1.5M12.5 7.5H14M3.2 3.2l1 1M10.8 10.8l1 1M11.8 3.2l-1 1M4.2 10.8l-1 1"/></svg>
+      </button>
+      <div class="opts-pop" id="optsPop">
+        <div class="opts-label">Tamaño de letra</div>
+        <button class="fs-opt" data-size="small" onclick="applyFontSize('small')">Pequeño <span style="opacity:.45;font-size:10px">85%</span></button>
+        <button class="fs-opt active" data-size="normal" onclick="applyFontSize('normal')">Normal <span style="opacity:.45;font-size:10px">100%</span></button>
+        <button class="fs-opt" data-size="large" onclick="applyFontSize('large')">Grande <span style="opacity:.45;font-size:10px">115%</span></button>
+      </div>
+    </div>
     <button class="icon-btn" id="themeBtn" onclick="toggleTheme()" title="Cambiar tema">
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" id="themeIcon"><circle cx="8" cy="8" r="3"/><path d="M8 1v1.5M8 13.5V15M1 8h1.5M13.5 8H15M3.2 3.2l1 1M11.8 11.8l1 1M12.8 3.2l-1 1M4.2 11.8l-1 1"/></svg>
     </button>
@@ -305,6 +338,10 @@
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 1v10M1 6h10"/></svg>
           Nuevo Rapel
         </button>
+        <button class="btn btn-sm" style="background:rgba(245,158,11,.12);color:var(--orange);border:1px solid rgba(245,158,11,.3)" onclick="openBloquear()">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="5.5" width="7" height="5.5" rx="1"/><path d="M4 5.5V4a2 2 0 0 1 4 0v1.5"/></svg>
+          Bloquear Rapel
+        </button>
         <button class="btn btn-danger btn-sm" onclick="openQuickAction('rapel','GASTO')">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 4v5M3.5 6.5L6 9l2.5-2.5"/><rect x="1.5" y="1.5" width="9" height="9" rx="1.5"/></svg>
           Venta Rapel
@@ -325,7 +362,7 @@
     <div class="tbl-wrap">
       <table>
         <thead><tr>
-          <th>Cliente</th><th>Total bolsa</th><th>Consumido</th><th>Saldo</th><th>Uso</th><th>Movimientos</th><th></th>
+          <th>Cliente</th><th>Total Rapel</th><th>Consumido</th><th>Saldo</th><th>Uso</th><th>Movimientos</th><th></th>
         </tr></thead>
         <tbody id="tbodyR"></tbody>
       </table>
@@ -574,6 +611,35 @@
         </div>
         <div class="help-about-footer">© 2026 Recambios Ibiza S.A. · AD Parts Distribución</div>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL BLOQUEAR -->
+<div class="overlay" id="ovlBloquear">
+  <div class="modal">
+    <div class="modal-title">Bloquear Rapel</div>
+    <div class="modal-sub">El cliente no podrá usar su bolsa hasta que se desbloquee manualmente</div>
+    <div class="fg">
+      <div class="fgr full">
+        <label>Cliente *</label>
+        <select id="blqCliente"></select>
+      </div>
+      <div class="fgr full">
+        <label>Bloqueado por *</label>
+        <input id="blqPor" placeholder="Tu nombre (obligatorio)">
+      </div>
+      <div class="fgr full">
+        <label>Motivo (opcional)</label>
+        <input id="blqMotivo" placeholder="Ej: Pagos pendientes, deuda vencida...">
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-ghost" onclick="closeOverlay('ovlBloquear')">Cancelar</button>
+      <button class="btn btn-sm" style="background:var(--orange);color:#fff;border:none;padding:9px 20px;font-size:13px" onclick="saveBloquear()">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" style="margin-right:4px"><rect x="2.5" y="5.5" width="7" height="5.5" rx="1"/><path d="M4 5.5V4a2 2 0 0 1 4 0v1.5"/></svg>
+        Bloquear
+      </button>
     </div>
   </div>
 </div>
@@ -845,10 +911,14 @@ function renderDashboard() {
   const tG=db.rapels.reduce((a,r)=>a+rStats(r).gasto,0);
   const tS=tI-tG;
   const pctU=tI>0?(tG/tI*100).toFixed(1):0;
+  const bloqClients = db.rapels.filter(r=>parseBloq(r.notas).bloqueado);
+  const tBloq = bloqClients.reduce((a,r)=>a+rStats(r).saldo,0);
+  const bloqKpi = bloqClients.length ? `<div class="kpi" style="border-color:rgba(245,158,11,.4);background:rgba(245,158,11,.05)"><div class="kpi-label" style="color:var(--orange)">🔒 Saldo bloqueado</div><div class="kpi-value c-orange">${eur(tBloq)}</div><div class="kpi-sub">${bloqClients.length} cliente${bloqClients.length>1?'s':''} bloqueado${bloqClients.length>1?'s':''}</div></div>` : '';
   document.getElementById('kpisRapel').innerHTML=`
-    <div class="kpi"><div class="kpi-label">Total bolsa</div><div class="kpi-value">${eur(tI)}</div><div class="kpi-sub">${db.rapels.length} clientes</div></div>
+    <div class="kpi"><div class="kpi-label">Total Rapel</div><div class="kpi-value">${eur(tI)}</div><div class="kpi-sub">${db.rapels.length} clientes</div></div>
     <div class="kpi"><div class="kpi-label">Consumido</div><div class="kpi-value c-accent">${eur(tG)}</div><div class="kpi-sub">${pctU}% del total</div></div>
-    <div class="kpi"><div class="kpi-label">Saldo pendiente</div><div class="kpi-value ${tS>=0?'c-green':'c-accent'}">${eur(tS)}</div><div class="kpi-sub">${db.rapels.filter(r=>rStats(r).saldo<0).length} clientes excedidos</div></div>`;
+    <div class="kpi"><div class="kpi-label">Saldo pendiente</div><div class="kpi-value ${tS>=0?'c-green':'c-accent'}">${eur(tS)}</div><div class="kpi-sub">${db.rapels.filter(r=>rStats(r).saldo<0).length} clientes excedidos</div></div>
+    ${bloqKpi}`;
 
   const tGan=db.puntos.reduce((a,p)=>a+pStats(p).ganado,0);
   const tCan=db.puntos.reduce((a,p)=>a+pStats(p).canjeado,0);
@@ -871,11 +941,12 @@ function renderRapels() {
   if(!list.length){tb.innerHTML=`<tr><td colspan="7">${emptyState('Ningún cliente',q?'Sin resultados':'Sin clientes aún')}</td></tr>`;return;}
   tb.innerHTML=list.map(r=>{
     const {ingreso,gasto,saldo,pct}=rStats(r);
+    const bloq=parseBloq(r.notas);
     const fc=saldo<0?'fill-danger':pct>=80?'fill-danger':pct>=50?'fill-warn':'fill-ok';
-    const tc=saldo<0?'tag-red':pct>=80?'tag-orange':'tag-ok';
-    const tt=saldo<0?'EXCEDIDO':pct>=80?'BAJO':'OK';
-    return`<tr class="row-click" onclick="openDrawerR('${r.id}')">
-      <td><strong>${r.nombre}</strong></td>
+    const tc=bloq.bloqueado?'tag-blocked':saldo<0?'tag-red':pct>=80?'tag-orange':'tag-ok';
+    const tt=bloq.bloqueado?'🔒 BLOQUEADO':saldo<0?'EXCEDIDO':pct>=80?'BAJO':'OK';
+    return`<tr class="row-click${bloq.bloqueado?' row-blocked':''}" onclick="openDrawerR('${r.id}')">
+      <td><strong>${r.nombre}</strong>${bloq.bloqueado?` <span style="font-size:10px;color:var(--orange);font-family:'JetBrains Mono',monospace">🔒</span>`:''}</td>
       <td>${eur(ingreso)}</td>
       <td style="color:var(--accent)">${eur(gasto)}</td>
       <td style="font-weight:700;color:${saldo<0?'var(--accent)':saldo===0?'var(--text-dim)':'var(--green)'}">${eur(saldo)}</td>
@@ -986,11 +1057,27 @@ function openDrawerR(id) {
   const r=db.rapels.find(x=>x.id===id); if(!r) return;
   const{ingreso,gasto,saldo}=rStats(r);
   document.getElementById('drRNom').textContent=r.nombre;
-  document.getElementById('drRSub').textContent=`${(r.movimientos||[]).length} movimientos · Bolsa herramienta`;
+  const bloq=parseBloq(r.notas);
+  document.getElementById('drRSub').textContent=`${(r.movimientos||[]).length} movimientos · Bolsa herramienta${bloq.bloqueado?' · 🔒 BLOQUEADO':''}`;
   document.getElementById('drRSum').innerHTML=`
-    <div class="sum-card"><div class="sum-label">Total bolsa</div><div class="sum-val">${eur(ingreso)}</div></div>
+    <div class="sum-card"><div class="sum-label">Total Rapel</div><div class="sum-val">${eur(ingreso)}</div></div>
     <div class="sum-card"><div class="sum-label">Consumido</div><div class="sum-val" style="color:var(--accent)">${eur(gasto)}</div></div>
     <div class="sum-card"><div class="sum-label">Saldo</div><div class="sum-val" style="color:${saldo<0?'var(--accent)':'var(--green)'}">${eur(saldo)}</div></div>`;
+  const addForm=document.querySelector('#drR .add-form');
+  const blqBanner=document.getElementById('drRBlqBanner');
+  if(blqBanner) blqBanner.remove();
+  if(bloq.bloqueado){
+    addForm.style.display='none';
+    const banner=document.createElement('div');
+    banner.id='drRBlqBanner';
+    banner.className='blk-banner';
+    banner.innerHTML=`<div class="blk-icon"><svg width="16" height="16" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="2.5" y="5.5" width="7" height="5.5" rx="1"/><path d="M4 5.5V4a2 2 0 0 1 4 0v1.5"/></svg></div>
+      <div class="blk-info"><div class="blk-title">Rapel bloqueado</div><div class="blk-sub">Por: <strong>${bloq.por||'—'}</strong> · ${bloq.fecha||''}<br>${bloq.motivo?'Motivo: '+bloq.motivo:''}</div></div>
+      <button class="btn btn-ghost btn-sm" onclick="desbloquear('${r.id}')">Desbloquear</button>`;
+    addForm.parentNode.insertBefore(banner, addForm);
+  } else {
+    addForm.style.display='';
+  }
   document.getElementById('drRFec').value=today();
   document.getElementById('drRAlb').value='';
   document.getElementById('drRImp').value='';
@@ -1258,7 +1345,7 @@ function printClientRapel(){
   const r=db.rapels.find(x=>x.id===activeR); if(!r) return;
   const{ingreso,gasto,saldo}=rStats(r);
   const movs=[...(r.movimientos||[])].sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
-  let h=printHeader(r.nombre,'EXTRACTO RAPEL DE HERRAMIENTA','Extracto de Bolsa de Herramienta');
+  let h=printHeader(r.nombre,'EXTRACTO RAPEL DE HERRAMIENTA','Extracto de Total Rapel');
   h+=`<table><thead><tr><th>Fecha</th><th>Tipo</th><th>Albarán</th><th>Notas</th><th style="text-align:right">Importe</th></tr></thead><tbody>`;
   for(const m of movs) h+=`<tr><td>${m.fecha||'—'}</td><td>${m.tipo}</td><td>${m.albaran||'—'}</td><td>${m.notas||''}</td><td style="text-align:right;font-weight:600;color:${m.tipo==='GASTO'?'#E20613':'#2e7d32'}">${m.tipo==='GASTO'?'-':'+'} ${eur(m.importe)}</td></tr>`;
   h+=`<tr class="total-row"><td colspan="4"><strong>SALDO ACTUAL</strong></td><td style="text-align:right;color:${saldo<0?'#E20613':'#2e7d32'}">${eur(saldo)}</td></tr></tbody></table>`;
@@ -1335,6 +1422,83 @@ function printPMov(pid,mid,e){
   h+=`<div class="footer"><div class="firma-box">Firma cliente</div><div class="firma-box">Firma Recambios Ibiza</div></div></body></html>`;
   printDoc(h);
 }
+
+// ══ BLOQUEO ══
+function parseBloq(notas) {
+  const m = (notas||'').match(/^__BLQ__({.*?})__BLQ__/s);
+  if (!m) return {bloqueado:false};
+  try { return {bloqueado:true, ...JSON.parse(m[1])}; } catch { return {bloqueado:false}; }
+}
+function applyBloqNotas(notas, por, motivo) {
+  const clean = removeBloqNotas(notas);
+  return '__BLQ__'+JSON.stringify({por,motivo,fecha:today()})+'__BLQ__'+(clean?'\n'+clean:'');
+}
+function removeBloqNotas(notas) {
+  return (notas||'').replace(/^__BLQ__.*?__BLQ__\n?/s,'').trim();
+}
+
+function openBloquear() {
+  const list = db.rapels.filter(r => !parseBloq(r.notas).bloqueado);
+  if (!list.length) { alert('No hay clientes desbloqueados'); return; }
+  const sel = document.getElementById('blqCliente');
+  sel.innerHTML = '<option value="">— Seleccionar cliente —</option>' + list.map(r=>`<option value="${r.id}">${r.nombre}</option>`).join('');
+  document.getElementById('blqPor').value = '';
+  document.getElementById('blqMotivo').value = '';
+  document.getElementById('ovlBloquear').classList.add('open');
+  setTimeout(()=>sel.focus(),100);
+}
+
+async function saveBloquear() {
+  const clienteId = document.getElementById('blqCliente').value;
+  const por = document.getElementById('blqPor').value.trim();
+  const motivo = document.getElementById('blqMotivo').value.trim();
+  if (!clienteId) { alert('Selecciona un cliente'); return; }
+  if (!por) { alert('El campo "Bloqueado por" es obligatorio'); return; }
+  const r = db.rapels.find(x=>x.id===clienteId); if (!r) return;
+  setSaving();
+  const newNotas = applyBloqNotas(r.notas, por, motivo);
+  const {error} = await sb.from('clientes_rapel').update({notas:newNotas}).eq('id',clienteId);
+  if (error) { alert('Error: '+error.message); setError(); return; }
+  r.notas = newNotas;
+  setSynced();
+  closeOverlay('ovlBloquear');
+  renderAll();
+}
+
+async function desbloquear(id) {
+  if (!confirm('¿Desbloquear este rapel?')) return;
+  const r = db.rapels.find(x=>x.id===id); if (!r) return;
+  setSaving();
+  const newNotas = removeBloqNotas(r.notas);
+  const {error} = await sb.from('clientes_rapel').update({notas:newNotas}).eq('id',id);
+  if (error) { alert('Error: '+error.message); setError(); return; }
+  r.notas = newNotas;
+  setSynced();
+  renderAll();
+  openDrawerR(id);
+}
+
+// ══ OPCIONES / TAMAÑO LETRA ══
+function toggleOpts() {
+  const p = document.getElementById('optsPop');
+  p.classList.toggle('open');
+}
+function applyFontSize(size) {
+  const scales = {small:0.87, normal:1, large:1.13};
+  document.querySelector('.app').style.zoom = scales[size] || 1;
+  localStorage.setItem('ri_rp_fontsize', size);
+  document.querySelectorAll('.fs-opt').forEach(b=>b.classList.toggle('active', b.dataset.size===size));
+  document.getElementById('optsPop').classList.remove('open');
+}
+(function(){
+  const s = localStorage.getItem('ri_rp_fontsize');
+  if (s && s!=='normal') applyFontSize(s);
+  else document.querySelectorAll('.fs-opt').forEach(b=>b.classList.toggle('active',b.dataset.size==='normal'));
+})();
+document.addEventListener('click', e => {
+  const pop = document.getElementById('optsPop');
+  if (pop && pop.classList.contains('open') && !pop.closest('.opts-wrap').contains(e.target)) pop.classList.remove('open');
+});
 
 // ══ AYUDA ══
 function openHelp() { document.getElementById('ovlHelp').classList.add('open'); }
