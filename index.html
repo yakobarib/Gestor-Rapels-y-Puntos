@@ -187,6 +187,20 @@
   ::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
   ::-webkit-scrollbar-thumb:hover{background:var(--text-dim)}
 
+  /* Calculadora de puntos */
+  .pts-calc{background:var(--surface2);border:1px solid var(--border);border-radius:8px;overflow:hidden;margin-top:4px}
+  .pts-calc-head{font-family:'JetBrains Mono',monospace;font-size:9px;text-transform:uppercase;letter-spacing:1px;color:var(--text-faint);padding:8px 12px 6px;border-bottom:1px solid var(--border)}
+  .pts-row{display:grid;grid-template-columns:1fr 80px 40px 60px;gap:8px;align-items:center;padding:8px 12px;border-bottom:1px solid var(--border)}
+  .pts-row:last-child{border-bottom:none}
+  .pts-label{font-family:'Syne',sans-serif;font-size:11px;font-weight:600;color:var(--text-dim)}
+  .pts-sub{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-faint);margin-top:1px}
+  .pts-qty{text-align:center;padding:5px 6px!important;font-size:12px!important;width:100%!important}
+  .pts-rate{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--text-faint);text-align:center}
+  .pts-result{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;color:var(--orange);text-align:right}
+  .pts-total-row{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;background:rgba(245,158,11,.07);border-top:2px solid rgba(245,158,11,.3)}
+  .pts-total-label{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:700;color:var(--text-dim);text-transform:uppercase;letter-spacing:.5px}
+  .pts-total-val{font-family:'JetBrains Mono',monospace;font-size:22px;font-weight:700;color:var(--orange)}
+
   .krafted{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-faint);margin-top:28px;text-align:center}
   .krafted span{color:#a8e63d;font-weight:700}
   [data-theme="light"] .krafted span{color:#002D5A}
@@ -720,13 +734,61 @@
         <label>Importe (€)</label>
         <input id="qaImp" type="number" min="0.01" step="0.01" placeholder="0.00">
       </div>
+      <!-- Calculadora (GANADO) -->
+      <div class="fgr full" id="qaCalcSection" style="display:none">
+        <label>Calculadora de puntos</label>
+        <div class="pts-calc">
+          <div class="pts-calc-head">Categoría · Cantidad · Ratio · Puntos</div>
+          <div class="pts-row">
+            <div><div class="pts-label">🏎 Neumáticos 1ª marca</div><div class="pts-sub">Continental, Goodyear, Firestone, Pirelli, Michelin, Bridgestone, Kumho</div></div>
+            <input class="pts-qty search-input" id="qaNeum1" type="number" min="0" step="1" placeholder="0" oninput="calcPoints()">
+            <div class="pts-rate">×3</div>
+            <div class="pts-result" id="resNeum1">0 pts</div>
+          </div>
+          <div class="pts-row">
+            <div><div class="pts-label">🏎 Neumáticos 2ª marca</div><div class="pts-sub">Sava, Leao Tire, Riken y resto de marcas</div></div>
+            <input class="pts-qty search-input" id="qaNeum2" type="number" min="0" step="1" placeholder="0" oninput="calcPoints()">
+            <div class="pts-rate">×2</div>
+            <div class="pts-result" id="resNeum2">0 pts</div>
+          </div>
+          <div class="pts-row">
+            <div><div class="pts-label">🔧 Carrocería</div><div class="pts-sub">Iluminación, retrovisores, chapa, paragolpes, radiadores...</div></div>
+            <input class="pts-qty search-input" id="qaCarr" type="number" min="0" step="0.01" placeholder="0 €" oninput="calcPoints()">
+            <div class="pts-rate">÷10</div>
+            <div class="pts-result" id="resCarr">0 pts</div>
+          </div>
+          <div class="pts-row">
+            <div><div class="pts-label">🛑 Pastillas de freno</div><div class="pts-sub">Por cada pack de pastillas</div></div>
+            <input class="pts-qty search-input" id="qaPast" type="number" min="0" step="1" placeholder="0" oninput="calcPoints()">
+            <div class="pts-rate">×2</div>
+            <div class="pts-result" id="resPast">0 pts</div>
+          </div>
+          <div class="pts-row">
+            <div><div class="pts-label">⚡ Alternadores / Arranques</div><div class="pts-sub">Por cada unidad</div></div>
+            <input class="pts-qty search-input" id="qaAlt" type="number" min="0" step="1" placeholder="0" oninput="calcPoints()">
+            <div class="pts-rate">×2</div>
+            <div class="pts-result" id="resAlt">0 pts</div>
+          </div>
+          <div class="pts-row">
+            <div><div class="pts-label">➕ Puntos adicionales</div><div class="pts-sub">Otros conceptos o ajuste manual</div></div>
+            <input class="pts-qty search-input" id="qaExtra" type="number" min="0" step="1" placeholder="0" oninput="calcPoints()">
+            <div class="pts-rate">×1</div>
+            <div class="pts-result" id="resExtra">0 pts</div>
+          </div>
+          <div class="pts-total-row">
+            <span class="pts-total-label">Total del mes</span>
+            <span class="pts-total-val" id="qaCalcTotal">0 pts</span>
+          </div>
+        </div>
+      </div>
+      <!-- Entrada directa (CANJEADO) -->
       <div class="fgr" id="qaPtsRow" style="display:none">
         <label>Puntos</label>
         <input id="qaPts" type="number" min="1" step="1" placeholder="0">
       </div>
-      <div class="fgr" id="qaRefRow" style="display:none">
-        <label>Referencia</label>
-        <input id="qaRef" placeholder="Ej: ALB-041589">
+      <div class="fgr full" id="qaRefRow" style="display:none">
+        <label>Referencia / Mes</label>
+        <input id="qaRef" placeholder="Ej: Junio 2026">
       </div>
       <div class="fgr">
         <label>Fecha</label>
@@ -1302,7 +1364,11 @@ function openQuickAction(tipo, subtipo) {
 
   const isRapel=tipo==='rapel';
   show('qaAlbRow',isRapel); show('qaImpRow',isRapel);
-  show('qaPtsRow',!isRapel); show('qaRefRow',!isRapel);
+  const isGanado = subtipo==='GANADO';
+  show('qaCalcSection', isGanado);
+  show('qaPtsRow', !isRapel && !isGanado);
+  show('qaRefRow', !isRapel);
+  if(isGanado){['qaNeum1','qaNeum2','qaCarr','qaPast','qaAlt','qaExtra'].forEach(id=>{document.getElementById(id).value='';});calcPoints();}
 
   const list=isRapel?db.rapels:db.puntos;
   const sel=document.getElementById('qaCliente');
@@ -1316,6 +1382,8 @@ function openQuickAction(tipo, subtipo) {
   document.getElementById('qaImp').value='';
   document.getElementById('qaPts').value='';
   document.getElementById('qaRef').value='';
+  ['qaNeum1','qaNeum2','qaCarr','qaPast','qaAlt','qaExtra'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
+  calcPoints();
   document.getElementById('qaFec').value=today();
   document.getElementById('qaNot').value='';
 
@@ -1375,10 +1443,16 @@ async function saveQuickAction() {
     const r=db.rapels.find(x=>x.id===clienteId);
     if(r) r.movimientos.push(data[0]);
   } else {
-    const puntos=parseInt(document.getElementById('qaPts').value);
-    const referencia=document.getElementById('qaRef').value.trim();
-    if(isNaN(puntos)||puntos<=0){alert('Introduce un número de puntos válido');return;}
-    const{data,error}=await sb.from('movimientos_puntos').insert({cliente_id:clienteId,tipo:subtipo,puntos,referencia,fecha,notas}).select();
+    let puntos, referencia=document.getElementById('qaRef').value.trim(), notasFinal=notas;
+    if(subtipo==='GANADO'){
+      puntos=getCalcTotal();
+      if(puntos<=0){alert('Introduce al menos un valor en la calculadora');return;}
+      if(!notasFinal) notasFinal=buildCalcNotas();
+    } else {
+      puntos=parseInt(document.getElementById('qaPts').value);
+      if(isNaN(puntos)||puntos<=0){alert('Introduce un número de puntos válido');return;}
+    }
+    const{data,error}=await sb.from('movimientos_puntos').insert({cliente_id:clienteId,tipo:subtipo,puntos,referencia,fecha,notas:notasFinal}).select();
     if(error){alert('Error: '+error.message);setError();return;}
     const p=db.puntos.find(x=>x.id===clienteId);
     if(p) p.movimientos.push(data[0]);
@@ -1473,6 +1547,48 @@ function printPMov(pid,mid,e){
   h+=`<table><thead><tr><th>Campo</th><th>Valor</th></tr></thead><tbody><tr><td>Tipo</td><td><strong>${m.tipo}</strong></td></tr><tr><td>Referencia</td><td>${m.referencia||'—'}</td></tr><tr><td>Fecha</td><td>${m.fecha||'—'}</td></tr><tr><td>Descripción</td><td>${m.notas||'—'}</td></tr><tr class="total-row"><td>Puntos</td><td style="font-size:15px">${m.tipo==='CANJEADO'?'-':'+'} ${pts(m.puntos)} (${ptsEur(m.puntos)})</td></tr><tr><td>Saldo</td><td>${pts(saldo)} · ${ptsEur(saldo)}</td></tr></tbody></table>`;
   h+=`<div class="footer"><div class="firma-box">Firma cliente</div><div class="firma-box">Firma Recambios Ibiza</div></div></body></html>`;
   printDoc(h);
+}
+
+// ══ CALCULADORA PUNTOS ══
+function calcPoints() {
+  const n1    = parseInt(document.getElementById('qaNeum1')?.value)||0;
+  const n2    = parseInt(document.getElementById('qaNeum2')?.value)||0;
+  const carr  = parseFloat(document.getElementById('qaCarr')?.value)||0;
+  const past  = parseInt(document.getElementById('qaPast')?.value)||0;
+  const alt   = parseInt(document.getElementById('qaAlt')?.value)||0;
+  const extra = parseInt(document.getElementById('qaExtra')?.value)||0;
+  const pN1=n1*3, pN2=n2*2, pC=Math.floor(carr/100)*10, pP=past*2, pA=alt*2, pE=extra;
+  const total=pN1+pN2+pC+pP+pA+pE;
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v+' pts';};
+  set('resNeum1',pN1); set('resNeum2',pN2); set('resCarr',pC);
+  set('resPast',pP);   set('resAlt',pA);    set('resExtra',pE);
+  const totEl=document.getElementById('qaCalcTotal');
+  if(totEl) totEl.textContent=total+' pts';
+}
+function buildCalcNotas() {
+  const n1    = parseInt(document.getElementById('qaNeum1')?.value)||0;
+  const n2    = parseInt(document.getElementById('qaNeum2')?.value)||0;
+  const carr  = parseFloat(document.getElementById('qaCarr')?.value)||0;
+  const past  = parseInt(document.getElementById('qaPast')?.value)||0;
+  const alt   = parseInt(document.getElementById('qaAlt')?.value)||0;
+  const extra = parseInt(document.getElementById('qaExtra')?.value)||0;
+  const parts=[];
+  if(n1)   parts.push(`Neum.1ª: ${n1}×3=${n1*3}pts`);
+  if(n2)   parts.push(`Neum.2ª: ${n2}×2=${n2*2}pts`);
+  if(carr) parts.push(`Carrocería: ${carr}€=${Math.floor(carr/100)*10}pts`);
+  if(past) parts.push(`Pastillas: ${past}×2=${past*2}pts`);
+  if(alt)  parts.push(`Alt/Arr: ${alt}×2=${alt*2}pts`);
+  if(extra)parts.push(`Adicionales: ${extra}pts`);
+  return parts.join(' | ');
+}
+function getCalcTotal() {
+  const n1=parseInt(document.getElementById('qaNeum1')?.value)||0;
+  const n2=parseInt(document.getElementById('qaNeum2')?.value)||0;
+  const carr=parseFloat(document.getElementById('qaCarr')?.value)||0;
+  const past=parseInt(document.getElementById('qaPast')?.value)||0;
+  const alt=parseInt(document.getElementById('qaAlt')?.value)||0;
+  const extra=parseInt(document.getElementById('qaExtra')?.value)||0;
+  return n1*3+n2*2+Math.floor(carr/100)*10+past*2+alt*2+extra;
 }
 
 // ══ BLOQUEO ══
