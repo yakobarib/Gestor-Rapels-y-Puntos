@@ -542,10 +542,24 @@
       <div class="help-section">
         <h3>Puntos de Fidelización</h3>
         <ul>
-          <li><strong>Añadir Puntos (verde)</strong> — registra puntos ganados por compra de neumáticos u otros productos.</li>
+          <li><strong>Añadir Puntos (verde)</strong> — abre la calculadora mensual de puntos por categoría.</li>
           <li><strong>Venta con Puntos (rojo)</strong> — registra el canje de puntos por producto del catálogo.</li>
           <li>1 punto equivale a 1 €.</li>
         </ul>
+      </div>
+      <div class="help-section">
+        <h3>Calculadora de Puntos</h3>
+        <p>Al pulsar <strong>Añadir Puntos</strong> se abre una calculadora que calcula automáticamente según el tipo de compra:</p>
+        <ul>
+          <li><strong>🏎 Neumáticos 1ª marca</strong> (Continental, Goodyear, Firestone, Pirelli, Michelin, Bridgestone, Kumho) — <strong>3 puntos por neumático</strong></li>
+          <li><strong>🏎 Neumáticos 2ª marca</strong> (Sava, Leao Tire, Riken y resto) — <strong>2 puntos por neumático</strong></li>
+          <li><strong>🔧 Carrocería</strong> (iluminación, retrovisores, chapa, paragolpes, radiadores...) — <strong>10 puntos por cada 100 €</strong></li>
+          <li><strong>🛑 Pastillas de freno</strong> — <strong>2 puntos por pack</strong></li>
+          <li><strong>⚡ Alternadores / Arranques</strong> — <strong>2 puntos por unidad</strong></li>
+          <li><strong>➕ Puntos adicionales</strong> — entrada directa para otros conceptos o ajustes manuales</li>
+        </ul>
+        <p>El total se calcula en tiempo real. Al guardar, las notas se rellenan automáticamente con el desglose por categoría.</p>
+        <p>Los puntos caducan en enero de 2027 según las condiciones del programa.</p>
       </div>
       <div class="help-section">
         <h3>Histórico</h3>
@@ -586,17 +600,28 @@
       <div class="help-ver">
         <div class="help-ver-item">
           <div class="help-ver-head">
+            <span class="help-ver-num">v4.3</span>
+            <span class="help-ver-date">Junio 2026</span>
+          </div>
+          <ul class="help-ver-list">
+            <li>Calculadora de puntos por categoría: neumáticos 1ª/2ª, carrocería, pastillas, alternadores/arranques y puntos adicionales</li>
+            <li>Desglose automático en notas al guardar puntos</li>
+            <li>Modo solo lectura en móvil y tablet — edición exclusiva en PC/Mac</li>
+            <li>Corrección bug crítico: setSaving() causaba bucle infinito al guardar</li>
+          </ul>
+        </div>
+        <div class="help-ver-item">
+          <div class="help-ver-head">
             <span class="help-ver-num">v4.2</span>
             <span class="help-ver-date">Junio 2026</span>
           </div>
           <ul class="help-ver-list">
             <li>Bloqueo de rapel por cliente — botón naranja con "Bloqueado por" y motivo</li>
             <li>Dashboard muestra saldo total bloqueado cuando hay clientes bloqueados</li>
-            <li>Encabezado de tabla fijo al hacer scroll (thead sticky)</li>
+            <li>Encabezado de tabla y sección siempre fijos al hacer scroll</li>
             <li>Opciones de tamaño de letra: Pequeño / Normal / Grande (guardado por usuario)</li>
             <li>Tipos de movimiento ampliados: Rapel Ingresos, Rapel Gastos, Puntos Ganados, Puntos Canjeados</li>
             <li>Botón Imprimir en Histórico — imprime los movimientos según filtros activos</li>
-            <li>Tipografía monospace en albaranes del Histórico</li>
             <li>Renombrado "Total Bolsa" a "Total Rapel" en toda la app</li>
             <li>Panel Ayuda como drawer lateral derecho</li>
             <li>Logo AD Parts exacto en cabecera y modal Acerca de</li>
@@ -667,7 +692,7 @@
             <path fill="#E63312" d="M1272.1,802.1c83.9,0,151.8-68,151.8-151.8c0-83.8-68-151.8-151.8-151.8c-83.8,0-151.8,68-151.8,151.8C1120.3,734.2,1188.3,802.1,1272.1,802.1z"/>
           </svg>
         </div>
-        <div class="help-about-ver">v3.1</div>
+        <div class="help-about-ver">v4.3</div>
         <div class="help-about-name">Gestor de Rapels y Puntos</div>
         <div class="help-about-sub">Recambios Ibiza · Herramienta de gestión interna</div>
         <div class="help-about-box">
