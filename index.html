@@ -950,8 +950,26 @@
         <input id="qaAlb" placeholder="Ej: 041589">
       </div>
       <div class="fgr" id="qaImpRow">
-        <label>Importe (€)</label>
+        <label id="qaImpLabel">Importe (€)</label>
         <input id="qaImp" type="number" min="0.01" step="0.01" placeholder="0.00">
+      </div>
+      <!-- Campos exclusivos Bonus GANADO -->
+      <div class="fgr" id="qaBonusAlbRow" style="display:none">
+        <label>Nº Albarán *</label>
+        <input id="qaBonusAlb" placeholder="EJ: 041589">
+      </div>
+      <div class="fgr" id="qaIntrodRow" style="display:none">
+        <label>Introducido por *</label>
+        <input id="qaIntrod" placeholder="TU NOMBRE (OBLIGATORIO)">
+      </div>
+      <!-- Campos exclusivos Bonus CANJEADO -->
+      <div class="fgr" id="qaConceptoRow" style="display:none">
+        <label>Concepto *</label>
+        <input id="qaConcepto" placeholder="EN QUÉ SE APLICA EL BONUS...">
+      </div>
+      <div class="fgr" id="qaGestPorRow" style="display:none">
+        <label>Gestionado por *</label>
+        <input id="qaGestPor" placeholder="TU NOMBRE (OBLIGATORIO)">
       </div>
       <!-- Calculadora (GANADO) -->
       <div class="fgr full" id="qaCalcSection" style="display:none">
@@ -1856,9 +1874,14 @@ function openQuickAction(tipo, subtipo) {
 
   const isRapel=tipo==='rapel';
   const isBonus=tipo==='bonus';
+  const isGanado=subtipo==='GANADO';
   show('qaAlbRow',isRapel);
   show('qaImpRow',isRapel||isBonus);
-  const isGanado = subtipo==='GANADO';
+  document.getElementById('qaImpLabel').textContent = isBonus ? 'Importe Bonus (€)' : 'Importe (€)';
+  show('qaBonusAlbRow', isBonus && isGanado);
+  show('qaIntrodRow',   isBonus && isGanado);
+  show('qaConceptoRow', isBonus && !isGanado);
+  show('qaGestPorRow',  isBonus && !isGanado);
   show('qaCalcSection', !isRapel && !isBonus && isGanado);
   show('qaPtsRow', !isRapel && !isBonus && !isGanado);
   show('qaRefRow', !isRapel && !isBonus);
@@ -1876,6 +1899,10 @@ function openQuickAction(tipo, subtipo) {
   document.getElementById('qaImp').value='';
   document.getElementById('qaPts').value='';
   document.getElementById('qaRef').value='';
+  document.getElementById('qaBonusAlb').value='';
+  document.getElementById('qaIntrod').value='';
+  document.getElementById('qaConcepto').value='';
+  document.getElementById('qaGestPor').value='';
   ['qaNeum1','qaNeum2','qaCarr','qaPast','qaAlt','qaExtra'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   calcPoints();
   document.getElementById('qaFec').value=today();
@@ -1946,7 +1973,21 @@ async function saveQuickAction() {
   } else if(tipo==='bonus') {
     const imp=parseFloat(document.getElementById('qaImp').value);
     if(isNaN(imp)||imp<=0){alert('Introduce un importe en euros válido');return;}
-    const{data,error}=await sb.from('movimientos_bonus').insert({cliente_id:clienteId,tipo:subtipo,importe:imp,fecha,notas}).select();
+    let notasBonus;
+    if(subtipo==='GANADO'){
+      const alb=document.getElementById('qaBonusAlb').value.trim();
+      const introd=document.getElementById('qaIntrod').value.trim();
+      if(!alb){alert('El número de albarán es obligatorio');return;}
+      if(!introd){alert('El campo "Introducido por" es obligatorio');return;}
+      notasBonus=`ALB. ${alb} · INTRODUCIDO POR: ${introd}`+(notas?`\n${notas}`:'');
+    } else {
+      const concepto=document.getElementById('qaConcepto').value.trim();
+      const gestPor=document.getElementById('qaGestPor').value.trim();
+      if(!concepto){alert('El campo "Concepto" es obligatorio');return;}
+      if(!gestPor){alert('El campo "Gestionado por" es obligatorio');return;}
+      notasBonus=`CONCEPTO: ${concepto} · GESTIONA: ${gestPor}`+(notas?`\n${notas}`:'');
+    }
+    const{data,error}=await sb.from('movimientos_bonus').insert({cliente_id:clienteId,tipo:subtipo,importe:imp,fecha,notas:notasBonus}).select();
     if(error){alert('Error: '+error.message);setError();return;}
     const b=db.bonus.find(x=>x.id===clienteId);
     if(b) b.movimientos.push(data[0]);
@@ -1989,6 +2030,8 @@ function onEmSistemaChange() {
   sel.innerHTML = `<option value="">— Seleccionar cliente —</option>` +
     list.map(c => `<option value="${c.id}">${c.nombre}</option>`).join('');
   sel.value = '';
+  document.getElementById('emImpLabel').textContent = sistema === 'puntos' ? 'Puntos' : 'Importe Bonus (€)';
+  document.getElementById('emImp').step = sistema === 'puntos' ? '1' : '0.01';
   document.getElementById('emMovListRow').style.display = 'none';
   document.getElementById('emFormSection').style.display = 'none';
   document.getElementById('emSaveBtn').style.display = 'none';
