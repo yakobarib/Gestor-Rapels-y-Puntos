@@ -4,7 +4,7 @@
   <meta charset="UTF-8"/>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>€</text></svg>">
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Rapels & Puntos · Recambios Ibiza</title>
+  <title>Rapels · Puntos · Bonus · Recambios Ibiza</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@700;800;900&family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
   <style>
@@ -100,6 +100,8 @@
   .tag-ajuste{background:rgba(91,141,239,.12);color:var(--blue)}
   .tag-ganado{background:rgba(245,158,11,.12);color:var(--orange)}
   .tag-canjeado{background:rgba(91,141,239,.12);color:var(--blue)}
+  .tag-bonus-g{background:rgba(76,175,125,.12);color:var(--green)}
+  .tag-bonus-c{background:rgba(226,6,19,.12);color:#E20613}
 
   .btn{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;border-radius:8px;border:none;cursor:pointer;font-family:'Syne',sans-serif;font-size:13px;font-weight:600;transition:all .15s}
   .btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{filter:brightness(1.1)}
@@ -289,7 +291,7 @@
       <path fill="#E63312" d="M1272.1,802.1c83.9,0,151.8-68,151.8-151.8c0-83.8-68-151.8-151.8-151.8c-83.8,0-151.8,68-151.8,151.8C1120.3,734.2,1188.3,802.1,1272.1,802.1z"/>
     </svg>
     <div>
-      <div class="logo-text">RAPELS &amp; PUNTOS</div>
+      <div class="logo-text">RAPELS · PUNTOS · BONUS</div>
       <div class="logo-sub">RECAMBIOS IBIZA · GESTIÓN</div>
     </div>
   </div>
@@ -333,6 +335,10 @@
     <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l1.7 3.4 3.8.55-2.75 2.68.65 3.77L7 9.7l-3.4 1.72.65-3.77L1.5 4.95l3.8-.55z"/></svg>
     Puntos <span class="nav-badge" id="badgeP">0</span>
   </button>
+  <button class="nav-btn" data-tab="bonus" onclick="switchTab('bonus',this)">
+    <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor"><path d="M7 1l.9 2.6H11l-2.5 1.8.9 2.8L7 6.4 4.6 8.2l.9-2.8L3 3.6h3.1z"/><path d="M3.5 9.5h7M4.5 11.5h5" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" fill="none"/></svg>
+    Bonus <span class="nav-badge badge-green" id="badgeB">0</span>
+  </button>
   <button class="nav-btn" data-tab="historico" onclick="switchTab('historico',this)">
     <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><circle cx="7" cy="7" r="5.5"/><path d="M7 4.5V7l2 1.5"/></svg>
     Histórico
@@ -352,6 +358,10 @@
     <div class="kpi-section">
       <div class="kpi-section-label">Puntos de Fidelización</div>
       <div class="kpis" id="kpisPuntos"></div>
+    </div>
+    <div class="kpi-section">
+      <div class="kpi-section-label">Bonus de Fidelización</div>
+      <div class="kpis" id="kpisBonus"></div>
     </div>
     <p class="krafted">Krafted by <span>Yakoba Moreno</span> · Designed in <span>Claude Code</span></p>
   </div>
@@ -420,6 +430,10 @@
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 1v10M1 6h10"/></svg>
           Añadir Puntos
         </button>
+        <button class="btn btn-blue btn-sm" onclick="openEditMov('puntos')">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8.5 1.5l2 2L4 10H2v-2L8.5 1.5z"/></svg>
+          Editar Puntos
+        </button>
         <button class="btn btn-danger btn-sm" onclick="openQuickAction('puntos','CANJEADO')">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M7 1l1.3 2.6 2.9.42-2.1 2.05.5 2.88L7 7.6 4.4 8.95l.5-2.88L2.8 4.02l2.9-.42z"/></svg>
           Venta con Puntos
@@ -448,6 +462,52 @@
   </div>
 </div>
 
+<!-- BONUS -->
+<div class="tab" id="tab-bonus">
+  <div class="tab-top">
+    <div class="sec-header">
+      <div>
+        <div class="sec-title">Bonus de Fidelización</div>
+        <div class="sec-sub">Bonificaciones en euros por fidelidad · 1 bonus = 1 €</div>
+      </div>
+      <div class="edit-only" style="display:flex;gap:8px">
+        <button class="btn btn-green btn-sm" onclick="openQuickAction('bonus','GANADO')">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 1v10M1 6h10"/></svg>
+          Añadir Bonus
+        </button>
+        <button class="btn btn-blue btn-sm" onclick="openEditMov('bonus')">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M8.5 1.5l2 2L4 10H2v-2L8.5 1.5z"/></svg>
+          Editar Bonus
+        </button>
+        <button class="btn btn-danger btn-sm" onclick="openQuickAction('bonus','CANJEADO')">
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor"><path d="M7 1l1.3 2.6 2.9.42-2.1 2.05.5 2.88L7 7.6 4.4 8.95l.5-2.88L2.8 4.02l2.9-.42z"/></svg>
+          Descontar Bonus
+        </button>
+      </div>
+    </div>
+    <div class="search-row">
+      <input class="search-input" id="searchB" placeholder="Buscar cliente..." oninput="renderBonus()">
+      <select class="filt" id="filtB" onchange="renderBonus()">
+        <option value="all">Todos</option>
+        <option value="pos">Con bonus</option>
+        <option value="zero">Sin bonus</option>
+        <option value="high">Saldo alto (&gt;100€)</option>
+      </select>
+    </div>
+  </div>
+  <div class="tab-scroll">
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr>
+          <th>Cliente</th><th>Bonus Ganado</th><th>Descontado</th><th>Saldo</th><th>Valor €</th><th>Movimientos</th><th></th>
+        </tr></thead>
+        <tbody id="tbodyB"></tbody>
+      </table>
+    </div>
+    <p class="krafted">Krafted by <span>Yakoba Moreno</span> · Designed in <span>Claude Code</span></p>
+  </div>
+</div>
+
 <!-- HISTÓRICO -->
 <div class="tab" id="tab-historico">
   <div class="tab-top">
@@ -466,9 +526,10 @@
         <option value="">Todos los clientes</option>
       </select>
       <select class="filt" id="filtHType" onchange="onHistTypeChange()">
-        <option value="all">Rapel + Puntos</option>
+        <option value="all">Rapel + Puntos + Bonus</option>
         <option value="rapel">Solo Rapel</option>
         <option value="puntos">Solo Puntos</option>
+        <option value="bonus">Solo Bonus</option>
       </select>
       <select class="filt" id="filtHMov" onchange="renderHist()">
         <option value="all">Todos los tipos</option>
@@ -496,7 +557,7 @@
     <div class="help-head">
       <div class="help-head-title">
         <svg width="16" height="16" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="7" cy="7" r="5.5"/><path d="M5.5 5.5a1.5 1.5 0 0 1 3 .5c0 1-1.5 1.5-1.5 2.5"/><circle cx="7" cy="10.5" r=".5" fill="currentColor" stroke="none"/></svg>
-        Ayuda
+        Rapels · Puntos · Bonus — Ayuda
       </div>
       <button class="btn btn-ghost btn-sm" onclick="closeHelp()">
         <svg width="11" height="11" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 1l10 10M11 1L1 11"/></svg>
@@ -586,10 +647,28 @@
         <p>Los puntos caducan en enero de 2027 según las condiciones del programa.</p>
       </div>
       <div class="help-section">
+        <h3>Bonus de Fidelización</h3>
+        <ul>
+          <li><strong>Añadir Bonus (verde)</strong> — registra euros ganados por fidelidad para un cliente.</li>
+          <li><strong>Descontar Bonus (rojo)</strong> — registra un descuento aplicado con el bonus acumulado.</li>
+          <li><strong>Editar Bonus (azul)</strong> — permite corregir el importe, fecha o notas de un movimiento existente.</li>
+          <li>El bonus usa <strong>euros (€)</strong> como unidad. 1 bonus = 1 €.</li>
+          <li>Haz clic en la fila de un cliente para abrir su ficha con el historial completo y el saldo actual.</li>
+        </ul>
+      </div>
+      <div class="help-section">
+        <h3>Editar Movimientos (Puntos y Bonus)</h3>
+        <ul>
+          <li>El botón <strong>Editar Puntos</strong> (azul, en pestaña Puntos) y <strong>Editar Bonus</strong> (azul, en pestaña Bonus) permiten corregir movimientos ya registrados.</li>
+          <li>Selecciona el sistema, el cliente y el movimiento a editar. El formulario se rellena automáticamente.</li>
+          <li>Puedes modificar el importe/puntos, la fecha y las notas. Guarda para aplicar el cambio en Supabase.</li>
+        </ul>
+      </div>
+      <div class="help-section">
         <h3>Histórico</h3>
         <ul>
-          <li>Filtra primero por <strong>cliente</strong>, luego por sistema (Rapel / Puntos) y por tipo de movimiento.</li>
-          <li>Los tipos disponibles se adaptan automáticamente al sistema seleccionado: <em>Rapel Ingresos, Rapel Gastos, Ajuste Especial, Puntos Ganados, Puntos Canjeados</em>.</li>
+          <li>Filtra primero por <strong>cliente</strong>, luego por sistema (Rapel / Puntos / Bonus) y por tipo de movimiento.</li>
+          <li>Los tipos disponibles se adaptan automáticamente al sistema seleccionado: <em>Rapel Ingresos, Rapel Gastos, Ajuste Especial, Puntos Ganados, Puntos Canjeados, Bonus Ganado, Bonus Canjeado</em>.</li>
           <li>Usa el buscador para encontrar por albarán o notas.</li>
           <li>El botón <strong>Imprimir</strong> genera un PDF con todos los movimientos visibles según los filtros activos.</li>
         </ul>
@@ -622,6 +701,21 @@
     <!-- VERSIONES -->
     <div class="help-body" id="help-versiones" style="display:none">
       <div class="help-ver">
+        <div class="help-ver-item">
+          <div class="help-ver-head">
+            <span class="help-ver-num">v4.6</span>
+            <span class="help-ver-date">Junio 2026</span>
+          </div>
+          <ul class="help-ver-list">
+            <li>Nueva pestaña <strong>Bonus de Fidelización</strong> — gestión de bonificaciones en euros por cliente</li>
+            <li>Dashboard actualizado con KPIs de Bonus Ganado, Canjeado y Saldo</li>
+            <li>Drawer lateral para clientes Bonus con historial y extracto imprimible</li>
+            <li>Modal <strong>Editar Movimiento</strong> para corregir puntos y bonus existentes</li>
+            <li>Botones Editar Puntos / Editar Bonus en sus respectivas pestañas</li>
+            <li>Histórico ampliado con filtro Bonus y tags de color diferenciados</li>
+            <li>Título actualizado a Rapels · Puntos · Bonus</li>
+          </ul>
+        </div>
         <div class="help-ver-item">
           <div class="help-ver-head">
             <span class="help-ver-num">v4.5</span>
@@ -739,8 +833,8 @@
             <path fill="#E63312" d="M1272.1,802.1c83.9,0,151.8-68,151.8-151.8c0-83.8-68-151.8-151.8-151.8c-83.8,0-151.8,68-151.8,151.8C1120.3,734.2,1188.3,802.1,1272.1,802.1z"/>
           </svg>
         </div>
-        <div class="help-about-ver">v4.5</div>
-        <div class="help-about-name">Gestor de Rapels y Puntos</div>
+        <div class="help-about-ver">v4.6</div>
+        <div class="help-about-name">Gestor de Rapels · Puntos · Bonus</div>
         <div class="help-about-sub">Recambios Ibiza · Herramienta de gestión interna</div>
         <div class="help-about-box">
           <p>Krafted by <span>Yakoba Moreno</span></p>
@@ -1047,6 +1141,111 @@
   </div>
 </div>
 
+<!-- DRAWER BONUS -->
+<div class="drawer-bg" id="bgB" onclick="closeDrawer('B')"></div>
+<div class="drawer" id="drB">
+  <button class="drawer-close" onclick="closeDrawer('B')">
+    <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M1 1l10 10M11 1L1 11"/></svg>
+  </button>
+  <div class="drawer-head">
+    <div class="drawer-title" id="drBNom">—</div>
+    <div class="drawer-sub" id="drBSub">—</div>
+  </div>
+  <div class="drawer-body">
+    <div class="sum-grid" id="drBSum"></div>
+    <div class="add-form">
+      <div class="add-form-title">Registrar movimiento</div>
+      <div class="add-grid">
+        <div class="add-row" style="grid-column:1/-1">
+          <label>Tipo</label>
+          <select id="drBTipo">
+            <option value="GANADO">Ganado — Bonus por fidelidad</option>
+            <option value="CANJEADO">Canjeado — Descuento en compra</option>
+          </select>
+        </div>
+        <div class="add-row">
+          <label>Importe (€)</label>
+          <input id="drBImp" type="number" min="0.01" step="0.01" placeholder="0.00">
+        </div>
+        <div class="add-row">
+          <label>Fecha</label>
+          <input id="drBFec" type="date">
+        </div>
+        <div class="add-row" style="grid-column:1/-1">
+          <label>Notas</label>
+          <input id="drBNot" placeholder="Descripción...">
+        </div>
+      </div>
+      <div style="margin-top:10px">
+        <button class="btn btn-primary btn-sm" onclick="addBMov()">Añadir movimiento</button>
+      </div>
+    </div>
+    <div style="font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);margin-bottom:10px">Movimientos</div>
+    <div class="mov-list" id="drBMovs"></div>
+  </div>
+  <div class="drawer-foot">
+    <button class="btn btn-danger btn-sm" onclick="deleteClient('bonus')">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M2 3h8M4.5 3V2a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v1M9.5 3l-.6 7a.5.5 0 0 1-.5.5H3.6a.5.5 0 0 1-.5-.5L2.5 3"/></svg>
+      Eliminar cliente
+    </button>
+    <button class="btn btn-ghost btn-sm" style="margin-left:auto" onclick="printClientBonus()">
+      <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><rect x="2.5" y="1" width="7" height="5"/><path d="M2.5 7H1v4h10V7H9.5"/><rect x="3.5" y="8" width="5" height="2.5"/><circle cx="9.5" cy="8.5" r=".5" fill="currentColor"/></svg>
+      Imprimir
+    </button>
+  </div>
+</div>
+
+<!-- MODAL EDITAR MOVIMIENTO -->
+<div class="overlay" id="ovlEditMov">
+  <div class="modal">
+    <div class="modal-title">Editar Movimiento</div>
+    <div class="modal-sub">Selecciona sistema, cliente y movimiento a editar</div>
+    <div class="fg">
+      <div class="fgr">
+        <label>Sistema *</label>
+        <select id="emSistema" onchange="onEmSistemaChange()">
+          <option value="puntos">Puntos</option>
+          <option value="bonus">Bonus</option>
+        </select>
+      </div>
+      <div class="fgr">
+        <label>Cliente *</label>
+        <select id="emCliente" onchange="onEmClienteChange()">
+          <option value="">— Seleccionar —</option>
+        </select>
+      </div>
+      <div class="fgr full" id="emMovListRow" style="display:none">
+        <label>Movimientos del cliente</label>
+        <div id="emMovList" style="max-height:180px;overflow-y:auto;border:1px solid var(--border);border-radius:8px;background:var(--surface2)"></div>
+      </div>
+      <div id="emFormSection" style="display:none;grid-column:1/-1">
+        <div style="font-family:'JetBrains Mono',monospace;font-size:10px;text-transform:uppercase;letter-spacing:.8px;color:var(--text-dim);margin-bottom:10px;padding-top:8px;border-top:1px solid var(--border)">Editar movimiento seleccionado</div>
+        <div class="fg">
+          <div class="fgr" id="emImpRow">
+            <label id="emImpLabel">Importe (€)</label>
+            <input id="emImp" type="number" min="0.01" step="0.01" placeholder="0.00">
+          </div>
+          <div class="fgr">
+            <label>Fecha</label>
+            <input id="emFecha" type="date">
+          </div>
+          <div class="fgr full">
+            <label>Notas</label>
+            <input id="emNotas" placeholder="Descripción...">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="form-actions">
+      <button class="btn btn-ghost" onclick="closeOverlay('ovlEditMov')">Cancelar</button>
+      <button class="btn btn-blue btn-sm" id="emSaveBtn" style="display:none;padding:9px 20px;font-size:13px" onclick="saveEditMov()">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="margin-right:4px"><path d="M20 6L9 17l-5-5"/></svg>
+        Guardar cambios
+      </button>
+    </div>
+  </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 <script>
 // ══ SUPABASE ══
@@ -1055,9 +1254,10 @@ const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZ
 const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
 const PTS_VALUE = 1;
-let db = { rapels: [], puntos: [] };
-let activeR = null, activeP = null;
-let quickMode = null; // { tipo:'rapel'|'puntos', subtipo:'INGRESO'|'GASTO'|'GANADO'|'CANJEADO' }
+let db = { rapels: [], puntos: [], bonus: [] };
+let activeR = null, activeP = null, activeB = null;
+let quickMode = null; // { tipo:'rapel'|'puntos'|'bonus', subtipo:'INGRESO'|'GASTO'|'GANADO'|'CANJEADO' }
+let editMovMode = null; // { sistema:'puntos'|'bonus', movId, clienteId }
 
 // ══ LOAD ══
 // Forzar mayúsculas en todos los inputs de texto y textareas
@@ -1072,13 +1272,15 @@ document.addEventListener('input', function(e) {
 
 async function load() {
   document.getElementById('loadingOverlay').style.display = 'flex';
-  const [{ data: rapels, error: e1 }, { data: puntos, error: e2 }] = await Promise.all([
+  const [{ data: rapels, error: e1 }, { data: puntos, error: e2 }, { data: bonus, error: e3 }] = await Promise.all([
     sb.from('clientes_rapel').select('*, movimientos_rapel(*)').order('nombre'),
-    sb.from('clientes_puntos').select('*, movimientos_puntos(*)').order('nombre')
+    sb.from('clientes_puntos').select('*, movimientos_puntos(*)').order('nombre'),
+    sb.from('clientes_bonus').select('*, movimientos_bonus(*)').order('nombre')
   ]);
-  if (e1 || e2) { setError(); console.error(e1, e2); }
+  if (e1 || e2 || e3) { setError(); console.error(e1, e2, e3); }
   db.rapels = (rapels||[]).map(r => ({ ...r, movimientos: (r.movimientos_rapel||[]).sort((a,b)=>a.created_at?.localeCompare(b.created_at)) }));
   db.puntos  = (puntos||[]).map(p => ({ ...p, movimientos: (p.movimientos_puntos||[]).sort((a,b)=>a.created_at?.localeCompare(b.created_at)) }));
+  db.bonus   = (bonus||[]).map(b => ({ ...b, movimientos: (b.movimientos_bonus||[]).sort((a,b)=>a.created_at?.localeCompare(b.created_at)) }));
   document.getElementById('loadingOverlay').style.display = 'none';
   setSynced();
   renderAll();
@@ -1138,6 +1340,12 @@ function pStats(p) {
   const canjeado = m.filter(x=>x.tipo==='CANJEADO').reduce((a,x)=>a+Number(x.puntos),0);
   return { ganado, canjeado, saldo: ganado-canjeado };
 }
+function bStats(b) {
+  const m = b.movimientos||[];
+  const ganado   = m.filter(x=>x.tipo==='GANADO').reduce((a,x)=>a+Number(x.importe),0);
+  const canjeado = m.filter(x=>x.tipo==='CANJEADO').reduce((a,x)=>a+Number(x.importe),0);
+  return { ganado, canjeado, saldo: ganado-canjeado };
+}
 
 // ══ BADGES ══
 function updateBadges() {
@@ -1150,10 +1358,15 @@ function updateBadges() {
   const bp = document.getElementById('badgeP');
   bp.textContent = db.puntos.length;
   bp.className = 'nav-badge ' + (totalPS>0?'badge-green':totalPS<0?'badge-red':'badge-orange');
+
+  const bb = document.getElementById('badgeB');
+  bb.textContent = db.bonus.length;
+  const totalBS = db.bonus.reduce((a,b)=>a+bStats(b).saldo,0);
+  bb.className = 'nav-badge ' + (totalBS>0?'badge-green':totalBS<0?'badge-red':'badge-orange');
 }
 
 // ══ RENDER ALL ══
-function renderAll() { renderDashboard(); renderRapels(); renderPuntos(); updateBadges(); }
+function renderAll() { renderDashboard(); renderRapels(); renderPuntos(); renderBonus(); updateBadges(); }
 
 // ══ DASHBOARD ══
 function renderDashboard() {
@@ -1177,6 +1390,14 @@ function renderDashboard() {
     <div class="kpi"><div class="kpi-label">Total ganados</div><div class="kpi-value c-orange">${pts(tGan)}</div><div class="kpi-sub">${ptsEur(tGan)}</div></div>
     <div class="kpi"><div class="kpi-label">Canjeados</div><div class="kpi-value c-blue">${pts(tCan)}</div><div class="kpi-sub">${ptsEur(tCan)}</div></div>
     <div class="kpi"><div class="kpi-label">Saldo puntos</div><div class="kpi-value c-orange">${pts(tPS)}</div><div class="kpi-sub">${ptsEur(tPS)} disponibles</div></div>`;
+
+  const tBGan=db.bonus.reduce((a,b)=>a+bStats(b).ganado,0);
+  const tBCan=db.bonus.reduce((a,b)=>a+bStats(b).canjeado,0);
+  const tBS=tBGan-tBCan;
+  document.getElementById('kpisBonus').innerHTML=`
+    <div class="kpi"><div class="kpi-label">Bonus Ganado</div><div class="kpi-value c-green">${eur(tBGan)}</div><div class="kpi-sub">${db.bonus.length} clientes</div></div>
+    <div class="kpi"><div class="kpi-label">Bonus Canjeado</div><div class="kpi-value c-accent">${eur(tBCan)}</div><div class="kpi-sub">descuentos aplicados</div></div>
+    <div class="kpi"><div class="kpi-label">Saldo Bonus</div><div class="kpi-value ${tBS>=0?'c-green':'c-accent'}">${eur(tBS)}</div><div class="kpi-sub">disponible para clientes</div></div>`;
 }
 
 // ══ RAPELS TABLE ══
@@ -1232,11 +1453,36 @@ function renderPuntos() {
   updateBadges();
 }
 
+// ══ BONUS TABLE ══
+function renderBonus() {
+  const q=document.getElementById('searchB').value.trim().toLowerCase();
+  const f=document.getElementById('filtB').value;
+  let list=db.bonus.filter(b=>!q||b.nombre.toLowerCase().includes(q));
+  if(f==='pos')  list=list.filter(b=>bStats(b).saldo>0);
+  if(f==='zero') list=list.filter(b=>bStats(b).saldo===0);
+  if(f==='high') list=list.filter(b=>bStats(b).saldo>100);
+  const tb=document.getElementById('tbodyB');
+  if(!list.length){tb.innerHTML=`<tr><td colspan="7">${emptyState('Ningún cliente',q?'Sin resultados':'Sin clientes aún')}</td></tr>`;return;}
+  tb.innerHTML=list.map(b=>{
+    const{ganado,canjeado,saldo}=bStats(b);
+    return`<tr class="row-click" onclick="openDrawerB('${b.id}')">
+      <td><strong>${b.nombre}</strong></td>
+      <td style="color:var(--green)">${eur(ganado)}</td>
+      <td style="color:var(--accent)">${eur(canjeado)}</td>
+      <td style="font-weight:700;color:${saldo>0?'var(--green)':saldo<0?'var(--accent)':'var(--text-dim)'}">${eur(saldo)}</td>
+      <td>${eur(saldo)}</td>
+      <td><span class="tag tag-gray">${(b.movimientos||[]).length} mov.</span></td>
+      <td><span class="tag ${saldo>0?'tag-ok':'tag-gray'}">${saldo>0?'CON SALDO':'SIN SALDO'}</span></td>
+    </tr>`;
+  }).join('');
+  updateBadges();
+}
+
 // ══ HISTÓRICO ══
 function buildHistClientFilter() {
   const sel=document.getElementById('filtHCliente');
   const cur=sel.value;
-  const names=[...new Set([...db.rapels.map(r=>r.nombre),...db.puntos.map(p=>p.nombre)])].sort();
+  const names=[...new Set([...db.rapels.map(r=>r.nombre),...db.puntos.map(p=>p.nombre),...db.bonus.map(b=>b.nombre)])].sort();
   sel.innerHTML=`<option value="">Todos los clientes</option>`+names.map(n=>`<option value="${n}"${n===cur?' selected':''}>${n}</option>`).join('');
 }
 
@@ -1246,7 +1492,8 @@ function onHistTypeChange() {
   const all=`<option value="all">Todos los tipos</option>`;
   if(t==='rapel')  m.innerHTML=all+`<option value="INGRESO">Rapel Ingresos</option><option value="GASTO">Rapel Gastos</option><option value="AJUSTE">Ajuste Especial</option>`;
   else if(t==='puntos') m.innerHTML=all+`<option value="GANADO">Puntos Ganados</option><option value="CANJEADO">Puntos Canjeados</option>`;
-  else m.innerHTML=all+`<option value="INGRESO">Rapel Ingresos</option><option value="GASTO">Rapel Gastos</option><option value="AJUSTE">Ajuste Especial</option><option value="GANADO">Puntos Ganados</option><option value="CANJEADO">Puntos Canjeados</option>`;
+  else if(t==='bonus') m.innerHTML=all+`<option value="GANADO">Bonus Ganado</option><option value="CANJEADO">Bonus Canjeado</option>`;
+  else m.innerHTML=all+`<option value="INGRESO">Rapel Ingresos</option><option value="GASTO">Rapel Gastos</option><option value="AJUSTE">Ajuste Especial</option><option value="GANADO">Puntos/Bonus Ganados</option><option value="CANJEADO">Puntos/Bonus Canjeados</option>`;
   renderHist();
 }
 
@@ -1257,7 +1504,7 @@ function renderHist() {
   const fMov=document.getElementById('filtHMov').value;
   let items=[];
 
-  if(fType!=='puntos') {
+  if(fType==='rapel'||fType==='all') {
     db.rapels.forEach(r=>{
       if(fCli && r.nombre!==fCli) return;
       (r.movimientos||[]).forEach(m=>{
@@ -1270,7 +1517,7 @@ function renderHist() {
       });
     });
   }
-  if(fType!=='rapel') {
+  if(fType==='puntos'||fType==='all') {
     db.puntos.forEach(p=>{
       if(fCli && p.nombre!==fCli) return;
       (p.movimientos||[]).forEach(m=>{
@@ -1283,20 +1530,38 @@ function renderHist() {
     });
   }
 
+  if(fType==='bonus'||fType==='all') {
+    db.bonus.forEach(b=>{
+      if(fCli && b.nombre!==fCli) return;
+      (b.movimientos||[]).forEach(m=>{
+        if(fMov!=='all'&&m.tipo!==fMov) return;
+        if(q&&!b.nombre.toLowerCase().includes(q)&&!(m.notas||'').toLowerCase().includes(q)) return;
+        const bv = m.tipo==='GANADO' ? Number(m.importe) : -Number(m.importe);
+        const bc = bv>0?'var(--green)':'var(--accent)';
+        const sign = bv>=0?'+':'-';
+        items.push({sistema:'BONUS',cliente:b.nombre,cid:b.id,...m,albaran:'—',_qty:sign+' '+eur(Math.abs(m.importe)),_color:bc});
+      });
+    });
+  }
+
   items.sort((a,b)=>(b.created_at||'').localeCompare(a.created_at||''));
   const el=document.getElementById('histList');
   if(!items.length){el.innerHTML=emptyState('Sin movimientos','No hay movimientos con los filtros seleccionados');return;}
   const tM={INGRESO:'tag-ingreso',GASTO:'tag-gasto',AJUSTE:'tag-ajuste',GANADO:'tag-ganado',CANJEADO:'tag-canjeado'};
-  const tS={RAPEL:'tag-blue',PUNTOS:'tag-orange'};
-  el.innerHTML=items.map(m=>`
-    <div class="hist-item">
+  const tS={RAPEL:'tag-blue',PUNTOS:'tag-orange',BONUS:'tag-ok'};
+  el.innerHTML=items.map(m=>{
+    const tagTipo = m.sistema==='BONUS'
+      ? (m.tipo==='GANADO'?'tag-bonus-g':'tag-bonus-c')
+      : (tM[m.tipo]||'tag-gray');
+    return`<div class="hist-item">
       <div style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim)">${(m.fecha||m.created_at||'—').slice(0,10)}</div>
       <div><strong style="font-size:12px">${m.cliente}</strong></div>
       <div style="font-family:'JetBrains Mono',monospace;font-size:12px">${m.albaran||'—'}<br><span style="font-size:10px;color:var(--text-dim)">${m.notas||''}</span></div>
       <span class="tag ${tS[m.sistema]}">${m.sistema}</span>
-      <span class="tag ${tM[m.tipo]||'tag-gray'}">${m.tipo}</span>
+      <span class="tag ${tagTipo}">${m.tipo}</span>
       <div style="font-family:'JetBrains Mono',monospace;font-size:14px;font-weight:700;text-align:right;color:${m._color}">${m._qty}</div>
-    </div>`).join('');
+    </div>`;
+  }).join('');
 }
 
 // ══ EMPTY STATE ══
@@ -1470,6 +1735,86 @@ async function delPMov(pid,mid,e) {
   openDrawerP(pid); renderPuntos(); renderDashboard();
 }
 
+// ══ DRAWER BONUS ══
+function openDrawerB(id) {
+  activeB=id;
+  const b=db.bonus.find(x=>x.id===id); if(!b) return;
+  const{ganado,canjeado,saldo}=bStats(b);
+  document.getElementById('drBNom').textContent=b.nombre;
+  document.getElementById('drBSub').textContent=`${(b.movimientos||[]).length} movimientos · Bonus fidelización`;
+  document.getElementById('drBSum').innerHTML=`
+    <div class="sum-card"><div class="sum-label">Ganado</div><div class="sum-val" style="color:var(--green)">${eur(ganado)}</div></div>
+    <div class="sum-card"><div class="sum-label">Canjeado</div><div class="sum-val" style="color:var(--accent)">${eur(canjeado)}</div></div>
+    <div class="sum-card"><div class="sum-label">Saldo</div><div class="sum-val" style="color:${saldo>0?'var(--green)':saldo<0?'var(--accent)':'var(--text-dim)'}">${eur(saldo)}</div></div>`;
+  document.getElementById('drBFec').value=today();
+  document.getElementById('drBImp').value='';
+  document.getElementById('drBNot').value='';
+  renderBMovs(b);
+  document.getElementById('bgB').classList.add('open');
+  document.getElementById('drB').classList.add('open');
+}
+
+function renderBMovs(b) {
+  const el=document.getElementById('drBMovs');
+  const movs=[...(b.movimientos||[])].reverse();
+  if(!movs.length){el.innerHTML=emptyState('Sin movimientos','Añade el primer movimiento');return;}
+  const tc={GANADO:'tag-bonus-g',CANJEADO:'tag-bonus-c'};
+  el.innerHTML=movs.map(m=>`
+    <div class="mov-item">
+      <div>
+        <div class="mov-ref"><span class="tag ${tc[m.tipo]||'tag-gray'}">${m.tipo}</span></div>
+        <div class="mov-desc">${m.notas||''} ${m.fecha?'· '+m.fecha:''}</div>
+      </div>
+      <div class="mov-amount" style="color:${m.tipo==='CANJEADO'?'var(--accent)':'var(--green)'}">${m.tipo==='CANJEADO'?'-':'+'} ${eur(m.importe)}</div>
+      <div style="display:flex;gap:4px;align-items:center">
+        <button class="btn btn-danger btn-sm mov-del" onclick="delBMov('${b.id}','${m.id}',event)">
+          <svg width="11" height="11" viewBox="0 0 11 11" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M2 2.5h7M4 2.5V2a.3.3 0 0 1 .3-.3h2.4a.3.3 0 0 1 .3.3v.5M8.5 2.5l-.5 6.2a.5.5 0 0 1-.5.5H3.5a.5.5 0 0 1-.5-.5L2.5 2.5"/></svg>
+        </button>
+      </div>
+    </div>`).join('');
+}
+
+async function addBMov() {
+  const b=db.bonus.find(x=>x.id===activeB); if(!b) return;
+  const imp=parseFloat(document.getElementById('drBImp').value);
+  if(isNaN(imp)||imp<=0){alert('Introduce un importe válido');return;}
+  setSaving();
+  const{data,error}=await sb.from('movimientos_bonus').insert({
+    cliente_id:b.id, tipo:document.getElementById('drBTipo').value,
+    importe:imp,
+    fecha:document.getElementById('drBFec').value||null,
+    notas:document.getElementById('drBNot').value.trim()
+  }).select();
+  if(error){alert('Error: '+error.message);setError();return;}
+  b.movimientos.push(data[0]);
+  setSynced();
+  openDrawerB(activeB); renderBonus(); renderDashboard();
+}
+
+async function delBMov(bid,mid,e) {
+  e.stopPropagation();
+  if(!confirm('¿Eliminar este movimiento?')) return;
+  setSaving();
+  const{error}=await sb.from('movimientos_bonus').delete().eq('id',mid);
+  if(error){alert('Error: '+error.message);setError();return;}
+  const b=db.bonus.find(x=>x.id===bid);
+  b.movimientos=b.movimientos.filter(m=>m.id!==mid);
+  setSynced();
+  openDrawerB(bid); renderBonus(); renderDashboard();
+}
+
+function printClientBonus(){
+  const b=db.bonus.find(x=>x.id===activeB); if(!b) return;
+  const{ganado,canjeado,saldo}=bStats(b);
+  const movs=[...(b.movimientos||[])].sort((a,c)=>(a.fecha||'').localeCompare(c.fecha||''));
+  let h=printHeader(b.nombre,'EXTRACTO DE BONUS','Extracto Bonus de Fidelización');
+  h+=`<table><thead><tr><th>Fecha</th><th>Tipo</th><th>Notas</th><th style="text-align:right">Importe</th></tr></thead><tbody>`;
+  for(const m of movs) h+=`<tr><td>${m.fecha||'—'}</td><td>${m.tipo}</td><td>${m.notas||''}</td><td style="text-align:right;font-weight:600;color:${m.tipo==='CANJEADO'?'#E20613':'#2e7d32'}">${m.tipo==='CANJEADO'?'-':'+'} ${eur(m.importe)}</td></tr>`;
+  h+=`<tr class="total-row"><td colspan="3"><strong>SALDO ACTUAL</strong></td><td style="text-align:right;color:${saldo>=0?'#2e7d32':'#E20613'}">${eur(saldo)}</td></tr></tbody></table>`;
+  h+=`<div class="footer"><div class="firma-box">Firma cliente</div><div class="firma-box">Firma Recambios Ibiza</div></div></body></html>`;
+  printDoc(h);
+}
+
 // ══ DELETE CLIENT ══
 async function deleteClient(tipo) {
   if(tipo==='rapel') {
@@ -1480,7 +1825,7 @@ async function deleteClient(tipo) {
     if(error){alert('Error: '+error.message);setError();return;}
     db.rapels=db.rapels.filter(x=>x.id!==activeR);
     closeDrawer('R');
-  } else {
+  } else if(tipo==='puntos') {
     const p=db.puntos.find(x=>x.id===activeP);
     if(!p||!confirm(`¿Eliminar a ${p.nombre}?`)) return;
     setSaving();
@@ -1488,6 +1833,14 @@ async function deleteClient(tipo) {
     if(error){alert('Error: '+error.message);setError();return;}
     db.puntos=db.puntos.filter(x=>x.id!==activeP);
     closeDrawer('P');
+  } else {
+    const b=db.bonus.find(x=>x.id===activeB);
+    if(!b||!confirm(`¿Eliminar a ${b.nombre}?`)) return;
+    setSaving();
+    const{error}=await sb.from('clientes_bonus').delete().eq('id',activeB);
+    if(error){alert('Error: '+error.message);setError();return;}
+    db.bonus=db.bonus.filter(x=>x.id!==activeB);
+    closeDrawer('B');
   }
   setSynced();
   renderAll();
@@ -1496,20 +1849,22 @@ async function deleteClient(tipo) {
 // ══ QUICK ACTION ══
 function openQuickAction(tipo, subtipo) {
   quickMode={tipo,subtipo};
-  const labels={INGRESO:'Nuevo Rapel',GASTO:'Venta Rapel',GANADO:'Añadir Puntos',CANJEADO:'Venta con Puntos'};
-  const subs={INGRESO:'Carga de bolsa de herramienta para un cliente',GASTO:'Consumo de bolsa de herramienta',GANADO:'Puntos ganados por compra de neumáticos',CANJEADO:'Canje de puntos por producto'};
+  const labels={INGRESO:'Nuevo Rapel',GASTO:'Venta Rapel',GANADO:tipo==='bonus'?'Añadir Bonus':'Añadir Puntos',CANJEADO:tipo==='bonus'?'Descontar Bonus':'Venta con Puntos'};
+  const subs={INGRESO:'Carga de bolsa de herramienta para un cliente',GASTO:'Consumo de bolsa de herramienta',GANADO:tipo==='bonus'?'Bonus ganado por fidelidad (en €)':'Puntos ganados por compra de neumáticos',CANJEADO:tipo==='bonus'?'Descuento bonus aplicado en compra':'Canje de puntos por producto'};
   document.getElementById('qaTitle').textContent=labels[subtipo];
   document.getElementById('qaSub').textContent=subs[subtipo];
 
   const isRapel=tipo==='rapel';
-  show('qaAlbRow',isRapel); show('qaImpRow',isRapel);
+  const isBonus=tipo==='bonus';
+  show('qaAlbRow',isRapel);
+  show('qaImpRow',isRapel||isBonus);
   const isGanado = subtipo==='GANADO';
-  show('qaCalcSection', isGanado);
-  show('qaPtsRow', !isRapel && !isGanado);
-  show('qaRefRow', !isRapel);
-  if(isGanado){['qaNeum1','qaNeum2','qaCarr','qaPast','qaAlt','qaExtra'].forEach(id=>{document.getElementById(id).value='';});calcPoints();}
+  show('qaCalcSection', !isRapel && !isBonus && isGanado);
+  show('qaPtsRow', !isRapel && !isBonus && !isGanado);
+  show('qaRefRow', !isRapel && !isBonus);
+  if(!isRapel && !isBonus && isGanado){['qaNeum1','qaNeum2','qaCarr','qaPast','qaAlt','qaExtra'].forEach(id=>{document.getElementById(id).value='';});calcPoints();}
 
-  const list=isRapel?db.rapels:db.puntos;
+  const list=isRapel?db.rapels:isBonus?db.bonus:db.puntos;
   const sel=document.getElementById('qaCliente');
   sel.innerHTML=`<option value="">— Seleccionar cliente —</option>`+
     list.map(c=>`<option value="${c.id}">${c.nombre}</option>`).join('')+
@@ -1558,6 +1913,13 @@ async function saveQuickAction() {
       const nc={...data[0],movimientos:[]};
       db.rapels.push(nc); db.rapels.sort((a,b)=>a.nombre.localeCompare(b.nombre));
       clienteId=nc.id;
+    } else if(tipo==='bonus') {
+      if(db.bonus.find(b=>b.nombre===nombre)){alert('Ya existe este cliente');return;}
+      const{data,error}=await sb.from('clientes_bonus').insert({nombre,notas:''}).select();
+      if(error){alert('Error: '+error.message);setError();return;}
+      const nc={...data[0],movimientos:[]};
+      db.bonus.push(nc); db.bonus.sort((a,b)=>a.nombre.localeCompare(b.nombre));
+      clienteId=nc.id;
     } else {
       if(db.puntos.find(p=>p.nombre===nombre)){alert('Ya existe este cliente');return;}
       const{data,error}=await sb.from('clientes_puntos').insert({nombre,notas:''}).select();
@@ -1581,6 +1943,13 @@ async function saveQuickAction() {
     if(error){alert('Error: '+error.message);setError();return;}
     const r=db.rapels.find(x=>x.id===clienteId);
     if(r) r.movimientos.push(data[0]);
+  } else if(tipo==='bonus') {
+    const imp=parseFloat(document.getElementById('qaImp').value);
+    if(isNaN(imp)||imp<=0){alert('Introduce un importe en euros válido');return;}
+    const{data,error}=await sb.from('movimientos_bonus').insert({cliente_id:clienteId,tipo:subtipo,importe:imp,fecha,notas}).select();
+    if(error){alert('Error: '+error.message);setError();return;}
+    const b=db.bonus.find(x=>x.id===clienteId);
+    if(b) b.movimientos.push(data[0]);
   } else {
     let puntos, referencia=document.getElementById('qaRef').value.trim(), notasFinal=notas;
     if(subtipo==='GANADO'){
@@ -1599,6 +1968,105 @@ async function saveQuickAction() {
 
   setSynced();
   closeOverlay('ovlQuick');
+  renderAll();
+}
+
+// ══ EDITAR MOVIMIENTO ══
+function openEditMov(sistema) {
+  editMovMode = null;
+  document.getElementById('emSistema').value = sistema;
+  document.getElementById('emMovListRow').style.display = 'none';
+  document.getElementById('emFormSection').style.display = 'none';
+  document.getElementById('emSaveBtn').style.display = 'none';
+  onEmSistemaChange();
+  document.getElementById('ovlEditMov').classList.add('open');
+}
+
+function onEmSistemaChange() {
+  const sistema = document.getElementById('emSistema').value;
+  const list = sistema === 'puntos' ? db.puntos : db.bonus;
+  const sel = document.getElementById('emCliente');
+  sel.innerHTML = `<option value="">— Seleccionar cliente —</option>` +
+    list.map(c => `<option value="${c.id}">${c.nombre}</option>`).join('');
+  sel.value = '';
+  document.getElementById('emMovListRow').style.display = 'none';
+  document.getElementById('emFormSection').style.display = 'none';
+  document.getElementById('emSaveBtn').style.display = 'none';
+  editMovMode = null;
+}
+
+function onEmClienteChange() {
+  const sistema = document.getElementById('emSistema').value;
+  const clienteId = document.getElementById('emCliente').value;
+  if (!clienteId) { document.getElementById('emMovListRow').style.display = 'none'; return; }
+  const list = sistema === 'puntos' ? db.puntos : db.bonus;
+  const cliente = list.find(x => x.id === clienteId);
+  if (!cliente) return;
+  const movs = [...(cliente.movimientos || [])].reverse();
+  const tc = sistema === 'puntos'
+    ? {GANADO:'tag-ganado', CANJEADO:'tag-canjeado'}
+    : {GANADO:'tag-bonus-g', CANJEADO:'tag-bonus-c'};
+  document.getElementById('emMovList').innerHTML = movs.length ? movs.map(m => `
+    <div onclick="selectEditMov('${m.id}')" style="padding:10px 14px;border-bottom:1px solid var(--border);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px" id="emm-${m.id}">
+      <div>
+        <span class="tag ${tc[m.tipo]||'tag-gray'}" style="margin-right:6px">${m.tipo}</span>
+        <span style="font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--text-dim)">${m.fecha||'—'}</span>
+      </div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:13px;font-weight:700">
+        ${sistema==='puntos'?pts(m.puntos):eur(m.importe)}
+      </div>
+      <div style="font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--text-dim);max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${m.notas||''}</div>
+    </div>`).join('') : '<div style="padding:16px;text-align:center;font-family:\'JetBrains Mono\',monospace;font-size:11px;color:var(--text-faint)">Sin movimientos</div>';
+  document.getElementById('emMovListRow').style.display = '';
+  document.getElementById('emFormSection').style.display = 'none';
+  document.getElementById('emSaveBtn').style.display = 'none';
+  editMovMode = null;
+}
+
+function selectEditMov(movId) {
+  const sistema = document.getElementById('emSistema').value;
+  const clienteId = document.getElementById('emCliente').value;
+  const list = sistema === 'puntos' ? db.puntos : db.bonus;
+  const cliente = list.find(x => x.id === clienteId);
+  const m = cliente?.movimientos.find(x => x.id === movId);
+  if (!m) return;
+  // Highlight selected
+  document.querySelectorAll('#emMovList > div').forEach(d => d.style.background = '');
+  const sel = document.getElementById('emm-'+movId);
+  if (sel) sel.style.background = 'var(--surface2)';
+  editMovMode = { sistema, movId, clienteId };
+  document.getElementById('emImpLabel').textContent = sistema === 'puntos' ? 'Puntos' : 'Importe (€)';
+  document.getElementById('emImp').value = sistema === 'puntos' ? m.puntos : m.importe;
+  document.getElementById('emImp').step = sistema === 'puntos' ? '1' : '0.01';
+  document.getElementById('emFecha').value = m.fecha || '';
+  document.getElementById('emNotas').value = m.notas || '';
+  document.getElementById('emFormSection').style.display = '';
+  document.getElementById('emSaveBtn').style.display = '';
+}
+
+async function saveEditMov() {
+  if (!editMovMode) return;
+  const { sistema, movId, clienteId } = editMovMode;
+  const val = parseFloat(document.getElementById('emImp').value);
+  if (isNaN(val) || val <= 0) { alert('Introduce un valor válido'); return; }
+  const fecha = document.getElementById('emFecha').value || null;
+  const notas = document.getElementById('emNotas').value.trim();
+  setSaving();
+  if (sistema === 'puntos') {
+    const { error } = await sb.from('movimientos_puntos').update({ puntos: Math.round(val), fecha, notas }).eq('id', movId);
+    if (error) { alert('Error: '+error.message); setError(); return; }
+    const p = db.puntos.find(x => x.id === clienteId);
+    const m = p?.movimientos.find(x => x.id === movId);
+    if (m) { m.puntos = Math.round(val); m.fecha = fecha; m.notas = notas; }
+  } else {
+    const { error } = await sb.from('movimientos_bonus').update({ importe: val, fecha, notas }).eq('id', movId);
+    if (error) { alert('Error: '+error.message); setError(); return; }
+    const b = db.bonus.find(x => x.id === clienteId);
+    const m = b?.movimientos.find(x => x.id === movId);
+    if (m) { m.importe = val; m.fecha = fecha; m.notas = notas; }
+  }
+  setSynced();
+  closeOverlay('ovlEditMov');
   renderAll();
 }
 
@@ -1647,7 +2115,7 @@ function printHist(){
   const fMov=document.getElementById('filtHMov').value;
   const q=document.getElementById('searchH').value.trim().toLowerCase();
   let items=[];
-  if(fType!=='puntos'){
+  if(fType==='rapel'||fType==='all'){
     db.rapels.forEach(r=>{
       if(fCli&&r.nombre!==fCli) return;
       (r.movimientos||[]).forEach(m=>{
@@ -1657,7 +2125,7 @@ function printHist(){
       });
     });
   }
-  if(fType!=='rapel'){
+  if(fType==='puntos'||fType==='all'){
     db.puntos.forEach(p=>{
       if(fCli&&p.nombre!==fCli) return;
       (p.movimientos||[]).forEach(m=>{
@@ -1667,9 +2135,20 @@ function printHist(){
       });
     });
   }
+  if(fType==='bonus'||fType==='all'){
+    db.bonus.forEach(b=>{
+      if(fCli&&b.nombre!==fCli) return;
+      (b.movimientos||[]).forEach(m=>{
+        if(fMov!=='all'&&m.tipo!==fMov) return;
+        if(q&&!b.nombre.toLowerCase().includes(q)&&!(m.notas||'').toLowerCase().includes(q)) return;
+        items.push({sistema:'BONUS',cliente:b.nombre,fecha:m.fecha,ref:'—',notas:m.notas,tipo:m.tipo,qty:eur(m.importe),sign:m.tipo==='GANADO'?'+':'-',color:m.tipo==='GANADO'?'#2e7d32':'#E20613'});
+      });
+    });
+  }
   items.sort((a,b)=>(a.fecha||'').localeCompare(b.fecha||''));
+  const tipoLabel={rapel:'Solo Rapel',puntos:'Solo Puntos',bonus:'Solo Bonus'};
   const titulo=fCli?`Histórico · ${fCli}`:'Histórico de Movimientos';
-  const subtitulo=fCli?`Cliente: ${fCli}`:`Todos los clientes${fType!=='all'?' · '+(fType==='rapel'?'Solo Rapel':'Solo Puntos'):''}`;
+  const subtitulo=fCli?`Cliente: ${fCli}`:`Todos los clientes${fType!=='all'?' · '+(tipoLabel[fType]||''):''}`;
   let h=printHeader(fCli||'Todos los clientes',titulo,subtitulo);
   h+=`<table><thead><tr><th>Fecha</th><th>Cliente</th><th>Sistema</th><th>Tipo</th><th>Referencia</th><th>Notas</th><th style="text-align:right">Importe</th></tr></thead><tbody>`;
   for(const m of items) h+=`<tr><td>${m.fecha||'—'}</td><td>${m.cliente}</td><td>${m.sistema}</td><td>${m.tipo}</td><td>${m.ref||'—'}</td><td>${m.notas||''}</td><td style="text-align:right;font-weight:600;color:${m.color}">${m.sign} ${m.qty}</td></tr>`;
@@ -1896,7 +2375,7 @@ document.addEventListener('keydown',e=>{
   if(e.key==='Escape'){
     document.querySelectorAll('.overlay.open').forEach(o=>o.classList.remove('open'));
     closeHelp();
-    closeDrawer('R'); closeDrawer('P');
+    closeDrawer('R'); closeDrawer('P'); closeDrawer('B');
   }
 });
 
