@@ -1651,6 +1651,7 @@ async function addRMov() {
   const alb=document.getElementById('drRAlb').value.trim();
   const imp=parseFloat(document.getElementById('drRImp').value);
   if(!alb||isNaN(imp)||imp===0){alert('Introduce albarán e importe válidos');return;}
+  if(!(await checkBloqAndProceed(r))) return;
   setSaving();
   const{data,error}=await sb.from('movimientos_rapel').insert({
     cliente_id:r.id, tipo:document.getElementById('drRTipo').value,
@@ -1966,9 +1967,10 @@ async function saveQuickAction() {
     const alb=document.getElementById('qaAlb').value.trim();
     const imp=parseFloat(document.getElementById('qaImp').value);
     if(!alb||isNaN(imp)||imp===0){alert('Introduce albarán e importe válidos');return;}
+    const r=db.rapels.find(x=>x.id===clienteId);
+    if(!(await checkBloqAndProceed(r))) return;
     const{data,error}=await sb.from('movimientos_rapel').insert({cliente_id:clienteId,tipo:subtipo,albaran:alb,importe:imp,fecha,notas}).select();
     if(error){alert('Error: '+error.message);setError();return;}
-    const r=db.rapels.find(x=>x.id===clienteId);
     if(r) r.movimientos.push(data[0]);
   } else if(tipo==='bonus') {
     const imp=parseFloat(document.getElementById('qaImp').value);
@@ -2253,6 +2255,21 @@ function getCalcTotal() {
 }
 
 // ══ BLOQUEO ══
+async function checkBloqAndProceed(r) {
+  const bloq = parseBloq(r.notas);
+  if (!bloq.bloqueado) return true;
+  const msg = `⚠️ RAPEL BLOQUEADO — ${r.nombre}\n\nBloqueado por: ${bloq.por||'—'}${bloq.fecha?' el '+bloq.fecha:''}\n${bloq.motivo?'Motivo: '+bloq.motivo+'\n':''}\nPara poder operar en este rapel habla con ${bloq.por||'quien lo bloqueó'} para desbloquearlo.\n\n¿Deseas desbloquearlo ahora?`;
+  if (!confirm(msg)) return false;
+  setSaving();
+  const newNotas = removeBloqNotas(r.notas);
+  const {error} = await sb.from('clientes_rapel').update({notas:newNotas}).eq('id',r.id);
+  if (error) { alert('Error al desbloquear: '+error.message); setError(); return false; }
+  r.notas = newNotas;
+  setSynced();
+  renderAll();
+  return true;
+}
+
 function parseBloq(notas) {
   const m = (notas||'').match(/^__BLQ__({.*?})__BLQ__/s);
   if (!m) return {bloqueado:false};
@@ -2352,6 +2369,7 @@ async function saveAjuste() {
   if (!motivo) { alert('El campo "Motivo" es obligatorio'); return; }
 
   const r = db.rapels.find(x=>x.id===clienteId); if (!r) return;
+  if (!(await checkBloqAndProceed(r))) return;
 
   let importeSigned;
   if (tipo === 'PONER_CERO') {
