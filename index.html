@@ -1511,7 +1511,7 @@ function onHistTypeChange() {
   if(t==='rapel')  m.innerHTML=all+`<option value="INGRESO">Rapel Ingresos</option><option value="GASTO">Rapel Gastos</option><option value="AJUSTE">Ajuste Especial</option>`;
   else if(t==='puntos') m.innerHTML=all+`<option value="GANADO">Puntos Ganados</option><option value="CANJEADO">Puntos Canjeados</option>`;
   else if(t==='bonus') m.innerHTML=all+`<option value="GANADO">Bonus Ganado</option><option value="CANJEADO">Bonus Canjeado</option>`;
-  else m.innerHTML=all+`<option value="INGRESO">Rapel Ingresos</option><option value="GASTO">Rapel Gastos</option><option value="AJUSTE">Ajuste Especial</option><option value="GANADO">Puntos/Bonus Ganados</option><option value="CANJEADO">Puntos/Bonus Canjeados</option>`;
+  else m.innerHTML=all+`<option value="RAPEL_INGRESO">Rapel Ingresos</option><option value="RAPEL_GASTO">Rapel Gastos</option><option value="RAPEL_AJUSTE">Ajuste Especial</option><option value="PUNTOS_GANADO">Puntos Ganados</option><option value="PUNTOS_CANJEADO">Puntos Canjeados</option><option value="BONUS_GANADO">Bonus Ganado</option><option value="BONUS_CANJEADO">Bonus Canjeado</option>`;
   renderHist();
 }
 
@@ -1522,11 +1522,18 @@ function renderHist() {
   const fMov=document.getElementById('filtHMov').value;
   let items=[];
 
+  // fMov puede ser 'all', tipo plano ('INGRESO') o prefijado ('RAPEL_INGRESO')
+  function passFilter(fMov, sistema, tipo) {
+    if(fMov==='all') return true;
+    if(fMov.includes('_')){const i=fMov.indexOf('_');return sistema===fMov.slice(0,i)&&tipo===fMov.slice(i+1);}
+    return tipo===fMov;
+  }
+
   if(fType==='rapel'||fType==='all') {
     db.rapels.forEach(r=>{
       if(fCli && r.nombre!==fCli) return;
       (r.movimientos||[]).forEach(m=>{
-        if(fMov!=='all'&&m.tipo!==fMov) return;
+        if(!passFilter(fMov,'RAPEL',m.tipo)) return;
         if(q&&!r.nombre.toLowerCase().includes(q)&&!(m.albaran||'').toLowerCase().includes(q)&&!(m.notas||'').toLowerCase().includes(q)) return;
         const rv = m.tipo==='AJUSTE' ? Number(m.importe) : m.tipo==='INGRESO' ? Number(m.importe) : -Number(m.importe);
         const rc = rv>0?'var(--green)':rv<0?'var(--accent)':'var(--text)';
@@ -1539,7 +1546,7 @@ function renderHist() {
     db.puntos.forEach(p=>{
       if(fCli && p.nombre!==fCli) return;
       (p.movimientos||[]).forEach(m=>{
-        if(fMov!=='all'&&m.tipo!==fMov) return;
+        if(!passFilter(fMov,'PUNTOS',m.tipo)) return;
         if(q&&!p.nombre.toLowerCase().includes(q)&&!(m.referencia||'').toLowerCase().includes(q)&&!(m.notas||'').toLowerCase().includes(q)) return;
         const pv = m.tipo==='GANADO' ? Number(m.puntos) : -Number(m.puntos);
         const pc = pv>0?'var(--orange)':pv<0?'var(--accent)':'var(--text)';
@@ -1552,7 +1559,7 @@ function renderHist() {
     db.bonus.forEach(b=>{
       if(fCli && b.nombre!==fCli) return;
       (b.movimientos||[]).forEach(m=>{
-        if(fMov!=='all'&&m.tipo!==fMov) return;
+        if(!passFilter(fMov,'BONUS',m.tipo)) return;
         if(q&&!b.nombre.toLowerCase().includes(q)&&!(m.notas||'').toLowerCase().includes(q)) return;
         const bv = m.tipo==='GANADO' ? Number(m.importe) : -Number(m.importe);
         const bc = bv>0?'var(--green)':'var(--accent)';
@@ -1921,6 +1928,11 @@ function onQaClienteChange() {
   const v=document.getElementById('qaCliente').value;
   document.getElementById('qaNewRow').style.display=v==='__new__'?'block':'none';
   if(v==='__new__') setTimeout(()=>document.getElementById('qaNewNombre').focus(),50);
+  // Aviso inmediato si el cliente de rapel está bloqueado
+  if(quickMode?.tipo==='rapel' && v && v!=='__new__') {
+    const r=db.rapels.find(x=>x.id===v);
+    if(r){const bloq=parseBloq(r.notas);if(bloq.bloqueado)alert(`⚠️ RAPEL BLOQUEADO — ${r.nombre}\n\nBloqueado por: ${bloq.por||'—'}${bloq.fecha?' el '+bloq.fecha:''}\n${bloq.motivo?'Motivo: '+bloq.motivo+'\n':''}\nNo podrás guardar hasta desbloquearlo.\nAl intentar guardar se te ofrecerá desbloquearlo.`);}
+  }
 }
 
 function show(id,v){document.getElementById(id).style.display=v?'':'none';}
