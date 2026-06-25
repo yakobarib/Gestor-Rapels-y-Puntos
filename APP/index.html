@@ -2447,15 +2447,6 @@ document.addEventListener('click', e => {
   if (pop && pop.classList.contains('open') && !pop.closest('.opts-wrap').contains(e.target)) pop.classList.remove('open');
 });
 
-// ══ SCROLL SUAVE (1 fila por tick) ══
-document.querySelectorAll('.tab-scroll').forEach(el => {
-  el.addEventListener('wheel', function(e) {
-    if (Math.abs(e.deltaY) < 5) return; // touchpad: dejar pasar eventos pequeños
-    e.preventDefault();
-    this.scrollBy({ top: e.deltaY > 0 ? 80 : -80, behavior: 'smooth' });
-  }, { passive: false });
-});
-
 // ══ AYUDA ══
 function openHelp() { document.getElementById('ovlHelp').classList.add('open'); }
 function closeHelp() { document.getElementById('ovlHelp').classList.remove('open'); }
